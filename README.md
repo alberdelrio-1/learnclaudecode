@@ -21,48 +21,79 @@ This is your complete guide to mastering Claude Code - designed specifically for
 
 ## 📁 Project Structure
 
+The project uses the **GitHub Pages standard** `/docs` folder for clean deployment.
+
+### Complete Structure
+
 ```
-LearnClaudecode/
-├── index.html                     # Home page
-├── getting-started.html           # Installation & setup guide
-├── core-concepts.html             # 30+ concepts explained
-├── essential-features.html        # Key features (CLAUDE.md, Memory, etc.)
-├── workflows.html                 # Real-world examples
-├── advanced.html                  # Advanced features (MCP, Skills, Hooks)
-├── troubleshooting.html          # Problem solving & quick reference
-├── styles.css                     # All styling (dark/light mode)
-├── script.js                      # Interactive features
-├── README.md                      # This file
+LearnClaudecode/                   # Project root (development workspace)
 │
-├── .claude/
+├── docs/                          # 🌐 WEBSITE (served by GitHub Pages)
+│   ├── index.html                 # Home page
+│   ├── getting-started.html       # Installation & setup guide
+│   ├── core-concepts.html         # 30+ concepts explained
+│   ├── essential-features.html    # Key features
+│   ├── workflows.html             # Real-world examples
+│   ├── advanced.html              # Advanced features
+│   ├── troubleshooting.html       # Problem solving
+│   ├── styles.css                 # All styling (dark/light mode)
+│   └── script.js                  # Interactive features
+│
+├── dev-docs/                      # 📚 DOCUMENTATION (development reference)
+│   ├── CLAUDE.md                  # Project standards & guidelines
+│   ├── DEPLOYMENT.md              # Deployment guide
+│   ├── PROJECT-ORGANIZATION.md    # Organization explained
+│   ├── learning-journey/          # Learning documentation
+│   └── content/                   # Reference materials
+│
+├── .claude/                       # 🔧 CLAUDE CODE (skills)
 │   └── skills/
-│       └── extract-youtube.md     # YouTube content extraction skill
+│       └── extract-youtube/
 │
-├── learning-journey/
-│   ├── planning-session.md        # Our planning process documented
-│   ├── evolution-roadmap.md       # How to expand to Version 2
-│   └── youtube-integration-guide.md  # How to use YouTube extraction
-│
-└── content/
-    └── youtube-extracts/
-        ├── index.md               # Catalog of extracted videos
-        └── all-35-concepts.md     # First extracted video content
+├── .mcp.json                      # ⚙️  MCP server configurations
+├── package.json                   # 🧪 Playwright testing dependencies
+├── package-lock.json              # Locked dependency versions
+├── .gitignore                     # Git exclusions
+└── README.md                      # This file
 ```
+
+### What Gets Deployed
+
+**GitHub Pages serves:** `/docs` folder only
+- ✅ All website HTML pages
+- ✅ styles.css and script.js
+- ✅ All website functionality
+
+**Not deployed (stays in development):**
+- ❌ dev-docs/ (documentation)
+- ❌ .claude/ (skills)
+- ❌ .mcp.json, package.json (dev tools)
+- ❌ node_modules/ (dependencies)
+
+> **Clean Separation:** Website in `/docs`, development tools in root. Industry standard structure.
 
 ## 🚀 Quick Start
 
 ### Option 1: Open Locally (Easiest)
 
-1. **Double-click any HTML file** (start with `index.html`)
-2. It opens in your default browser
+1. **Navigate to the `docs/` folder**
+2. **Double-click `index.html`** to open in your browser
 3. That's it! Everything works locally.
 
 ### Option 2: Use VS Code Live Server
 
 1. Install "Live Server" extension in VS Code
-2. Right-click `index.html`
+2. Right-click `docs/index.html`
 3. Select "Open with Live Server"
 4. Automatically opens in browser with live reload
+
+### Option 3: Python HTTP Server
+
+```bash
+cd docs
+python3 -m http.server 8000
+# Open http://localhost:8000 in browser
+```
 
 ## 🌐 Deploy to GitHub Pages
 
@@ -87,8 +118,9 @@ git push -u origin main
 1. Go to your repository on GitHub.com
 2. Click **Settings** → **Pages**
 3. Under "Source", select **main branch**
-4. Click **Save**
-5. Wait 2-3 minutes
+4. Under "Folder", select **/docs**
+5. Click **Save**
+6. Wait 2-3 minutes
 
 Your site will be live at: `https://YOUR-USERNAME.github.io/claude-code-manual/`
 
@@ -243,7 +275,7 @@ When Claude asks, give the video title or URL:
 
 ### Step 3: Review Extracted Content
 
-Claude saves content to `content/youtube-extracts/[video-name].md`
+Claude saves content to `dev-docs/content/youtube-extracts/[video-name].md`
 
 ### Step 4: Integrate into Website
 
@@ -252,7 +284,7 @@ Claude saves content to `content/youtube-extracts/[video-name].md`
 3. Paste into appropriate HTML page
 4. Format as needed (add HTML tags)
 
-See `learning-journey/youtube-integration-guide.md` for detailed instructions.
+See `dev-docs/learning-journey/youtube-integration-guide.md` for detailed instructions.
 
 ## 🛠️ Troubleshooting
 
@@ -280,11 +312,13 @@ See `learning-journey/youtube-integration-guide.md` for detailed instructions.
 
 Ready to expand for company-wide use?
 
-See `learning-journey/evolution-roadmap.md` for:
+See `dev-docs/learning-journey/evolution-roadmap.md` for:
 - Adding Salesforce & nCino integration pages
 - Creating company-specific sections
 - Building evaluation framework
 - Professional polish for sharing
+
+Also check `dev-docs/DEPLOYMENT.md` for deployment best practices.
 
 ## 🤝 Contributing
 
