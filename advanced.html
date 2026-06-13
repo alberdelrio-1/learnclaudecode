@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Features - Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Advanced Features</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html" class="active">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; <span>Advanced Features</span>
+            </div>
+
+            <h1>Advanced Features</h1>
+            <p class="lead">Unlock Claude Code's full potential with these advanced capabilities.</p>
+
+            <div class="info-box warning">
+                <p><strong>Note:</strong> These features are powerful but require understanding of the basics. Make sure you're comfortable with <a href="core-concepts.html">core concepts</a> and <a href="essential-features.html">essential features</a> first.</p>
+            </div>
+
+            <!-- Custom Skills -->
+            <section>
+                <h2 id="skills">Custom Skills - Automate Your Workflows</h2>
+                <p>Skills are reusable commands that automate multi-step workflows with a single slash command.</p>
+
+                <h3>What Are Skills?</h3>
+                <p>Skills are markdown files containing instructions that Claude executes when you invoke them.</p>
+
+                <div class="example-box">
+                    <h4>Example: A "/crosspost" skill that:</h4>
+                    <ol>
+                        <li>Transcribes a video</li>
+                        <li>Writes social media captions</li>
+                        <li>Publishes to 7 platforms</li>
+                        <li>Updates tracking database</li>
+                    </ol>
+                    <p>All triggered with one command: <code>/crosspost</code></p>
+                </div>
+
+                <h3>Creating Your First Skill</h3>
+                <div class="step-by-step">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Create Skills Directory</h4>
+                            <pre><code class="language-bash">mkdir -p .claude/skills</code></pre>
+                            <button class="copy-button" data-copy="mkdir -p .claude/skills">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Create Skill File</h4>
+                            <p>Create <code>.claude/skills/code-review.md</code>:</p>
+                            <pre><code class="language-markdown"># Code Review Skill
+
+Perform a comprehensive code review on the current changes.
+
+Check for:
+- Code quality and readability
+- Potential bugs or edge cases
+- Security vulnerabilities
+- Performance issues
+- Test coverage gaps
+- Documentation needs
+
+Provide specific, actionable feedback with file:line references.</code></pre>
+                            <button class="copy-button" data-copy="# Code Review Skill&#10;&#10;Perform a comprehensive code review on the current changes.&#10;&#10;Check for:&#10;- Code quality and readability&#10;- Potential bugs or edge cases&#10;- Security vulnerabilities&#10;- Performance issues&#10;- Test coverage gaps&#10;- Documentation needs&#10;&#10;Provide specific, actionable feedback with file:line references.">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Use Your Skill</h4>
+                            <pre><code class="language-bash">/code-review</code></pre>
+                            <button class="copy-button" data-copy="/code-review">Copy</button>
+                            <p>Claude will execute the instructions in your skill file!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>Skill Best Practices</h4>
+                    <ul>
+                        <li>Be specific about steps to execute</li>
+                        <li>Include quality checks and validation</li>
+                        <li>Mention output format expectations</li>
+                        <li>Reference project standards (CLAUDE.md)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Hooks -->
+            <section>
+                <h2 id="hooks">Hooks - Automated Guardrails</h2>
+                <p>Hooks are scripts that run automatically before or after specific events, enforcing policies and automating workflows.</p>
+
+                <h3>How Hooks Work</h3>
+                <p>Hooks intercept events at specific lifecycle points:</p>
+                <ul>
+                    <li><strong>Session-level:</strong> Execute once per session (start/end)</li>
+                    <li><strong>Turn-level:</strong> Execute once per turn (prompt submit/complete)</li>
+                    <li><strong>Tool-level:</strong> Execute on every tool call</li>
+                </ul>
+
+                <h3>Common Use Cases</h3>
+                <div class="grid-2">
+                    <div class="usecase-card">
+                        <h4>Policy Enforcement</h4>
+                        <p>Block destructive commands like <code>rm -rf</code></p>
+                        <p>Prevent committing secrets</p>
+                    </div>
+                    <div class="usecase-card">
+                        <h4>Permission Automation</h4>
+                        <p>Auto-approve safe operations</p>
+                        <p>Require manual approval for critical changes</p>
+                    </div>
+                    <div class="usecase-card">
+                        <h4>Context Injection</h4>
+                        <p>Load branch names automatically</p>
+                        <p>Include deployment status</p>
+                    </div>
+                    <div class="usecase-card">
+                        <h4>Quality Gates</h4>
+                        <p>Check character limits</p>
+                        <p>Validate required fields</p>
+                        <p>Flag banned words</p>
+                    </div>
+                </div>
+
+                <h3>Hook Configuration Example</h3>
+                <pre><code class="language-json">{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/validate-bash.sh"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+                <button class="copy-button" data-copy='{&#10;  "hooks": {&#10;    "PreToolUse": [&#10;      {&#10;        "matcher": "Bash",&#10;        "hooks": [&#10;          {&#10;            "type": "command",&#10;            "command": "./scripts/validate-bash.sh"&#10;          }&#10;        ]&#10;      }&#10;    ]&#10;  }&#10;}'>Copy</button>
+
+                <h3>Hook Exit Codes</h3>
+                <ul>
+                    <li><strong>0:</strong> Success - Continue</li>
+                    <li><strong>2:</strong> Block the action</li>
+                    <li><strong>1+:</strong> Non-blocking error</li>
+                </ul>
+            </section>
+
+            <!-- MCP Servers -->
+            <section>
+                <h2 id="mcp">MCP Servers - Connect to Real Apps</h2>
+                <p>Model Context Protocol turns Claude from a consultant into an employee by connecting to real applications.</p>
+
+                <h3>What MCP Enables</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h4>Without MCP</h4>
+                        <p class="example">"You should update your spreadsheet"</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>With MCP</h4>
+                        <p class="example highlight">Claude actually updates it ✨</p>
+                    </div>
+                </div>
+
+                <h3>Popular MCP Integrations</h3>
+                <div class="integration-grid">
+                    <div class="integration-card">
+                        <h4>📊 Data & Files</h4>
+                        <ul>
+                            <li>Google Drive</li>
+                            <li>Dropbox</li>
+                            <li>Airtable</li>
+                            <li>Notion</li>
+                        </ul>
+                    </div>
+                    <div class="integration-card">
+                        <h4>💬 Communication</h4>
+                        <ul>
+                            <li>Slack</li>
+                            <li>Discord</li>
+                            <li>Email (Gmail)</li>
+                            <li>Teams</li>
+                        </ul>
+                    </div>
+                    <div class="integration-card">
+                        <h4>🛠️ Development</h4>
+                        <ul>
+                            <li>GitHub</li>
+                            <li>GitLab</li>
+                            <li>Jira</li>
+                            <li>Linear</li>
+                        </ul>
+                    </div>
+                    <div class="integration-card">
+                        <h4>🏢 Business</h4>
+                        <ul>
+                            <li>Salesforce</li>
+                            <li>Stripe</li>
+                            <li>HubSpot</li>
+                            <li>QuickBooks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Setting Up MCP Servers</h3>
+                <div class="step-by-step">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Add MCP Server</h4>
+                            <pre><code class="language-bash">claude mcp add</code></pre>
+                            <button class="copy-button" data-copy="claude mcp add">Copy</button>
+                            <p>Follow prompts to configure the server</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Authenticate</h4>
+                            <pre><code class="language-bash">/mcp</code></pre>
+                            <button class="copy-button" data-copy="/mcp">Copy</button>
+                            <p>OAuth-protected servers will open browser for login</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Use in Prompts</h4>
+                            <pre><code class="language-bash">Check my Google Drive for new invoices and add them to the Airtable spreadsheet</code></pre>
+                            <button class="copy-button" data-copy="Check my Google Drive for new invoices and add them to the Airtable spreadsheet">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Coming Soon: Salesforce & nCino MCP</h4>
+                    <p>Version 2 of this manual will include detailed guides for Salesforce IDE extension integration and nCino-specific MCP configurations for your company workflow.</p>
+                </div>
+            </section>
+
+            <!-- Subagents -->
+            <section>
+                <h2 id="subagents">Subagents - Parallel Work</h2>
+                <p>For multi-part tasks, Claude automatically spawns mini-Claudes working simultaneously.</p>
+
+                <h3>When Subagents Activate</h3>
+                <p>Claude automatically uses subagents for tasks like:</p>
+                <ul>
+                    <li>Researching multiple competitors</li>
+                    <li>Analyzing several files independently</li>
+                    <li>Running parallel tests</li>
+                    <li>Delegating side investigations</li>
+                </ul>
+
+                <h3>Example Use Case</h3>
+                <pre><code class="language-bash">Research our top 5 competitors and create a comparison table of their:
+- Pricing models
+- Key features
+- Target markets
+- Customer reviews
+- Technical architecture</code></pre>
+                <button class="copy-button" data-copy="Research our top 5 competitors and create a comparison table of their:&#10;- Pricing models&#10;- Key features&#10;- Target markets&#10;- Customer reviews&#10;- Technical architecture">Copy</button>
+
+                <div class="workflow-result">
+                    <h4>Result:</h4>
+                    <p>Instead of researching sequentially (50 minutes), Claude spawns 5 subagents working in parallel (10 minutes total).</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Token Cost Consideration</h4>
+                    <p>Parallel work multiplies token usage. 5 subagents = 5x the tokens. Use wisely!</p>
+                </div>
+            </section>
+
+            <!-- Remote Control -->
+            <section>
+                <h2 id="remote">Remote Control - Use Claude From Your Phone</h2>
+                <p>Start a session on your computer, control it from the Claude mobile app.</p>
+
+                <h3>How It Works</h3>
+                <div class="step-by-step">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Start Session on Computer</h4>
+                            <p>Begin working in Claude Code on your desktop/laptop</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Generate QR Code</h4>
+                            <p>Claude displays QR code for remote access</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Scan with Mobile App</h4>
+                            <p>Open Claude mobile app and scan the QR code</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Control from Anywhere</h4>
+                            <p>Your phone is a remote; the computer does the work</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Use Cases</h3>
+                <ul>
+                    <li>Monitor long-running tasks while away from desk</li>
+                    <li>Trigger builds from your phone</li>
+                    <li>Check status of automated workflows</li>
+                    <li>Respond to Claude's questions remotely</li>
+                </ul>
+            </section>
+
+            <!-- Scheduling -->
+            <section>
+                <h2 id="scheduling">Scheduled Tasks & Automation</h2>
+                <p>Run Claude on recurring schedules for autonomous work.</p>
+
+                <h3>Using /loop Command</h3>
+                <pre><code class="language-bash">/loop 1h "Check email for urgent messages and notify me of any"
+/loop 1d "Check Google Drive for new invoices and add to spreadsheet"
+/loop 30m "Monitor build status and alert if failures occur"</code></pre>
+                <button class="copy-button" data-copy='/loop 1h "Check email for urgent messages and notify me of any"'>Copy</button>
+
+                <h3>Scheduling Options</h3>
+                <ul>
+                    <li><code>1h</code> - Every hour</li>
+                    <li><code>1d</code> - Every day</li>
+                    <li><code>30m</code> - Every 30 minutes</li>
+                    <li><code>1w</code> - Every week</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>Safety Feature</h4>
+                    <p>Tasks auto-expire after 3 days to prevent runaway automation. Renew manually if needed.</p>
+                </div>
+
+                <h3>Other Scheduling Methods</h3>
+                <ul>
+                    <li><strong>Routines</strong> (Web interface) - Recurring tasks in cloud</li>
+                    <li><strong>Desktop Tasks</strong> - Scheduled in Desktop app</li>
+                    <li><strong>GitHub Actions</strong> - CI/CD automation integration</li>
+                    <li><strong>Cron Jobs</strong> - Traditional Unix scheduling</li>
+                </ul>
+            </section>
+
+            <!-- Version Control -->
+            <section>
+                <h2 id="git">Advanced Git Integration</h2>
+                <p>Claude Code works seamlessly with git for version control and collaboration.</p>
+
+                <h3>What Claude Can Do</h3>
+                <div class="grid-2">
+                    <div class="feature-box">
+                        <h4>Basic Operations</h4>
+                        <ul>
+                            <li>Create commits with contextual messages</li>
+                            <li>Create and switch branches</li>
+                            <li>View diffs and change history</li>
+                            <li>Stash and apply changes</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Advanced Operations</h4>
+                        <ul>
+                            <li>Create pull requests with descriptions</li>
+                            <li>Resolve merge conflicts</li>
+                            <li>Cherry-pick commits</li>
+                            <li>Interactive rebasing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Example: Resolving Merge Conflicts</h3>
+                <pre><code class="language-bash">I have merge conflicts after pulling from main.
+Can you:
+1. Show me the conflicts
+2. Resolve them intelligently (keep both changes where possible)
+3. Run tests to ensure nothing broke
+4. Complete the merge</code></pre>
+                <button class="copy-button" data-copy="I have merge conflicts after pulling from main.&#10;Can you:&#10;1. Show me the conflicts&#10;2. Resolve them intelligently (keep both changes where possible)&#10;3. Run tests to ensure nothing broke&#10;4. Complete the merge">Copy</button>
+
+                <div class="tip-box">
+                    <h4>Git Best Practices with Claude</h4>
+                    <ul>
+                        <li>Review commit messages before accepting</li>
+                        <li>Ask Claude to explain conflict resolution strategy</li>
+                        <li>Use branches for experiments</li>
+                        <li>Let Claude write PR descriptions based on actual changes</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Batch Processing -->
+            <section>
+                <h2 id="batch">Batch Processing & /batch Command</h2>
+                <p>Split work across 5-30 isolated subagents, each opening its own PR.</p>
+
+                <h3>When to Use /batch</h3>
+                <ul>
+                    <li>Updating dependencies across multiple packages</li>
+                    <li>Applying refactoring to many files</li>
+                    <li>Migrating API versions project-wide</li>
+                    <li>Bulk documentation updates</li>
+                </ul>
+
+                <h3>How It Works</h3>
+                <pre><code class="language-bash">/batch "Update all React components to use the new hooks API"</code></pre>
+                <button class="copy-button" data-copy='/batch "Update all React components to use the new hooks API"'>Copy</button>
+
+                <div class="workflow-result">
+                    <h4>Claude will:</h4>
+                    <ol>
+                        <li>Analyze the codebase</li>
+                        <li>Identify all files needing updates</li>
+                        <li>Split work across multiple subagents</li>
+                        <li>Each subagent creates its own branch</li>
+                        <li>Each opens a separate PR</li>
+                        <li>You review and merge incrementally</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h2>Next Steps</h2>
+                <p>You've learned the advanced features! Here's what to do next:</p>
+
+                <div class="next-buttons">
+                    <a href="troubleshooting.html" class="button primary">Troubleshooting Guide →</a>
+                    <a href="workflows.html" class="button">Review Workflows →</a>
+                    <a href="index.html" class="button">Back to Home →</a>
+                </div>
+
+                <div class="info-box success">
+                    <h4>Ready for Company Deployment?</h4>
+                    <p>Once you've tested these features and confirmed they work for your use case, you can expand this manual with Salesforce/nCino specific content for company-wide enablement.</p>
+                    <p>See <code>learning-journey/evolution-roadmap.md</code> for next steps.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

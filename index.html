@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Learning Manual - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Your beginner-friendly guide to mastering Claude Code in VS Code</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html" class="active">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <span>Home</span>
+            </div>
+
+            <!-- Welcome Section -->
+            <section class="hero-section">
+                <h2>Welcome to Your Claude Code Journey</h2>
+                <p class="lead">This manual is designed for non-coders who need to master Claude Code for work. No prior coding experience required!</p>
+
+                <div class="quick-links">
+                    <a href="getting-started.html" class="quick-link-card primary">
+                        <h3>🚀 Start Here</h3>
+                        <p>Installation and your first task in 5 minutes</p>
+                    </a>
+                    <a href="core-concepts.html" class="quick-link-card">
+                        <h3>🧠 Learn the Basics</h3>
+                        <p>30+ concepts explained in plain English</p>
+                    </a>
+                    <a href="workflows.html" class="quick-link-card">
+                        <h3>🔄 See Examples</h3>
+                        <p>Real-world workflows and use cases</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- What is Claude Code Section -->
+            <section>
+                <h2>What is Claude Code?</h2>
+                <p>Claude Code is an AI-powered coding assistant that helps you with software development tasks. Think of it as a highly skilled colleague who:</p>
+
+                <ul class="feature-list">
+                    <li><strong>Reads your files</strong> - Understands your codebase without you explaining it</li>
+                    <li><strong>Edits code directly</strong> - Makes changes to files on your computer</li>
+                    <li><strong>Runs commands</strong> - Executes terminal commands and builds projects</li>
+                    <li><strong>Learns from context</strong> - Remembers your preferences and project standards</li>
+                    <li><strong>Works with your tools</strong> - Integrates with VS Code, GitHub, Salesforce, and more</li>
+                </ul>
+
+                <div class="info-box">
+                    <p><strong>For Non-Coders:</strong> You don't need to know how to code to use Claude Code! It understands plain English instructions and can help you with tasks like editing documents, analyzing data, and automating workflows.</p>
+                </div>
+            </section>
+
+            <!-- Why Use Claude Code Section -->
+            <section>
+                <h2>Why Use Claude Code?</h2>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h3>Traditional Way</h3>
+                        <ul>
+                            <li>Manual file editing</li>
+                            <li>Copy-paste between tools</li>
+                            <li>Memorize commands</li>
+                            <li>Repeat same tasks daily</li>
+                            <li>Ask colleagues for help</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card highlight">
+                        <h3>With Claude Code</h3>
+                        <ul>
+                            <li>Automated file editing</li>
+                            <li>Direct integration with tools</li>
+                            <li>Natural language requests</li>
+                            <li>Automate repetitive tasks</li>
+                            <li>24/7 AI assistant</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Win Section -->
+            <section class="highlight-section">
+                <h2>Your First Quick Win (5 Minutes)</h2>
+                <p>Let's get you started with a simple task that shows Claude Code's power:</p>
+
+                <div class="step-by-step">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Open Claude Code in VS Code</h4>
+                            <p>Click the Claude icon in your VS Code sidebar or press <code>Cmd/Ctrl + Shift + P</code> and type "Claude"</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Try Your First Command</h4>
+                            <p>Type: <code class="inline-code">"Show me what files are in this project"</code></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Watch Claude Work</h4>
+                            <p>Claude will list your files and explain what it found. You just used AI to explore your project!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="getting-started.html" class="cta-button">Continue to Full Setup Guide →</a>
+            </section>
+
+            <!-- Learning Path Section -->
+            <section>
+                <h2>Your Learning Path</h2>
+                <p>Follow this progressive path to master Claude Code at your own pace:</p>
+
+                <div class="learning-path">
+                    <div class="path-card">
+                        <h3>📅 Week 1: Foundations</h3>
+                        <ul>
+                            <li>Install and setup</li>
+                            <li>Understanding the terminal</li>
+                            <li>File access and basic commands</li>
+                            <li>Your first CLAUDE.md file</li>
+                        </ul>
+                        <a href="getting-started.html">Start Week 1 →</a>
+                    </div>
+
+                    <div class="path-card">
+                        <h3>📅 Week 2-3: Core Skills</h3>
+                        <ul>
+                            <li>Context management</li>
+                            <li>Model switching</li>
+                            <li>Memory system</li>
+                            <li>Basic skills and workflows</li>
+                        </ul>
+                        <a href="core-concepts.html">Learn Core Concepts →</a>
+                    </div>
+
+                    <div class="path-card">
+                        <h3>📅 Month 1+: Advanced</h3>
+                        <ul>
+                            <li>MCP connections</li>
+                            <li>Custom skills and hooks</li>
+                            <li>Automation and scheduling</li>
+                            <li>Team collaboration</li>
+                        </ul>
+                        <a href="advanced.html">Explore Advanced Topics →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About This Manual Section -->
+            <section>
+                <h2>About This Manual</h2>
+                <p>This learning manual combines:</p>
+                <ul>
+                    <li><strong>Official Documentation</strong> - Comprehensive and authoritative</li>
+                    <li><strong>Beginner Tutorials</strong> - Plain English explanations</li>
+                    <li><strong>Real-World Examples</strong> - Practical workflows you can use today</li>
+                    <li><strong>Your Feedback</strong> - This manual evolves based on what works</li>
+                </ul>
+
+                <div class="info-box success">
+                    <h4>How to Use This Manual</h4>
+                    <ul>
+                        <li>Use the <strong>search function</strong> (🔍) to find specific topics</li>
+                        <li>Follow the <strong>learning path</strong> if you're completely new</li>
+                        <li>Jump to specific <strong>workflows</strong> when you need to accomplish a task</li>
+                        <li>Toggle <strong>dark/light mode</strong> (🌙) for comfortable reading</li>
+                        <li>Click <strong>code examples</strong> to copy them to your clipboard</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h2>Ready to Begin?</h2>
+                <p>Choose your path:</p>
+
+                <div class="next-buttons">
+                    <a href="getting-started.html" class="button primary">I'm brand new - Start from scratch →</a>
+                    <a href="core-concepts.html" class="button">I've installed Claude Code - Learn concepts →</a>
+                    <a href="workflows.html" class="button">I need to do a specific task →</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

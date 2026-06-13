@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Concepts - Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">30+ Core Concepts Explained</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html" class="active">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; <span>Core Concepts</span>
+            </div>
+
+            <h1>30+ Claude Code Concepts Explained for Non-Coders</h1>
+            <p class="lead">Every essential concept explained in plain English. No coding experience required!</p>
+
+            <div class="info-box">
+                <p><strong>Source:</strong> Based on "All 35 Claude Code Concepts Explained for Non-Coders" tutorial</p>
+                <p><strong>Format:</strong> Simple explanations, real-world analogies, practical examples</p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>Concepts by Category</h3>
+                <ul>
+                    <li><a href="#section1">Section 1: Getting Started (1-4)</a></li>
+                    <li><a href="#section2">Section 2: Your First Real Tasks (5-8)</a></li>
+                    <li><a href="#section3">Section 3: How Claude's Brain Works (9-11)</a></li>
+                    <li><a href="#section4">Section 4: Managing Conversations (12-14)</a></li>
+                    <li><a href="#section5">Section 5: Controlling Claude (15-17)</a></li>
+                    <li><a href="#section6">Section 6: Reviewing Work & Teaching Claude (18-20)</a></li>
+                    <li><a href="#section7">Section 7: Skills & Automation (21-24)</a></li>
+                    <li><a href="#section8">Section 8: Connecting to the Real World (25-26)</a></li>
+                    <li><a href="#section9">Section 9: Agents, Remote Control & Scheduling (27-30)</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: Getting Started -->
+            <section id="section1">
+                <h2>Section 1: Getting Started</h2>
+
+                <div class="concept-card">
+                    <h3>1. The Terminal</h3>
+                    <p><strong>What it is:</strong> The text-based interface where Claude Code runs.</p>
+                    <p><strong>Why it matters:</strong> Unlike browser chatbots, the terminal gives Claude access to your computer files, images, and apps like Google Suite and Airtable.</p>
+                    <p><strong>For non-coders:</strong> Think of it like a command center where you type instructions instead of clicking buttons.</p>
+                    <div class="example">
+                        <h4>Try this:</h4>
+                        <pre><code class="language-bash">mkdir ~/playground
+cd ~/playground
+claude</code></pre>
+                        <button class="copy-button" data-copy="mkdir ~/playground&#10;cd ~/playground&#10;claude">Copy</button>
+                        <p>This creates a practice folder and starts Claude Code.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. Installation & Pricing</h3>
+                    <p><strong>What it is:</strong> Setting up Claude Code and choosing your subscription plan.</p>
+                    <p><strong>Plans available:</strong></p>
+                    <ul>
+                        <li><strong>Max ($100-200/month):</strong> Unlimited daily use - recommended for work</li>
+                        <li><strong>Pro ($20/month):</strong> Limited usage - good for occasional use</li>
+                        <li><strong>Free tier:</strong> Very limited - mainly for testing</li>
+                    </ul>
+                    <p><strong>ROI:</strong> Business owners typically see return on investment within a week!</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>3. File Access</h3>
+                    <p><strong>What it is:</strong> Claude reads and edits actual files on your computer directly.</p>
+                    <p><strong>Why it matters:</strong> No copy-pasting required! Ask "tighten my proposal.docx" and Claude modifies it in place, preserving formatting.</p>
+                    <p><strong>Analogy:</strong> Instead of reading over your shoulder and telling you what to type, Claude can use your keyboard directly (with your permission).</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>4. Image & PDF Reading</h3>
+                    <p><strong>What it is:</strong> Drop screenshots, PDFs, diagrams, or photos into Claude.</p>
+                    <p><strong>Why it matters:</strong> Claude reads text from images automatically. No manual retyping needed.</p>
+                    <div class="example">
+                        <h4>Example uses:</h4>
+                        <ul>
+                            <li>Screenshot of an error message → Claude explains and fixes it</li>
+                            <li>PDF invoice → Claude extracts data to spreadsheet</li>
+                            <li>Diagram → Claude explains what it shows</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Your First Real Tasks -->
+            <section id="section2">
+                <h2>Section 2: Your First Real Tasks</h2>
+
+                <div class="concept-card">
+                    <h3>5. Tool Use (Claude ACTS, Not Just Chats)</h3>
+                    <p><strong>What it is:</strong> Claude doesn't just chat—it performs actions using "tools".</p>
+                    <p><strong>Actions Claude takes:</strong></p>
+                    <ul>
+                        <li>Searches folders</li>
+                        <li>Reads files</li>
+                        <li>Runs commands</li>
+                        <li>Edits documents</li>
+                    </ul>
+                    <p><strong>You see each "tool call" happen in real time</strong> as Claude works.</p>
+                    <div class="info-box">
+                        <p><strong>For non-coders:</strong> This is like having an assistant who doesn't just give advice, but actually does the work for you.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>6. How to Talk to Claude Code</h3>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li><strong>Be specific:</strong> Include tone, constraints, and file names</li>
+                        <li><strong>Use @mentions:</strong> Tag specific files with <code>@filename.xlsx</code></li>
+                        <li><strong>Start vague:</strong> Let Claude ask clarifying questions to refine tasks</li>
+                        <li><strong>Provide context:</strong> Share error messages, screenshots, examples</li>
+                    </ul>
+                    <div class="example">
+                        <h4>Good prompt:</h4>
+                        <pre><code>"Make @proposal.docx more professional. Focus on the executive summary. Keep it under 2 pages."</code></pre>
+                        <h4>Vague prompt:</h4>
+                        <pre><code>"Fix the document"</code></pre>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>7. CLAUDE.md (Your AI's Instruction Manual)</h3>
+                    <p><strong>What it is:</strong> A file containing your business rules, brand voice, and preferences.</p>
+                    <p><strong>Why it matters:</strong> Claude reads it automatically in every conversation, eliminating repetition.</p>
+                    <p><strong>What to include:</strong></p>
+                    <ul>
+                        <li>Coding standards and style</li>
+                        <li>Build and test commands</li>
+                        <li>Brand voice and tone</li>
+                        <li>Project-specific gotchas</li>
+                        <li>Workflows and procedures</li>
+                    </ul>
+                    <p><strong>Analogy:</strong> Like company guidelines that every employee reads on day one.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>8. Plan Mode</h3>
+                    <p><strong>What it is:</strong> Claude shows you its full approach before executing.</p>
+                    <p><strong>How it works:</strong></p>
+                    <ol>
+                        <li>You ask Claude to do something</li>
+                        <li>Claude creates a plan</li>
+                        <li>You review and approve (or modify)</li>
+                        <li>Claude executes the approved plan</li>
+                    </ol>
+                    <p><strong>When to use:</strong> Critical for important tasks—ensures you stay in control.</p>
+                </div>
+            </section>
+
+            <!-- Section 3: How Claude's Brain Works -->
+            <section id="section3">
+                <h2>Section 3: How Claude's Brain Works</h2>
+
+                <div class="concept-card">
+                    <h3>9. Context Window</h3>
+                    <p><strong>What it is:</strong> Think of Claude's memory as a whiteboard.</p>
+                    <p><strong>How it works:</strong> Everything you write and every response fills the whiteboard. When full, older information gets compressed or forgotten.</p>
+                    <p><strong>Why it matters:</strong> Long conversations waste space; short focused sessions keep it clean.</p>
+                    <div class="warning-box">
+                        <h4>Performance Impact</h4>
+                        <p>As the context window fills up, Claude's performance can degrade. Keep conversations focused!</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>10. Tokens & Cost Management</h3>
+                    <p><strong>What are tokens?</strong> Tokens measure text usage (roughly 1 token = 4 characters).</p>
+                    <p><strong>Check spending:</strong> Type <code>/usage</code> to see your consumption.</p>
+                    <p><strong>Save money by:</strong></p>
+                    <ul>
+                        <li>Switching to cheaper models (Haiku) for simple tasks</li>
+                        <li>Using <code>/clear</code> between unrelated work</li>
+                        <li>Running <code>/compact</code> during long sessions</li>
+                        <li>Installing the context-mode plugin</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>11. Model Selection (Picking the Right Brain)</h3>
+                    <p><strong>Three options available:</strong></p>
+                    <div class="comparison-grid">
+                        <div class="model-card">
+                            <h4>Opus</h4>
+                            <p class="model-desc">Smartest, most expensive</p>
+                            <p><strong>Use for:</strong> Complex reasoning, critical decisions</p>
+                        </div>
+                        <div class="model-card">
+                            <h4>Sonnet</h4>
+                            <p class="model-desc">Fast, affordable, balanced</p>
+                            <p><strong>Use for:</strong> Daily driver, most tasks</p>
+                        </div>
+                        <div class="model-card">
+                            <h4>Haiku</h4>
+                            <p class="model-desc">Cheap, quick</p>
+                            <p><strong>Use for:</strong> Simple tasks, quick answers</p>
+                        </div>
+                    </div>
+                    <p><strong>Switch models:</strong> Use <code>/model</code> command mid-conversation based on task complexity.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Managing Conversations -->
+            <section id="section4">
+                <h2>Section 4: Managing Conversations</h2>
+
+                <div class="concept-card">
+                    <h3>12. /compact</h3>
+                    <p><strong>What it does:</strong> Compresses your conversation history into a tight summary.</p>
+                    <p><strong>Why use it:</strong> Frees memory space while preserving key details.</p>
+                    <p><strong>When to use:</strong> During long sessions when context is filling up.</p>
+                    <div class="example">
+                        <h4>Usage:</h4>
+                        <pre><code class="language-bash">/compact</code></pre>
+                        <button class="copy-button" data-copy="/compact">Copy</button>
+                        <p>Claude will summarize everything important and clear old details.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>13. /clear</h3>
+                    <p><strong>What it does:</strong> Wipes your current conversation entirely.</p>
+                    <p><strong>When to use:</strong> Switching to totally different topics to prevent context confusion.</p>
+                    <p><strong>Analogy:</strong> Like erasing the whiteboard completely and starting fresh.</p>
+                    <div class="warning-box">
+                        <p><strong>Warning:</strong> This cannot be undone! Make sure you're finished with the current conversation.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>14. Session Management</h3>
+                    <p><strong>What it is:</strong> Sessions persist across computer restarts.</p>
+                    <p><strong>How to use:</strong></p>
+                    <ul>
+                        <li><code>claude --continue</code> - Resume most recent session</li>
+                        <li><code>claude --resume</code> - Browse available sessions</li>
+                        <li><code>claude --resume name</code> - Jump to named session</li>
+                    </ul>
+                    <p><strong>Why it matters:</strong> Start fresh sessions for new projects to avoid context mixing.</p>
+                </div>
+            </section>
+
+            <!-- Section 5: Controlling Claude -->
+            <section id="section5">
+                <h2>Section 5: Controlling Claude</h2>
+
+                <div class="concept-card">
+                    <h3>15. Permission Modes & Settings</h3>
+                    <p><strong>What it is:</strong> Control how much freedom Claude has to act.</p>
+                    <p><strong>Permission levels:</strong></p>
+                    <ul>
+                        <li><strong>"Ask before every edit"</strong> - Safe, slower (good for beginners)</li>
+                        <li><strong>"Auto-approve safe actions"</strong> - Balanced</li>
+                        <li><strong>"Do whatever you need"</strong> - Fast, requires trust</li>
+                    </ul>
+                    <p><strong>Set once:</strong> Every new session respects your preferences.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>16. Effort Levels</h3>
+                    <p><strong>What it is:</strong> Tell Claude how hard to think.</p>
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Low effort:</strong> "What time is it in Denver?" - Quick facts</li>
+                        <li><strong>Normal effort:</strong> Most tasks</li>
+                        <li><strong>High effort:</strong> Complex strategy, critical decisions</li>
+                        <li><strong>"ultrathink":</strong> Maximum reasoning for one response</li>
+                    </ul>
+                    <p><strong>Analogy:</strong> Like asking your colleague for a quick answer vs. asking for a detailed analysis.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>17. Interrupt & Redirect</h3>
+                    <p><strong>What it is:</strong> Stop Claude mid-task and change direction.</p>
+                    <p><strong>How to do it:</strong> Press <code>Escape</code> anytime.</p>
+                    <p><strong>Why it matters:</strong> No work is lost—type a new instruction and pivot instantly.</p>
+                    <div class="tip-box">
+                        <p><strong>Pro tip:</strong> You don't need perfect prompts! Course-correct as Claude works.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Reviewing Work & Teaching Claude -->
+            <section id="section6">
+                <h2>Section 6: Reviewing Work & Teaching Claude</h2>
+
+                <div class="concept-card">
+                    <h3>18. Visual Studio Code</h3>
+                    <p><strong>What it is:</strong> Free app for reviewing Claude's work side-by-side.</p>
+                    <p><strong>Shows:</strong> Color-coded changes (additions in green, deletions in red).</p>
+                    <p><strong>Why use it:</strong> Better than squinting at terminal output. See exactly which lines Claude added, removed, or modified.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>19. Memory</h3>
+                    <p><strong>What it is:</strong> Claude's personal notebook that it writes itself.</p>
+                    <p><strong>Opposite of CLAUDE.md:</strong></p>
+                    <ul>
+                        <li><strong>CLAUDE.md</strong> - You write instructions manually</li>
+                        <li><strong>Memory</strong> - Claude captures preferences automatically</li>
+                    </ul>
+                    <p><strong>Example:</strong> You correct Claude: "I prefer casual tone." Claude saves this and remembers going forward.</p>
+                    <p><strong>View/edit:</strong> Use <code>/memory</code> command.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>20. Project Scope vs Global Scope</h3>
+                    <p><strong>What it is:</strong> Different rules for different projects vs. consistent preferences everywhere.</p>
+                    <p><strong>Analogy:</strong></p>
+                    <ul>
+                        <li><strong>Project scope</strong> - Department handbooks (specific to one project)</li>
+                        <li><strong>Global scope</strong> - Company-wide policy (applies everywhere)</li>
+                    </ul>
+                    <p><strong>Example:</strong> Global preference for casual tone, but formal tone for legal project.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills & Automation -->
+            <section id="section7">
+                <h2>Section 7: Skills & Automation</h2>
+
+                <div class="concept-card">
+                    <h3>21. Slash Commands</h3>
+                    <p><strong>What they are:</strong> Quick actions accessed with <code>/</code> prefix.</p>
+                    <p><strong>Essential commands:</strong></p>
+                    <ul>
+                        <li><code>/help</code> - Show available commands</li>
+                        <li><code>/clear</code> - Clear context</li>
+                        <li><code>/compact</code> - Compress conversation</li>
+                        <li><code>/model</code> - Switch models</li>
+                        <li><code>/usage</code> - Check token usage</li>
+                        <li><code>/memory</code> - View/edit memory</li>
+                    </ul>
+                    <p><strong>Hidden gems:</strong></p>
+                    <ul>
+                        <li><code>/insights</code> - Shows usage patterns</li>
+                        <li><code>/btw</code> - Add side notes without interrupting</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>22. Skills (Your Custom Workflows)</h3>
+                    <p><strong>What they are:</strong> Saved instruction sets that automate multi-step workflows.</p>
+                    <p><strong>How they work:</strong> One command triggers entire processes.</p>
+                    <div class="example">
+                        <h4>Example: /crosspost</h4>
+                        <ol>
+                            <li>Transcribe video</li>
+                            <li>Write captions</li>
+                            <li>Publish to 7 platforms</li>
+                            <li>Update databases</li>
+                        </ol>
+                        <p>All happens automatically with one command!</p>
+                    </div>
+                    <p><strong>Create skills:</strong> Save instructions as <code>.md</code> files in <code>.claude/skills/</code></p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>23. Hooks (Automated Guardrails)</h3>
+                    <p><strong>What they are:</strong> Scripts running automatically before/after actions.</p>
+                    <p><strong>Example use case:</strong> Quality gate hook that intercepts every post, checking:</p>
+                    <ul>
+                        <li>Character limits</li>
+                        <li>Banned words</li>
+                        <li>Required tags</li>
+                    </ul>
+                    <p><strong>Result:</strong> Flags issues before publishing, preventing mistakes.</p>
+                    <p><strong>For non-coders:</strong> Like autocorrect, but customized for your specific needs.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>24. Web Browsing</h3>
+                    <p><strong>What it is:</strong> Paste any URL and Claude fetches, reads, and analyzes webpage content.</p>
+                    <p><strong>Doesn't just summarize:</strong> Claude can create files, compare competitors, extract data.</p>
+                    <div class="example">
+                        <h4>Example uses:</h4>
+                        <ul>
+                            <li>"Compare pricing from these 3 competitors and create a spreadsheet"</li>
+                            <li>"Read this documentation and write a summary for our team"</li>
+                            <li>"Extract all email addresses from this page"</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: Connecting to the Real World -->
+            <section id="section8">
+                <h2>Section 8: Connecting Claude to the Real World</h2>
+
+                <div class="concept-card">
+                    <h3>25. MCP Servers (From Consultant to Employee)</h3>
+                    <p><strong>What MCP is:</strong> Model Context Protocol bridges Claude to real apps.</p>
+                    <p><strong>Connects to:</strong> Google Drive, Slack, Airtable, Stripe, Salesforce, etc.</p>
+                    <p><strong>The difference:</strong></p>
+                    <ul>
+                        <li><strong>Without MCP:</strong> Claude says "You should update your spreadsheet"</li>
+                        <li><strong>With MCP:</strong> Claude actually updates it</li>
+                    </ul>
+                    <p><strong>Analogy:</strong> MCP turns Claude from a consultant (gives advice) into an employee (does the work).</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>26. Perplexity MCP (AI-Powered Web Research)</h3>
+                    <p><strong>What it is:</strong> Advanced web research connecting to Perplexity.</p>
+                    <p><strong>How it works:</strong> Instead of reading one link you provide, Claude:</p>
+                    <ol>
+                        <li>Researches broadly across sources</li>
+                        <li>Finds verified information</li>
+                        <li>Cites every fact</li>
+                    </ol>
+                    <p><strong>Use case:</strong> "Research our top 5 competitors and summarize their pricing strategies with sources."</p>
+                </div>
+            </section>
+
+            <!-- Section 9: Agents, Remote Control & Scheduling -->
+            <section id="section9">
+                <h2>Section 9: Agents, Remote Control & Scheduling</h2>
+
+                <div class="concept-card">
+                    <h3>27. Subagents (Automatic Parallel Workers)</h3>
+                    <p><strong>What they are:</strong> For multi-part tasks, Claude automatically spawns mini-Claudes working simultaneously.</p>
+                    <p><strong>Example:</strong> Researching 5 competitors takes 2 minutes instead of 10 with automatic parallelization.</p>
+                    <p><strong>Why it matters:</strong> Massive time savings on research and analysis tasks.</p>
+                    <p><strong>For non-coders:</strong> Like delegating parts of a project to multiple assistants who work at the same time.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>28. Remote Control (Use Claude From Your Phone)</h3>
+                    <p><strong>What it is:</strong> Start a session on your computer, control it from the Claude mobile app.</p>
+                    <p><strong>How to use:</strong></p>
+                    <ol>
+                        <li>Start session on computer</li>
+                        <li>Scan QR code with mobile app</li>
+                        <li>Control from anywhere</li>
+                    </ol>
+                    <p><strong>Analogy:</strong> Your phone is a remote; the computer does the work.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>29. Scheduled Tasks (/loop)</h3>
+                    <p><strong>What it is:</strong> Schedule recurring tasks using <code>/loop</code> command.</p>
+                    <div class="example">
+                        <h4>Examples:</h4>
+                        <pre><code class="language-bash">/loop 1h "Check email for urgent messages"
+/loop 1d "Check Google Drive for new invoices"</code></pre>
+                        <button class="copy-button" data-copy="/loop 1h &quot;Check email for urgent messages&quot;">Copy</button>
+                        <p><strong>Safety:</strong> Tasks auto-expire after 3 days to prevent runaway automation.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>30. Version Control with Git</h3>
+                    <p><strong>What it is:</strong> Every Claude change gets saved as reversible versions.</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Roll back mistakes instantly</li>
+                        <li>See history of all changes</li>
+                        <li>Optional GitHub integration for cloud backup</li>
+                        <li>Team review of changes</li>
+                    </ul>
+                    <p><strong>For non-coders:</strong> Like "track changes" in Word, but for your entire project.</p>
+                </div>
+            </section>
+
+            <!-- Quick Start Path -->
+            <section class="highlight-section">
+                <h2>Your Learning Timeline</h2>
+                <p>Use this progressive path to master these concepts:</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>📅 Week 1</h3>
+                        <p><strong>Focus on:</strong> Concepts 1-8</p>
+                        <ul>
+                            <li>Terminal basics</li>
+                            <li>File access</li>
+                            <li>CLAUDE.md</li>
+                            <li>Plan mode</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>📅 After 1 Week</h3>
+                        <p><strong>Focus on:</strong> Concepts 9-20</p>
+                        <ul>
+                            <li>Context management</li>
+                            <li>Model switching</li>
+                            <li>Memory system</li>
+                            <li>Basic skills</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>📅 After 1 Month</h3>
+                        <p><strong>Focus on:</strong> Concepts 21-30</p>
+                        <ul>
+                            <li>MCP connections</li>
+                            <li>Perplexity research</li>
+                            <li>Remote control</li>
+                            <li>Scheduling</li>
+                            <li>Version control</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h2>Next Steps</h2>
+                <p>Now that you understand the core concepts, explore how to use them:</p>
+
+                <div class="next-buttons">
+                    <a href="essential-features.html" class="button primary">Explore Essential Features →</a>
+                    <a href="workflows.html" class="button">See Real-World Workflows →</a>
+                    <a href="advanced.html" class="button">Dive Into Advanced Topics →</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Troubleshooting & Reference</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html" class="active">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; <span>Troubleshooting</span>
+            </div>
+
+            <h1>Troubleshooting & Quick Reference</h1>
+            <p class="lead">Solutions to common issues and quick reference guides.</p>
+
+            <!-- Doctor Command -->
+            <section class="highlight-section">
+                <h2>Start Here: /doctor Command</h2>
+                <p>Before troubleshooting manually, run the diagnostic tool:</p>
+                <pre><code class="language-bash">/doctor</code></pre>
+                <button class="copy-button" data-copy="/doctor">Copy</button>
+                <p>This automatically checks:</p>
+                <ul>
+                    <li>Installation status</li>
+                    <li>Settings configuration</li>
+                    <li>MCP server connections</li>
+                    <li>Context usage</li>
+                    <li>Permission configuration</li>
+                </ul>
+            </section>
+
+            <!-- Common Issues -->
+            <section>
+                <h2>Common Issues & Solutions</h2>
+
+                <div class="issue-card">
+                    <h3>🚫 Installation & Login Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: "command not found: claude"</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Check if installation completed successfully</li>
+                            <li>Restart your terminal</li>
+                            <li>Verify PATH configuration:
+                                <pre><code class="language-bash">echo $PATH</code></pre>
+                                <button class="copy-button" data-copy="echo $PATH">Copy</button>
+                            </li>
+                            <li>Reinstall if necessary</li>
+                        </ol>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: OAuth/Authentication Errors</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Verify account access (Pro, Max, Team, or Enterprise required)</li>
+                            <li>Check internet connection</li>
+                            <li>Try logout and re-login:
+                                <pre><code class="language-bash">claude logout
+claude</code></pre>
+                                <button class="copy-button" data-copy="claude logout&#10;claude">Copy</button>
+                            </li>
+                            <li>Clear browser cache if using web authentication</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <h3>⚙️ Configuration Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: Settings Not Applying</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Check configuration scope priority (managed > CLI args > local > project > user)</li>
+                            <li>Verify JSON syntax is correct (use <code>/config</code> to check)</li>
+                            <li>Settings auto-reload, but some require session restart</li>
+                        </ul>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: Hooks Not Firing</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Verify JSON syntax in hooks configuration</li>
+                            <li>Check matcher patterns are correct</li>
+                            <li>Ensure hook scripts are executable:
+                                <pre><code class="language-bash">chmod +x ./scripts/your-hook.sh</code></pre>
+                                <button class="copy-button" data-copy="chmod +x ./scripts/your-hook.sh">Copy</button>
+                            </li>
+                            <li>Test hook script independently</li>
+                        </ol>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: MCP Servers Failing to Connect</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Run <code>/doctor</code> to check MCP status</li>
+                            <li>Verify credentials are correct</li>
+                            <li>Check server URL is accessible</li>
+                            <li>Re-authenticate if needed: <code>/mcp</code></li>
+                            <li>Review server logs for specific errors</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <h3>🔥 Performance Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: High CPU/Memory Usage</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Use <code>/compact</code> to compress conversation</li>
+                            <li>Clear context with <code>/clear</code> and restart</li>
+                            <li>Close unused sessions</li>
+                            <li>Switch to lighter model (Haiku) for simple tasks</li>
+                        </ol>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: Context Thrashing (Autocompact Running Repeatedly)</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Read large files in chunks, not all at once</li>
+                            <li>Use <code>/compact</code> with specific focus</li>
+                            <li>Move work to subagents to isolate context</li>
+                            <li>Start new session for different tasks</li>
+                            <li>Use <code>/heapdump</code> for memory analysis (advanced)</li>
+                        </ul>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: Slow Responses</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Check context usage: <code>/usage</code></li>
+                            <li>Switch to faster model: <code>/model</code> → Sonnet or Haiku</li>
+                            <li>Reduce effort level for simple queries</li>
+                            <li>Check internet connection speed</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <h3>🔍 Search & File Access Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: Search Not Working</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Install ripgrep (required for search):
+                                <pre><code class="language-bash"># macOS
+brew install ripgrep
+
+# Windows
+winget install BurntSushi.ripgrep
+
+# Linux
+sudo apt install ripgrep</code></pre>
+                                <button class="copy-button" data-copy="brew install ripgrep">Copy</button>
+                            </li>
+                            <li>Alternative: Set environment variable:
+                                <pre><code class="language-bash">export USE_BUILTIN_RIPGREP=0</code></pre>
+                                <button class="copy-button" data-copy="export USE_BUILTIN_RIPGREP=0">Copy</button>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: Claude Can't Read Certain Files</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Check file permissions (Claude needs read access)</li>
+                            <li>Verify file path is correct (use absolute paths)</li>
+                            <li>Some binary formats may not be supported</li>
+                            <li>Check if file is in .gitignore or excluded by settings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <h3>💰 API & Cost Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: 5xx Server Errors</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Anthropic service issue - retry later</li>
+                            <li>Check status page for known outages</li>
+                            <li>Wait a few minutes and try again</li>
+                        </ul>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: 429 Rate Limiting</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Reduce request frequency</li>
+                            <li>Spread out parallel work</li>
+                            <li>Upgrade to higher tier plan if needed</li>
+                            <li>Wait for rate limit to reset</li>
+                        </ul>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: Unexpected High Costs</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Check usage: <code>/usage</code></li>
+                            <li>Identify what's consuming tokens:
+                                <ul>
+                                    <li>Long conversations without /compact</li>
+                                    <li>Reading many large files</li>
+                                    <li>Parallel subagents (multiplies costs)</li>
+                                </ul>
+                            </li>
+                            <li>Optimize:
+                                <ul>
+                                    <li>Use cheaper models for simple tasks</li>
+                                    <li>Clear context between unrelated work</li>
+                                    <li>Read files selectively, not wholesale</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="issue-card">
+                    <h3>🖥️ IDE Integration Issues</h3>
+
+                    <div class="problem">
+                        <h4>Problem: VS Code Extension Not Connecting</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ol>
+                            <li>Restart VS Code</li>
+                            <li>Check extension is installed and enabled</li>
+                            <li>Verify CLI is installed: <code>claude --version</code></li>
+                            <li>Reload window: Cmd/Ctrl+Shift+P → "Reload Window"</li>
+                            <li>Reinstall extension if needed</li>
+                        </ol>
+                    </div>
+
+                    <div class="problem">
+                        <h4>Problem: JetBrains Plugin Issues</h4>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Check IDE version compatibility</li>
+                            <li>Update plugin to latest version</li>
+                            <li>Restart IDE</li>
+                            <li>Check IDE logs for errors</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section>
+                <h2>Quick Reference</h2>
+
+                <h3>Essential Commands</h3>
+                <div class="reference-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>claude</code></td>
+                                <td>Start Claude Code</td>
+                            </tr>
+                            <tr>
+                                <td><code>claude --continue</code></td>
+                                <td>Resume last session</td>
+                            </tr>
+                            <tr>
+                                <td><code>claude --resume</code></td>
+                                <td>Browse and select session</td>
+                            </tr>
+                            <tr>
+                                <td><code>/help</code></td>
+                                <td>Show available commands</td>
+                            </tr>
+                            <tr>
+                                <td><code>/model</code></td>
+                                <td>Switch AI models</td>
+                            </tr>
+                            <tr>
+                                <td><code>/compact</code></td>
+                                <td>Compress conversation</td>
+                            </tr>
+                            <tr>
+                                <td><code>/clear</code></td>
+                                <td>Clear all context</td>
+                            </tr>
+                            <tr>
+                                <td><code>/usage</code></td>
+                                <td>Check token usage</td>
+                            </tr>
+                            <tr>
+                                <td><code>/memory</code></td>
+                                <td>View/edit memory</td>
+                            </tr>
+                            <tr>
+                                <td><code>/config</code></td>
+                                <td>Open settings</td>
+                            </tr>
+                            <tr>
+                                <td><code>/doctor</code></td>
+                                <td>Diagnose issues</td>
+                            </tr>
+                            <tr>
+                                <td><code>Esc</code></td>
+                                <td>Interrupt Claude</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>File Locations</h3>
+                <div class="reference-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>What</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>User settings</td>
+                                <td><code>~/.claude/settings.json</code></td>
+                            </tr>
+                            <tr>
+                                <td>Project settings</td>
+                                <td><code>./.claude/settings.json</code></td>
+                            </tr>
+                            <tr>
+                                <td>Local settings</td>
+                                <td><code>./.claude/settings.local.json</code></td>
+                            </tr>
+                            <tr>
+                                <td>Global CLAUDE.md</td>
+                                <td><code>~/.claude/CLAUDE.md</code></td>
+                            </tr>
+                            <tr>
+                                <td>Project CLAUDE.md</td>
+                                <td><code>./CLAUDE.md</code></td>
+                            </tr>
+                            <tr>
+                                <td>Custom skills</td>
+                                <td><code>./.claude/skills/</code></td>
+                            </tr>
+                            <tr>
+                                <td>Project memory</td>
+                                <td><code>~/.claude/projects/&lt;name&gt;/memory/</code></td>
+                            </tr>
+                            <tr>
+                                <td>Sessions</td>
+                                <td><code>~/.claude/projects/&lt;name&gt;/sessions/</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Keyboard Shortcuts</h3>
+                <div class="reference-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Shortcut</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>Esc</code></td>
+                                <td>Interrupt Claude mid-task</td>
+                            </tr>
+                            <tr>
+                                <td><code>Ctrl+C</code></td>
+                                <td>Cancel current operation</td>
+                            </tr>
+                            <tr>
+                                <td><code>Ctrl+R</code> (VS Code)</td>
+                                <td>Open session picker</td>
+                            </tr>
+                            <tr>
+                                <td><code>Cmd/Ctrl+Shift+P</code></td>
+                                <td>VS Code command palette</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Model Comparison</h3>
+                <div class="reference-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Speed</th>
+                                <th>Cost</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Opus</strong></td>
+                                <td>Slower</td>
+                                <td>$$$$</td>
+                                <td>Complex reasoning, critical decisions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sonnet</strong></td>
+                                <td>Fast</td>
+                                <td>$$</td>
+                                <td>Daily driver, most tasks</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Haiku</strong></td>
+                                <td>Fastest</td>
+                                <td>$</td>
+                                <td>Simple queries, quick answers</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Getting Help -->
+            <section>
+                <h2>Getting Help</h2>
+
+                <div class="help-card">
+                    <h3>1. Run Diagnostics First</h3>
+                    <pre><code class="language-bash">/doctor</code></pre>
+                    <button class="copy-button" data-copy="/doctor">Copy</button>
+                    <p>This provides valuable troubleshooting information.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>2. Check Official Documentation</h3>
+                    <p>Visit <a href="https://code.claude.com/docs" target="_blank">code.claude.com/docs</a> for the latest information.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>3. Report Issues</h3>
+                    <pre><code class="language-bash">/feedback</code></pre>
+                    <button class="copy-button" data-copy="/feedback">Copy</button>
+                    <p>Report bugs directly to Anthropic. Include:</p>
+                    <ul>
+                        <li><code>/doctor</code> output</li>
+                        <li>Error messages (exact text)</li>
+                        <li>Steps to reproduce</li>
+                        <li>Platform and version info</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3>4. Community Resources</h3>
+                    <ul>
+                        <li>GitHub Issues: Check for known issues</li>
+                        <li>Community forums: Search for similar problems</li>
+                        <li>Stack Overflow: Tag "claude-code"</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3>5. Safe Mode</h3>
+                    <p>If all else fails, start in safe mode to isolate problems:</p>
+                    <pre><code class="language-bash">claude --safe-mode</code></pre>
+                    <button class="copy-button" data-copy="claude --safe-mode">Copy</button>
+                    <p>This disables custom configurations that might be causing issues.</p>
+                </div>
+            </section>
+
+            <!-- Cost Optimization -->
+            <section>
+                <h2>Cost Optimization Tips</h2>
+
+                <div class="tip-grid">
+                    <div class="tip-card">
+                        <h4>1. Use Right Model</h4>
+                        <p>Haiku for simple tasks, Sonnet for daily work, Opus only when necessary</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>2. Manage Context</h4>
+                        <p>Use <code>/clear</code> between unrelated tasks. Run <code>/compact</code> during long sessions</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>3. Read Selectively</h4>
+                        <p>Don't load entire large files. Read specific sections or use search</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>4. Minimize Subagents</h4>
+                        <p>Parallel work multiplies costs. Use only when time savings justify expense</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>5. Leverage Caching</h4>
+                        <p>Cached tokens cost ~10% of normal. Keep sessions active to benefit from cache</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>6. Monitor Usage</h4>
+                        <p>Check <code>/usage</code> regularly to understand patterns and optimize</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h2>Still Need Help?</h2>
+                <p>If you've tried these solutions and still have issues:</p>
+
+                <div class="next-buttons">
+                    <a href="getting-started.html" class="button">Review Getting Started →</a>
+                    <a href="core-concepts.html" class="button">Review Core Concepts →</a>
+                    <a href="index.html" class="button primary">Back to Home →</a>
+                </div>
+
+                <div class="info-box">
+                    <h4>For Company-Specific Issues</h4>
+                    <p>If you're experiencing issues specific to your company's Salesforce or nCino setup, Version 2 of this manual will include dedicated troubleshooting sections for those environments.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

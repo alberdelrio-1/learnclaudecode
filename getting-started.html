@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Getting Started</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html" class="active">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; <span>Getting Started</span>
+            </div>
+
+            <h1>Getting Started with Claude Code</h1>
+            <p class="lead">Everything you need to install, setup, and start using Claude Code in VS Code.</p>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#prerequisites">Prerequisites</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#vscode-setup">VS Code Setup</a></li>
+                    <li><a href="#first-task">Your First Task</a></li>
+                    <li><a href="#terminal">Understanding the Terminal</a></li>
+                    <li><a href="#file-access">File Access</a></li>
+                    <li><a href="#next-steps">Next Steps</a></li>
+                </ul>
+            </div>
+
+            <!-- Prerequisites Section -->
+            <section id="prerequisites">
+                <h2>1. Prerequisites</h2>
+                <p>Before installing Claude Code, make sure you have:</p>
+
+                <div class="checklist">
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span><strong>VS Code installed</strong> - Download from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a></span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span><strong>Claude subscription</strong> - Pro ($20/month), Max ($100-200/month), Team, or Enterprise</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span><strong>Internet connection</strong> - Required for Claude to work</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span><strong>4GB RAM minimum</strong> - On your computer</span>
+                    </label>
+                </div>
+
+                <div class="info-box">
+                    <h4>About Pricing</h4>
+                    <p><strong>Claude Pro ($20/month):</strong> Limited daily usage, good for occasional use</p>
+                    <p><strong>Claude Max ($100-200/month):</strong> Unlimited daily use, recommended for work</p>
+                    <p><strong>Free tier:</strong> Very limited, mainly for testing</p>
+                    <p class="tip">💡 <strong>Tip:</strong> Business users typically see ROI within the first week!</p>
+                </div>
+            </section>
+
+            <!-- Installation Section -->
+            <section id="installation">
+                <h2>2. Installation</h2>
+                <p>There are multiple ways to install Claude Code. Choose the method that works for you:</p>
+
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="macos">macOS</button>
+                        <button class="tab-button" data-tab="windows">Windows</button>
+                        <button class="tab-button" data-tab="linux">Linux</button>
+                    </div>
+
+                    <div class="tab-content active" id="macos">
+                        <h3>macOS Installation</h3>
+
+                        <h4>Method 1: Using Curl (Recommended)</h4>
+                        <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+                        <button class="copy-button" data-copy="curl -fsSL https://claude.ai/install.sh | bash">Copy</button>
+
+                        <h4>Method 2: Using Homebrew</h4>
+                        <pre><code class="language-bash">brew install --cask claude-code</code></pre>
+                        <button class="copy-button" data-copy="brew install --cask claude-code">Copy</button>
+
+                        <p class="note"><strong>Note:</strong> Open Terminal app (found in Applications → Utilities) to run these commands.</p>
+                    </div>
+
+                    <div class="tab-content" id="windows">
+                        <h3>Windows Installation</h3>
+
+                        <h4>Method 1: Using PowerShell (Recommended)</h4>
+                        <pre><code class="language-bash">irm https://claude.ai/install.ps1 | iex</code></pre>
+                        <button class="copy-button" data-copy="irm https://claude.ai/install.ps1 | iex">Copy</button>
+
+                        <h4>Method 2: Using WinGet</h4>
+                        <pre><code class="language-bash">winget install Anthropic.ClaudeCode</code></pre>
+                        <button class="copy-button" data-copy="winget install Anthropic.ClaudeCode">Copy</button>
+
+                        <p class="note"><strong>Note:</strong> Open PowerShell (search for it in Start menu) to run these commands.</p>
+                    </div>
+
+                    <div class="tab-content" id="linux">
+                        <h3>Linux Installation</h3>
+
+                        <h4>Using Curl</h4>
+                        <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+                        <button class="copy-button" data-copy="curl -fsSL https://claude.ai/install.sh | bash">Copy</button>
+
+                        <p class="note"><strong>Supported:</strong> Ubuntu 20.04+, Debian 10+, Alpine 3.19+</p>
+                    </div>
+                </div>
+
+                <h3>Verify Installation</h3>
+                <p>After installation, verify Claude Code is installed correctly:</p>
+                <pre><code class="language-bash">claude --version</code></pre>
+                <button class="copy-button" data-copy="claude --version">Copy</button>
+                <p>You should see the version number displayed.</p>
+            </section>
+
+            <!-- VS Code Setup -->
+            <section id="vscode-setup">
+                <h2>3. VS Code Extension Setup</h2>
+                <p>Install the Claude Code extension in VS Code for the best experience:</p>
+
+                <div class="step-by-step">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Open VS Code Extensions</h4>
+                            <p>Press <code>Cmd+Shift+X</code> (Mac) or <code>Ctrl+Shift+X</code> (Windows/Linux)</p>
+                            <p>Or click the Extensions icon in the left sidebar</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Search for Claude Code</h4>
+                            <p>Type "Claude Code" in the search box</p>
+                            <p>Look for the official extension from <strong>Anthropic</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Install and Authenticate</h4>
+                            <p>Click "Install" button</p>
+                            <p>Follow the browser prompts to authenticate with your Claude account</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Access Claude Code</h4>
+                            <p>Click the Claude icon in the VS Code sidebar</p>
+                            <p>Or press <code>Cmd/Ctrl + Shift + P</code> and type "Claude"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box success">
+                    <h4>You're Ready!</h4>
+                    <p>The VS Code extension uses the same configuration as the CLI. Everything syncs automatically.</p>
+                </div>
+            </section>
+
+            <!-- Understanding the Terminal -->
+            <section id="terminal">
+                <h2>4. Understanding the Terminal</h2>
+                <p class="lead">The terminal is where Claude Code runs. Don't worry - you don't need to be an expert!</p>
+
+                <h3>What is the Terminal?</h3>
+                <p>The terminal is a text-based interface where you can:</p>
+                <ul>
+                    <li>Type commands (like "claude") to run programs</li>
+                    <li>Navigate folders on your computer</li>
+                    <li>See Claude Code's responses</li>
+                </ul>
+
+                <h3>Basic Terminal Commands (All You Need)</h3>
+                <div class="command-reference">
+                    <div class="command-card">
+                        <code>pwd</code>
+                        <p>Print Working Directory - Shows where you are</p>
+                    </div>
+                    <div class="command-card">
+                        <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows)
+                        <p>List files in current folder</p>
+                    </div>
+                    <div class="command-card">
+                        <code>cd foldername</code>
+                        <p>Change Directory - Move to a folder</p>
+                    </div>
+                    <div class="command-card">
+                        <code>cd ..</code>
+                        <p>Go up one folder level</p>
+                    </div>
+                    <div class="command-card">
+                        <code>mkdir foldername</code>
+                        <p>Make Directory - Create a new folder</p>
+                    </div>
+                    <div class="command-card">
+                        <code>claude</code>
+                        <p>Start Claude Code!</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>Pro Tip: Create a Practice Folder</h4>
+                    <pre><code class="language-bash">mkdir ~/playground
+cd ~/playground
+claude</code></pre>
+                    <button class="copy-button" data-copy="mkdir ~/playground&#10;cd ~/playground&#10;claude">Copy</button>
+                    <p>This creates a safe space to experiment without affecting important files!</p>
+                </div>
+            </section>
+
+            <!-- Your First Task -->
+            <section id="first-task">
+                <h2>5. Your First Task</h2>
+                <p>Let's try something simple to see Claude Code in action:</p>
+
+                <div class="step-by-step highlight-section">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Start Claude Code</h4>
+                            <pre><code class="language-bash">claude</code></pre>
+                            <p>In VS Code, click the Claude icon or use Command Palette</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Try This First Command</h4>
+                            <pre><code class="language-bash">List all files in this folder and tell me what you find</code></pre>
+                            <p>Claude will search your directory and explain what it sees!</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Watch Claude Work</h4>
+                            <p>You'll see Claude use "tools" like:</p>
+                            <ul>
+                                <li><strong>Bash</strong> - Running the ls/dir command</li>
+                                <li><strong>Read</strong> - Reading file contents</li>
+                            </ul>
+                            <p>This is Claude <em>acting</em>, not just chatting!</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Try Another Task</h4>
+                            <pre><code class="language-bash">Create a file called hello.txt with the text "Hello from Claude Code!"</code></pre>
+                            <p>Claude will create the file for you. Check your folder - it's really there!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>🎉 Congratulations!</h4>
+                    <p>You just used AI to interact with your computer. That's the core of Claude Code!</p>
+                </div>
+            </section>
+
+            <!-- File Access -->
+            <section id="file-access">
+                <h2>6. Understanding File Access</h2>
+                <p>One of Claude Code's superpowers is direct file access. Here's what that means:</p>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h3>Traditional AI Chat</h3>
+                        <ol>
+                            <li>You copy file content</li>
+                            <li>Paste into chat</li>
+                            <li>Get response</li>
+                            <li>Copy response</li>
+                            <li>Paste back into file</li>
+                            <li>Save file</li>
+                        </ol>
+                    </div>
+                    <div class="comparison-card highlight">
+                        <h3>Claude Code</h3>
+                        <ol>
+                            <li>Tell Claude what to do</li>
+                            <li>Claude reads the file</li>
+                            <li>Claude edits the file</li>
+                            <li>Done!</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>What Claude Can Access</h3>
+                <ul class="feature-list">
+                    <li><strong>Text files</strong> - Code, documents, configuration files</li>
+                    <li><strong>Images</strong> - Screenshots, diagrams, photos (Claude can read text from images!)</li>
+                    <li><strong>PDFs</strong> - Documents and manuals</li>
+                    <li><strong>Folders</strong> - Entire project structures</li>
+                </ul>
+
+                <h3>Example: Editing a Document</h3>
+                <pre><code class="language-bash">Make my proposal.docx more professional and concise. Focus on the executive summary section.</code></pre>
+                <button class="copy-button" data-copy="Make my proposal.docx more professional and concise. Focus on the executive summary section.">Copy</button>
+                <p>Claude will read the file, understand the content, make improvements, and save it - all automatically!</p>
+
+                <div class="info-box warning">
+                    <h4>Permission System</h4>
+                    <p>Don't worry about Claude making unwanted changes. You'll be asked to approve:</p>
+                    <ul>
+                        <li>First time running any command</li>
+                        <li>Every file modification</li>
+                        <li>Any potentially dangerous operations</li>
+                    </ul>
+                    <p>You're always in control!</p>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section id="next-steps" class="next-steps">
+                <h2>Next Steps</h2>
+                <p>Now that you're set up, continue your learning journey:</p>
+
+                <div class="next-buttons">
+                    <a href="core-concepts.html" class="button primary">Learn Core Concepts (30+ explained) →</a>
+                    <a href="essential-features.html" class="button">Explore Essential Features →</a>
+                    <a href="workflows.html" class="button">See Real-World Examples →</a>
+                </div>
+
+                <div class="learning-checkpoint">
+                    <h3>What You've Learned</h3>
+                    <ul class="checklist">
+                        <li>✅ Installed Claude Code</li>
+                        <li>✅ Set up VS Code extension</li>
+                        <li>✅ Understand the terminal basics</li>
+                        <li>✅ Completed your first task</li>
+                        <li>✅ Know how file access works</li>
+                    </ul>
+                    <p><strong>You're ready for Week 1!</strong> Continue learning at your own pace.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

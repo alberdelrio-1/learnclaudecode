@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflows - Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Real-World Workflows</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html" class="active">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce & nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &gt; <span>Workflows</span>
+            </div>
+
+            <h1>Real-World Workflows & Examples</h1>
+            <p class="lead">Common tasks and how to accomplish them with Claude Code.</p>
+
+            <!-- Workflow 1: Code Exploration -->
+            <section class="workflow-section">
+                <h2>1. Code Exploration & Understanding</h2>
+                <p class="workflow-desc">Get up to speed quickly on an unfamiliar codebase.</p>
+
+                <div class="workflow-card">
+                    <h3>Scenario</h3>
+                    <p>You've joined a new project and need to understand the codebase structure.</p>
+
+                    <h3>Step-by-Step</h3>
+                    <div class="step-by-step">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h4>Start with High-Level Overview</h4>
+                                <pre><code class="language-bash">Give me an overview of this codebase. What's the main technology stack and how is the code organized?</code></pre>
+                                <button class="copy-button" data-copy="Give me an overview of this codebase. What's the main technology stack and how is the code organized?">Copy</button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h4>Explore Specific Areas</h4>
+                                <pre><code class="language-bash">Show me how user authentication works in this project. Walk me through the flow from login to session management.</code></pre>
+                                <button class="copy-button" data-copy="Show me how user authentication works in this project. Walk me through the flow from login to session management.">Copy</button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h4>Find Key Components</h4>
+                                <pre><code class="language-bash">Where are the API endpoints defined? Show me examples of how data is fetched from the backend.</code></pre>
+                                <button class="copy-button" data-copy="Where are the API endpoints defined? Show me examples of how data is fetched from the backend.">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-result">
+                        <h4>Result</h4>
+                        <p>You understand: Project architecture, key patterns, where to find specific functionality, and how components connect.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 2: Bug Fixing -->
+            <section class="workflow-section">
+                <h2>2. Bug Fixing</h2>
+                <p class="workflow-desc">Diagnose and fix issues efficiently.</p>
+
+                <div class="workflow-card">
+                    <h3>Scenario</h3>
+                    <p>Users report an error when submitting a form.</p>
+
+                    <h3>Step-by-Step</h3>
+                    <div class="step-by-step">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h4>Share Error Information</h4>
+                                <pre><code class="language-bash">I'm getting this error when users submit the contact form:
+"TypeError: Cannot read property 'email' of undefined"
+
+Here's a screenshot of the error [drag image]
+
+Can you help me diagnose and fix this?</code></pre>
+                                <button class="copy-button" data-copy="I'm getting this error when users submit the contact form:&#10;&quot;TypeError: Cannot read property 'email' of undefined&quot;&#10;&#10;Here's a screenshot of the error [drag image]&#10;&#10;Can you help me diagnose and fix this?">Copy</button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h4>Claude Investigates</h4>
+                                <p>Claude will:</p>
+                                <ul>
+                                    <li>Find the form submission code</li>
+                                    <li>Identify where the error occurs</li>
+                                    <li>Understand the data flow</li>
+                                    <li>Propose a fix</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h4>Review and Test Fix</h4>
+                                <pre><code class="language-bash">That looks good. Now run the tests to make sure nothing else broke.</code></pre>
+                                <button class="copy-button" data-copy="That looks good. Now run the tests to make sure nothing else broke.">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>Pro Tips</h4>
+                        <ul>
+                            <li>Always share error messages (don't paraphrase)</li>
+                            <li>Include screenshots when helpful</li>
+                            <li>Mention steps to reproduce</li>
+                            <li>Ask Claude to explain the root cause</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 3: Feature Development -->
+            <section class="workflow-section">
+                <h2>3. Feature Development</h2>
+                <p class="workflow-desc">Build new features from scratch.</p>
+
+                <div class="workflow-card">
+                    <h3>Scenario</h3>
+                    <p>Add a dark mode toggle to your application.</p>
+
+                    <h3>Step-by-Step (Using Plan Mode)</h3>
+                    <div class="step-by-step">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h4>Request in Plan Mode</h4>
+                                <pre><code class="language-bash">I want to add a dark mode toggle to the application.
+Requirements:
+- Toggle button in the header
+- Persist user preference
+- Smooth transition between themes
+- Use existing color scheme conventions
+
+Please create a plan first before implementing.</code></pre>
+                                <button class="copy-button" data-copy="I want to add a dark mode toggle to the application. &#10;Requirements:&#10;- Toggle button in the header&#10;- Persist user preference&#10;- Smooth transition between themes&#10;- Use existing color scheme conventions&#10;&#10;Please create a plan first before implementing.">Copy</button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h4>Review Plan</h4>
+                                <p>Claude presents approach:</p>
+                                <ul>
+                                    <li>Create theme context/state</li>
+                                    <li>Add CSS variables for colors</li>
+                                    <li>Build toggle component</li>
+                                    <li>Implement localStorage persistence</li>
+                                    <li>Update existing components</li>
+                                </ul>
+                                <p>Approve or request changes</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h4>Claude Implements</h4>
+                                <p>Claude creates/modifies files as planned</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <h4>Test and Refine</h4>
+                                <pre><code class="language-bash">The dark mode works! But can you make the transition smoother? Currently it's jarring when switching.</code></pre>
+                                <button class="copy-button" data-copy="The dark mode works! But can you make the transition smoother? Currently it's jarring when switching.">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 4: Refactoring -->
+            <section class="workflow-section">
+                <h2>4. Code Refactoring</h2>
+                <p class="workflow-desc">Improve code quality while maintaining behavior.</p>
+
+                <div class="workflow-card">
+                    <h3>Scenario</h3>
+                    <p>Legacy code using outdated patterns needs modernization.</p>
+
+                    <h3>Example Request</h3>
+                    <pre><code class="language-bash">The files in /src/utils/ use old callback patterns.
+Please refactor them to use async/await instead.
+
+Make sure to:
+- Keep all existing functionality
+- Update tests accordingly
+- Follow our existing code style (check CLAUDE.md)
+- Run tests after each file to ensure nothing breaks</code></pre>
+                    <button class="copy-button" data-copy="The files in /src/utils/ use old callback patterns. &#10;Please refactor them to use async/await instead.&#10;&#10;Make sure to:&#10;- Keep all existing functionality&#10;- Update tests accordingly  &#10;- Follow our existing code style (check CLAUDE.md)&#10;- Run tests after each file to ensure nothing breaks">Copy</button>
+
+                    <div class="workflow-result">
+                        <h4>Claude Will:</h4>
+                        <ol>
+                            <li>Identify files with callback patterns</li>
+                            <li>Refactor one file at a time</li>
+                            <li>Update corresponding tests</li>
+                            <li>Run test suite after each change</li>
+                            <li>Report any issues found</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 5: Testing -->
+            <section class="workflow-section">
+                <h2>5. Writing Tests</h2>
+                <p class="workflow-desc">Generate comprehensive test coverage.</p>
+
+                <div class="workflow-card">
+                    <h3>Example Request</h3>
+                    <pre><code class="language-bash">Create comprehensive tests for @src/services/auth.ts
+
+Include:
+- Happy path scenarios
+- Edge cases (expired tokens, invalid credentials)
+- Error handling
+- Mock external dependencies
+
+Follow the test patterns in our existing tests.</code></pre>
+                    <button class="copy-button" data-copy="Create comprehensive tests for @src/services/auth.ts&#10;&#10;Include:&#10;- Happy path scenarios&#10;- Edge cases (expired tokens, invalid credentials)&#10;- Error handling&#10;- Mock external dependencies&#10;&#10;Follow the test patterns in our existing tests.">Copy</button>
+
+                    <div class="tip-box">
+                        <h4>Best Practices</h4>
+                        <ul>
+                            <li>Reference existing test files for patterns</li>
+                            <li>Be specific about what to test</li>
+                            <li>Ask for edge cases explicitly</li>
+                            <li>Request test coverage metrics</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 6: Documentation -->
+            <section class="workflow-section">
+                <h2>6. Creating Documentation</h2>
+                <p class="workflow-desc">Generate clear documentation for your code.</p>
+
+                <div class="workflow-card">
+                    <h3>Example Requests</h3>
+
+                    <h4>Code Comments</h4>
+                    <pre><code class="language-bash">Add JSDoc comments to all exported functions in @src/api/client.ts
+Include parameter descriptions, return types, and usage examples.</code></pre>
+                    <button class="copy-button" data-copy="Add JSDoc comments to all exported functions in @src/api/client.ts&#10;Include parameter descriptions, return types, and usage examples.">Copy</button>
+
+                    <h4>README Generation</h4>
+                    <pre><code class="language-bash">Create a README.md for this project that includes:
+- Project overview
+- Installation instructions
+- Usage examples
+- API documentation
+- Contributing guidelines
+
+Use the existing code to understand what to document.</code></pre>
+                    <button class="copy-button" data-copy="Create a README.md for this project that includes:&#10;- Project overview&#10;- Installation instructions&#10;- Usage examples&#10;- API documentation&#10;- Contributing guidelines&#10;&#10;Use the existing code to understand what to document.">Copy</button>
+                </div>
+            </section>
+
+            <!-- Workflow 7: Git Workflows -->
+            <section class="workflow-section">
+                <h2>7. Git & Pull Requests</h2>
+                <p class="workflow-desc">Manage version control with Claude's help.</p>
+
+                <div class="workflow-card">
+                    <h3>Creating a Commit</h3>
+                    <pre><code class="language-bash">Create a git commit with all my changes.
+Write a clear commit message that explains what was done and why.</code></pre>
+                    <button class="copy-button" data-copy="Create a git commit with all my changes. &#10;Write a clear commit message that explains what was done and why.">Copy</button>
+
+                    <h3>Creating a Pull Request</h3>
+                    <pre><code class="language-bash">Create a pull request for my dark-mode feature branch.
+Include:
+- Summary of changes
+- Testing checklist
+- Screenshots of the new dark mode
+
+Use the gh CLI tool.</code></pre>
+                    <button class="copy-button" data-copy="Create a pull request for my dark-mode feature branch.&#10;Include:&#10;- Summary of changes&#10;- Testing checklist&#10;- Screenshots of the new dark mode&#10;&#10;Use the gh CLI tool.">Copy</button>
+
+                    <div class="info-box">
+                        <p><strong>Claude will:</strong></p>
+                        <ul>
+                            <li>Analyze all changes in your branch</li>
+                            <li>Write descriptive PR summary</li>
+                            <li>Create testing checklist</li>
+                            <li>Push and create PR via gh CLI</li>
+                            <li>Return PR URL for review</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 8: Debugging -->
+            <section class="workflow-section">
+                <h2>8. Systematic Debugging</h2>
+                <p class="workflow-desc">Methodically track down elusive bugs.</p>
+
+                <div class="workflow-card">
+                    <h3>Approach</h3>
+                    <pre><code class="language-bash">Users are reporting intermittent crashes on the dashboard page.
+I can't consistently reproduce it.
+
+Can you:
+1. Analyze the dashboard code for potential issues
+2. Check for race conditions or async bugs
+3. Look for error handling gaps
+4. Suggest debugging strategies
+
+Here's the error log: [paste logs]</code></pre>
+                    <button class="copy-button" data-copy="Users are reporting intermittent crashes on the dashboard page. &#10;I can't consistently reproduce it.&#10;&#10;Can you:&#10;1. Analyze the dashboard code for potential issues&#10;2. Check for race conditions or async bugs&#10;3. Look for error handling gaps&#10;4. Suggest debugging strategies&#10;&#10;Here's the error log: [paste logs]">Copy</button>
+
+                    <div class="workflow-result">
+                        <h4>Claude's Systematic Approach:</h4>
+                        <ol>
+                            <li>Read and analyze dashboard code</li>
+                            <li>Identify potential race conditions</li>
+                            <li>Check async operation handling</li>
+                            <li>Review error boundaries</li>
+                            <li>Suggest logging additions</li>
+                            <li>Recommend debugging tools</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow 9: Web Research -->
+            <section class="workflow-section">
+                <h2>9. Research & Learning</h2>
+                <p class="workflow-desc">Use Claude to research technologies and best practices.</p>
+
+                <div class="workflow-card">
+                    <h3>Example Research Tasks</h3>
+
+                    <h4>Technology Comparison</h4>
+                    <pre><code class="language-bash">Research the differences between React Query and SWR for data fetching.
+Create a comparison table with:
+- Key features
+- Performance characteristics
+- Learning curve
+- Community support
+- Recommendation for our use case</code></pre>
+                    <button class="copy-button" data-copy="Research the differences between React Query and SWR for data fetching.&#10;Create a comparison table with:&#10;- Key features&#10;- Performance characteristics  &#10;- Learning curve&#10;- Community support&#10;- Recommendation for our use case">Copy</button>
+
+                    <h4>Best Practices</h4>
+                    <pre><code class="language-bash">What are current best practices for API error handling in React applications?
+Include code examples I can adapt for our project.</code></pre>
+                    <button class="copy-button" data-copy="What are current best practices for API error handling in React applications?&#10;Include code examples I can adapt for our project.">Copy</button>
+                </div>
+            </section>
+
+            <!-- Workflow 10: Document Editing -->
+            <section class="workflow-section">
+                <h2>10. Document Editing (For Non-Coders)</h2>
+                <p class="workflow-desc">Edit documents, proposals, and content.</p>
+
+                <div class="workflow-card">
+                    <h3>Example Tasks</h3>
+
+                    <h4>Professional Polish</h4>
+                    <pre><code class="language-bash">Make @proposal.docx more professional and concise.
+- Target executive audience
+- Keep under 3 pages
+- Strengthen the value proposition
+- Fix any grammar or clarity issues</code></pre>
+                    <button class="copy-button" data-copy="Make @proposal.docx more professional and concise.&#10;- Target executive audience&#10;- Keep under 3 pages&#10;- Strengthen the value proposition&#10;- Fix any grammar or clarity issues">Copy</button>
+
+                    <h4>Data Extraction</h4>
+                    <pre><code class="language-bash">Extract all the invoice data from @invoices/april-2024.pdf and create an Excel spreadsheet with:
+- Invoice number
+- Date
+- Amount
+- Vendor
+- Status</code></pre>
+                    <button class="copy-button" data-copy="Extract all the invoice data from @invoices/april-2024.pdf and create an Excel spreadsheet with:&#10;- Invoice number&#10;- Date&#10;- Amount&#10;- Vendor&#10;- Status">Copy</button>
+                </div>
+            </section>
+
+            <!-- Best Prompting Practices -->
+            <section class="highlight-section">
+                <h2>Best Practices for All Workflows</h2>
+
+                <div class="grid-2">
+                    <div class="practice-box">
+                        <h3>✅ Do This</h3>
+                        <ul>
+                            <li>Be specific about requirements</li>
+                            <li>Reference files with @filename</li>
+                            <li>Provide error messages verbatim</li>
+                            <li>Share screenshots when helpful</li>
+                            <li>Mention constraints explicitly</li>
+                            <li>Ask Claude to explain its approach</li>
+                            <li>Use plan mode for complex tasks</li>
+                            <li>Interrupt and redirect if needed (Esc)</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-box">
+                        <h3>❌ Avoid This</h3>
+                        <ul>
+                            <li>Vague requests ("fix the bugs")</li>
+                            <li>Paraphrasing error messages</li>
+                            <li>Assuming Claude knows context</li>
+                            <li>Long conversations without /compact</li>
+                            <li>Mixing unrelated tasks in one session</li>
+                            <li>Not reviewing changes before approval</li>
+                            <li>Forgetting to check CLAUDE.md exists</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h2>Next Steps</h2>
+                <p>Ready to explore more advanced capabilities?</p>
+
+                <div class="next-buttons">
+                    <a href="advanced.html" class="button primary">Learn Advanced Features →</a>
+                    <a href="troubleshooting.html" class="button">Troubleshooting Guide →</a>
+                    <a href="index.html" class="button">Back to Home →</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
