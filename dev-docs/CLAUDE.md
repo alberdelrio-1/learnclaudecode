@@ -304,18 +304,81 @@ Add to new sections:
 
 ---
 
+## ⚠️ CRITICAL: CLI vs MCP Tools
+
+### ALWAYS Use CLI Tools First (NOT MCP)
+
+**IMPORTANT:** This project prioritizes CLI tools over MCP servers. When a tool is available as both CLI and MCP, **ALWAYS use the CLI version via Bash commands**.
+
+### CLI Tools (Use via Bash) ✅
+
+**NotebookLM** - Research and knowledge management
+```bash
+# CORRECT: Use CLI via Bash tool
+notebooklm list
+notebooklm use <notebook-id>
+notebooklm ask "question"
+notebooklm source add "url"
+
+# WRONG: Do NOT look for mcp__notebooklm__* tools (they don't exist)
+```
+
+**GitHub CLI (gh)** - Repository and PR management
+```bash
+# CORRECT: Use CLI via Bash tool
+gh pr create --title "Title" --body "Description"
+gh pr list
+gh issue create
+
+# WRONG: Do NOT use mcp__github__* tools (CLI is preferred)
+```
+
+**Playwright** - Browser testing and automation
+```bash
+# CORRECT: Use CLI via Bash tool
+npx playwright test
+npx playwright test --headed
+npx playwright codegen
+
+# WRONG: Do NOT look for MCP equivalents
+```
+
+### Why CLI > MCP
+
+1. **CLI tools don't cause crashes** - Direct Bash execution is more stable
+2. **More features** - CLI versions often have more capabilities
+3. **Better debugging** - Can see output directly
+4. **User preference** - Explicitly requested by user
+
+### When a Request Could Be Either
+
+**If user says:** "Use NotebookLM to research..."
+- ✅ DO: `notebooklm ask "question"` via Bash
+- ❌ DON'T: Search for `mcp__notebooklm__*` tools
+
+**If user says:** "Create a GitHub PR..."
+- ✅ DO: `gh pr create` via Bash
+- ❌ DON'T: Use MCP GitHub tools
+
+**If user says:** "Test the website..."
+- ✅ DO: `npx playwright test` via Bash
+- ❌ DON'T: Look for MCP testing tools
+
+---
+
 ## MCP Servers Configuration
 
 ### Current MCP Servers
 
 The project uses the following MCP (Model Context Protocol) servers configured in `.mcp.json`:
 
-**Active Servers:**
+**Active MCP Servers:**
 - **Gmail** - Email access and management
 - **Google Calendar** - Calendar integration and scheduling
 - **Microsoft 365** - Microsoft suite integration (Outlook, Teams, etc.)
 - **Notion** - Notion workspace integration for documentation
-- **GitHub** - Repository and code management, PR creation, issues
+
+**Note:** GitHub is available via MCP but **use `gh` CLI instead** (user preference).
 
 ### Configuration Format
 

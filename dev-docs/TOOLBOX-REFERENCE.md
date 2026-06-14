@@ -1,8 +1,30 @@
 # Claude Code Toolbox Reference
 **Quick reference for all available tools, plugins, and capabilities**
 
-*Last Updated: June 13, 2026*
+*Last Updated: June 14, 2026*
 *Session Recovery Document - Read this at the start of each session*
+
+---
+
+## ⚠️ CRITICAL: CLI vs MCP Priority
+
+**User Preference:** Always use CLI tools via Bash, NOT MCP equivalents.
+
+### CLI Tools (Use These) ✅
+- **NotebookLM:** `notebooklm list`, `notebooklm ask "question"`
+- **GitHub:** `gh pr create`, `gh issue list`
+- **Playwright:** `npx playwright test`
+
+### MCP Tools (Only These) 📋
+- Gmail, Google Calendar, Microsoft 365, Notion
+- Use `mcp__*` tools for these services only
+
+### DO NOT ❌
+- Search for `mcp__notebooklm__*` (doesn't exist - use CLI)
+- Use `mcp__github__*` (CLI preferred)
+- Look for Playwright MCP tools (CLI only)
+
+**Why?** CLI tools are more stable and prevent crashes.
 
 ---
 
@@ -18,7 +40,8 @@
 | **Google Calendar** | https://gcal.mcp.claude.com/mcp | Calendar integration | OAuth |
 | **Microsoft 365** | https://microsoft365.mcp.claude.com/mcp | Office suite (Outlook, Teams) | OAuth |
 | **Notion** | https://mcp.notion.com/mcp | Workspace/documentation | OAuth |
-| **GitHub** | https://github.mcp.claude.com/mcp | Repository & PR management | OAuth |
+
+**Note:** GitHub is configured in `.mcp.json` but **use `gh` CLI instead** (user preference).
 
 ### MCP Tools Available
 
@@ -199,9 +222,90 @@ npm install -g @openai/codex-plugin-cc
 
 ---
 
+## 🛠️ Command Line Tools
+
+### GitHub CLI (gh)
+
+⚠️ **CRITICAL: Use CLI, NOT MCP** - Although GitHub MCP exists, always use `gh` CLI commands via Bash tool.
+
+**Version:** Latest (installed via Homebrew)
+**Status:** ✅ Installed & Authenticated
+**Authentication:** GITHUB_TOKEN (from MCP configuration)
+
+**Commands:**
+
+```bash
+# Authentication
+gh auth status                 # Check authentication status
+gh auth login                   # Login (if needed)
+
+# Repository Management
+gh repo view                    # View current repository
+gh repo list                    # List your repositories
+gh repo create                  # Create new repository
+
+# Pull Requests
+gh pr create                    # Create PR with interactive prompts
+gh pr create --title "Title" --body "Description"  # Create PR non-interactively
+gh pr list                      # List all PRs
+gh pr view 123                  # View PR #123
+gh pr merge 123                 # Merge PR #123
+gh pr checkout 123              # Checkout PR #123 locally
+
+# Issues
+gh issue create                 # Create new issue
+gh issue list                   # List issues
+gh issue view 123               # View issue #123
+gh issue close 123              # Close issue #123
+
+# Workflows & CI/CD
+gh run list                     # List workflow runs
+gh run view                     # View latest run
+gh run watch                    # Watch workflow run in real-time
+gh workflow list                # List workflows
+gh workflow enable/disable      # Enable/disable workflow
+
+# Releases
+gh release create v1.0.0        # Create release
+gh release list                 # List releases
+gh release view v1.0.0          # View release details
+```
+
+**Integration with Workflows:**
+
+Use in Terminal 4 (Git Operations) for:
+- Creating PRs from feature branches
+- Monitoring CI/CD status
+- Managing issues and releases
+- Quick repository operations
+
+**Example Workflow:**
+```bash
+# Complete feature development workflow
+cd /Users/albertodelrio/Documents/vscodelocal/LearnClaudecode/worktrees/redesign
+git add .
+git commit -m "Implement new feature"
+git push origin feature/learning-page-redesign
+
+# Create PR
+gh pr create --title "Learning page redesign" \
+  --body "$(cat work/learning-page-redesign/plan/architecture-plan.md)" \
+  --base main
+
+# Check CI status
+gh run watch
+
+# Auto-merge when CI passes
+gh pr merge --auto --squash
+```
+
+---
+
 ## 🧪 Testing Tools
 
 ### Playwright CLI
+
+⚠️ **CRITICAL: CLI only** - No MCP server exists. Always use `npx playwright` commands via Bash tool.
 
 **Version:** @playwright/test@1.60.0
 **Installation:** Already installed via npm
@@ -245,6 +349,8 @@ Use `/webapp-testing` skill for guided Playwright workflows
 ---
 
 ## 📚 NotebookLM CLI
+
+⚠️ **CRITICAL: Use CLI only** - No MCP server exists for NotebookLM. Always use `notebooklm` command via Bash tool.
 
 **Version:** 0.7.1
 **Location:** `/Users/albertodelrio/.local/bin/notebooklm`
@@ -409,6 +515,16 @@ one for performance optimization, one for documentation"
 
 ## 📦 Installed Packages
 
+### System Tools
+
+```bash
+# Homebrew (macOS package manager)
+brew --version
+
+# GitHub CLI
+gh 2.62.0 (installed via Homebrew)
+```
+
 ### npm Packages
 
 ```json
@@ -432,6 +548,22 @@ notebooklm-py 0.7.1 (with browser support)
 ---
 
 ## 🎨 Project-Specific Tools
+
+### Custom Commands
+
+**Session Management:**
+- `/session-handoff` - Create handoff document at 60% context (saves to START-HERE-NEXT-SESSION.md)
+- `/session-resume` - Resume from previous session using handoff document
+- `/context-check` - Check context health and get recommendations
+
+**Location:** `.claude/commands/`
+
+**When to Use:**
+- `/context-check` - Run every 30-45 minutes or after major tasks
+- `/session-handoff` - When context reaches 60% AND task is complete
+- `/session-resume` - First thing when starting a new session after handoff
+
+See `dev-docs/CONTEXT-MANAGEMENT-GUIDE.md` for complete workflow.
 
 ### Custom Skills
 
@@ -576,10 +708,13 @@ npx playwright install
 | Multi-tasking | Agent Teams | ✅ Enabled |
 | Email Integration | Gmail MCP | ✅ Configured |
 | Calendar | Google Calendar MCP | ✅ Configured |
-| Repository Management | GitHub MCP | ✅ Configured |
+| Repository Management | GitHub MCP + CLI | ✅ Configured |
+| PR/Issue Management | GitHub CLI (gh) | ✅ Installed |
 | Workspace Docs | Notion MCP | ✅ Configured |
 | PDF/DOCX/PPTX | Document skills | ✅ Available |
 | Visual Design | Canvas Design skill | ✅ Available |
+| Session Management | `/session-handoff`, `/context-check` | ✅ Available |
+| Context Monitoring | Status line with % display | ⚠️ Needs fix |
 
 ---
 
