@@ -1,5 +1,5 @@
 ---
-description: Multi-agent adversarial development workflow with specialized roles for planning, implementation, security review, and UX refinement
+description: Multi-agent adversarial development workflow with 7 specialized agents: Design Consultant, Content Researcher, Architect, Implementer, Adversarial Reviewer, Pedagogical Reviewer, and UX Advocate. Designed for an educational static HTML/CSS/JS website targeting non-technical users. Agents interact across phases — parallel research → design-informed planning with vote → implementation → parallel review → synthesis → iteration.
 disable-model-invocation: false
 user-invocable: true
 arguments: [feature_description, scope]
@@ -7,686 +7,299 @@ arguments: [feature_description, scope]
 
 # Adversarial Team Development Workflow
 
-This skill orchestrates a multi-agent collaborative workflow for feature development with built-in adversarial review, security validation, and usability refinement.
+7-agent team for the Claude Code Learning Manual. Built for content quality, teaching effectiveness, non-generic visual design, and usable UI — not just code correctness.
 
-## When to Use This Skill
+## When to Use
 
 **Use for:**
-- Security-critical features (authentication, payments, PII handling)
-- Public-facing APIs
-- Core architecture changes
-- High-risk refactoring
-- Features requiring compliance (WCAG, SOC2, GDPR)
-- Complex features with multiple stakeholders
+- New pages or major sections
+- Interactive components (skill-level-selector, exercise-viewer, search enhancements)
+- Content rewrites (updating outdated sections)
+- Any feature that changes what users learn, how they navigate, or how the site looks
 
-**Do NOT use for:**
+**Skip for:**
 - Typo fixes
-- Simple documentation updates
-- Configuration changes
-- Obvious bug fixes
-- Minor refactoring
-
-## Workflow Overview
-
-This skill creates a team of 4 specialized agents:
-
-1. **ARCHITECT** - Planning and architecture design
-2. **IMPLEMENTER** - Code implementation and testing
-3. **ADVERSARIAL REVIEWER** - Security and quality audit (assumes code is broken)
-4. **UX ADVOCATE** - Usability and accessibility validation
-
-Each agent has veto power in their domain, and all 4 must reach consensus before the feature is considered complete.
+- CSS color tweaks
+- Single-line HTML corrections
+- Obvious bug fixes with no design or content impact
 
 ## Arguments
 
-- `feature_description` (required): Description of the feature to implement
-- `scope` (optional): Scope level - "critical" (full workflow), "standard" (skip some checks), "quick" (2 agents only)
+- `feature_description` (required): What to build or change
+- `scope`: `full` (all 7 agents, default), `design` (Design Consultant + Architect + Implementer + UX), `content` (Researcher + Reviewer + Pedagogical only), `build` (Architect + Implementer + UX only), `quick` (Implementer + Adversarial Reviewer only)
 
-## Agent Roles & Responsibilities
+---
 
-### Agent 1: ARCHITECT
+## The 7-Agent Team
 
-**Objective:** Create comprehensive implementation plan
-
-**Deliverables:**
-- Implementation plan (markdown)
-- Architecture decisions
-- File structure
-- Security requirements
-- Success criteria
-
-**Tools:**
-- Read, Grep, Glob for codebase analysis
-- Notion MCP for documentation
-- `/doc-coauthoring` skill
-
-**Constraints:**
-- MUST NOT write implementation code
-- MUST define security requirements upfront
-- MUST set measurable success criteria
-
-**Communication:**
-When plan is complete, explicitly hand off to Implementer:
 ```
-"@Implementer: Plan is complete. Key files to create:
-- [file list]
-Architecture pattern: [pattern]
-Critical security requirements: [list]
-Proceed with implementation."
+Phase 1 (parallel)           Phase 2                    Phase 3         Phase 4 (parallel)
+──────────────────────────   ─────────────────────────  ─────────────   ──────────────────────────────
+Design Consultant        →   Architect                  Implementer     Adversarial Reviewer
+Content Researcher       →   (reads both briefs)    →               →   UX Advocate
+                             produces 2 options                         Pedagogical Reviewer
+                             ↓                                                   ↓
+                             UX Advocate vote                         Phase 5: Synthesis
+                             Pedagogical Reviewer vote                           ↓
+                             ↓                                         Phase 6: Iteration
+                             Architect finalizes plan                            ↓
+                                                                       6/6 consensus → done
 ```
 
 ---
 
-### Agent 2: IMPLEMENTER
+## Phase 1: Parallel Research (Design Consultant + Content Researcher)
 
-**Objective:** Implement feature according to plan
+Both run simultaneously. Neither waits for the other. The Architect does not start until both hand off.
 
-**Deliverables:**
-- Working code
-- Test suite (all tests passing)
-- Code documentation
-- Implementation notes
+**Design Consultant:**
+1. Audit `docs/styles.css` and relevant HTML for AI-generated design patterns
+2. Research what the best documentation/educational sites are doing right now (WebSearch)
+3. Form an opinionated design direction for this specific feature
+4. Produce concrete CSS snippets and patterns — not prose direction
+5. Produce `work/[feature-name]/design-brief.md`
 
-**Tools:**
-- Read, Write, Edit for code
-- Bash for testing (Playwright, Jest, etc.)
-- GitHub MCP for commits
-
-**Constraints:**
-- MUST follow Architect's plan
-- MUST write tests for new code
-- MUST document code
-- NO security shortcuts
-
-**Security Checklist (while coding):**
-- [ ] No hardcoded secrets
-- [ ] Input validation on all user inputs
-- [ ] Output encoding to prevent XSS
-- [ ] Parameterized queries (no SQL injection)
-- [ ] HTTPS enforced for sensitive data
-- [ ] Error messages don't leak info
-- [ ] Authentication/authorization on sensitive endpoints
-
-**Communication:**
-When implementation is complete:
+**Handoff from Design Consultant:**
 ```
-"@Reviewer: Implementation complete.
+@Architect: Design brief ready at work/[feature-name]/design-brief.md
+Current design problems: [top 3 AI-generated patterns found]
+Design direction: [one opinionated sentence]
+Key technique: [most important CSS recommendation]
+Avoid: [most important pattern to reject]
+```
 
-Files changed:
-- src/auth/auth.service.js - Core auth logic
-- src/auth/auth.controller.js - API endpoints
-- tests/auth.test.js - Test suite
+**Content Researcher:**
+1. Search official Claude Code docs for the topic
+2. Audit existing `docs/*.html` for related content and outdated facts
+3. Query NotebookLM for existing knowledge
+4. Identify gaps and contradictions
+5. Produce `work/[feature-name]/research.md`
 
-All tests passing: ✅
-Self-review complete: ✅
-
-Ready for adversarial security review."
+**Handoff from Content Researcher:**
+```
+@Architect: Research brief ready at work/[feature-name]/research.md
+Key findings: [summary]
+Watch out for: [specific risk or outdated assumption]
 ```
 
 ---
 
-### Agent 3: ADVERSARIAL REVIEWER
+## Phase 2: Architecture with Vote (Architect leads, UX Advocate + Pedagogical Reviewer vote)
 
-**Objective:** Challenge implementation and find vulnerabilities
+**Architect reads BOTH briefs first:** `work/[feature-name]/design-brief.md` and `work/[feature-name]/research.md`. The design direction and content findings together shape the two options — not just one or the other.
 
-**Mindset:**
-**ASSUME THE CODE IS BROKEN. ASSUME THE DEVELOPER MISSED SOMETHING. YOUR JOB IS TO PROVE IT.**
+**Architect then:**
+1. Produce **two meaningfully different design options** in `work/[feature-name]/plan.md`
+2. Each option must reflect the Design Consultant's direction — not ignore it
+3. For each option: file changes, CSS classes needed, JS patterns, design approach, tradeoffs
+4. Request a vote from UX Advocate and Pedagogical Reviewer
 
-**Deliverables:**
-- Security audit report (CRITICAL/HIGH/MEDIUM/LOW)
-- Code quality assessment
-- Edge case list
-- Prioritized fix recommendations
+**Vote (UX Advocate + Pedagogical Reviewer, in parallel):**
+- Each reviews both options in `plan.md`
+- Each votes: Option A / Option B / Neither (with reason)
+- Quick review — ~15 min, not a full audit
 
-**Tools:**
-- Grep for pattern analysis
-- Read for code review
-- IDE diagnostics MCP
-- `/codex:adversarial-review` (if available)
+**Architect finalizes** based on vote, notes why the other option was rejected.
 
-**Review Framework (STRIDE Threat Model):**
-
-**S - Spoofing:** Can attacker impersonate a user?
-- Check: Authentication strength, session management
-
-**T - Tampering:** Can data be modified maliciously?
-- Check: Input validation, integrity checks
-
-**R - Repudiation:** Can actions be denied?
-- Check: Logging, audit trails
-
-**I - Information Disclosure:** Can sensitive data leak?
-- Check: Error messages, logs, API responses
-
-**D - Denial of Service:** Can system be overwhelmed?
-- Check: Rate limiting, resource limits
-
-**E - Elevation of Privilege:** Can user gain unauthorized access?
-- Check: Authorization checks, role validation
-
-**Security Checklist:**
-- [ ] SQL Injection possible?
-- [ ] XSS vulnerabilities?
-- [ ] CSRF protection present?
-- [ ] Authentication bypasses?
-- [ ] Authorization bypasses?
-- [ ] Session fixation possible?
-- [ ] Race conditions?
-- [ ] Integer overflow?
-- [ ] Path traversal possible?
-- [ ] Insecure deserialization?
-- [ ] Secrets in code/logs?
-- [ ] Timing attacks possible?
-
-**Edge Cases to Test:**
-- [ ] Null/undefined inputs
-- [ ] Empty strings
-- [ ] Extremely long inputs (DoS)
-- [ ] Special characters
-- [ ] Unicode/emoji
-- [ ] Concurrent requests
-- [ ] Database/service failures
-- [ ] Network timeouts
-- [ ] Invalid tokens/sessions
-- [ ] Boundary values (INT_MAX, etc.)
-
-**Communication:**
-Report findings with severity:
+**Handoff to Implementer:**
 ```
-"@Team: Adversarial security review complete.
-
-## CRITICAL Issues (MUST FIX)
-1. JWT_SECRET not in .gitignore - secret exposure risk
-2. No HTTPS enforcement - credentials over plaintext
-
-## HIGH Issues (SHOULD FIX)
-3. Rate limiting not implemented - brute force risk
-4. Timing attack possible - bcrypt comparison leaks email existence
-
-## MEDIUM Issues (CONSIDER)
-5. No token revocation - stolen tokens valid until expiry
-
-## Edge Cases Found
-- Extremely long password causes DoS (bcrypt)
-- Concurrent logins race condition
-
-@Implementer: Address CRITICAL and HIGH before consensus.
-@Architect: Issue #1 violates security requirements."
+@Implementer: Plan finalized at work/[feature-name]/plan.md
+Option [A/B] chosen. Key files: [list]. Proceed.
 ```
 
 ---
 
-### Agent 4: UX ADVOCATE
+## Phase 3: Implementation (Implementer leads)
 
-**Objective:** Ensure feature is usable and accessible
+**Implementer:**
+1. Reads finalized plan
+2. Implements changes in `docs/` files
+3. Uses existing CSS class system — creates new classes only when necessary
+4. Runs Playwright headed to visually verify at desktop and mobile (375px)
+5. Tests dark mode
+6. Completes self-review checklist
 
-**Deliverables:**
-- Usability assessment
-- Accessibility compliance report (WCAG AA)
-- Clarifying questions
-- Documentation review
-- Refinement suggestions
-
-**Tools:**
-- `/webapp-testing` skill with Playwright
-- Read for documentation review
-- Accessibility checkers
-
-**Review Areas:**
-
-**Usability:**
-- Is the feature intuitive?
-- Are error messages helpful?
-- Is feedback clear and immediate?
-- Does it follow existing patterns?
-- Is documentation clear?
-
-**Accessibility (WCAG AA):**
-- [ ] Keyboard navigation works
-- [ ] Screen reader support (ARIA labels)
-- [ ] Focus indicators visible
-- [ ] Color contrast >= 4.5:1
-- [ ] No reliance on color alone
-- [ ] Form labels present
-- [ ] Error identification clear
-- [ ] Skip links available
-
-**Questions to Ask:**
-- "What happens when a user does X?"
-- "How does a user know Y?"
-- "What if the user doesn't understand Z?"
-- "Is this accessible to users with disabilities?"
-- "Does this work on mobile?"
-- "What if the user is in a hurry?"
-- "What if English is not their first language?"
-
-**Communication:**
+**Handoff:**
 ```
-"@Team: Usability assessment complete.
-
-## User Experience Issues
-❌ No password strength indicator - user doesn't know requirements
-❌ Generic error message - doesn't help user fix problem
-❌ No 'forgot password' link - user has no recovery path
-
-## Accessibility Issues
-❌ Missing ARIA labels - screen readers can't identify fields
-❌ No focus management on errors - keyboard users lost
-❌ Color-only error indication - violates WCAG
-
-## Questions for Team
-1. "How does user reset password?" → Not implemented
-2. "Why was my password rejected?" → Need real-time validation
-3. "Can I stay logged in?" → Need 'remember me' option
-
-## Recommendations
-1. Add password strength meter (real-time)
-2. Add specific error messages with guidance
-3. Add ARIA labels: aria-label="Email address"
-4. Add forgot password flow (or document as future work)
-
-@Implementer: Please address accessibility issues (WCAG required).
-@Architect: Should we add password reset to scope?"
+@Adversarial-Reviewer @UX-Advocate @Pedagogical-Reviewer: Implementation complete.
+Files changed: [list]
+Visual + mobile + dark mode checked: ✅
+Ready for parallel review.
 ```
 
 ---
 
-## Workflow Phases
+## Phase 4: Parallel Review (3 agents simultaneously)
 
-### Phase 1: PLANNING (20% time)
+All three run at the same time on the completed implementation. They do NOT wait for each other.
 
-**Architect leads:**
-1. Analyze requirement
-2. Research existing patterns (NotebookLM, codebase)
-3. Create implementation plan
-4. Define security requirements
-5. Set success criteria
+**Adversarial Reviewer:**
+- Validates all code examples using Codex (`/codex:adversarial-review` or `codex review`)
+- Cross-references content against other pages for consistency
+- Checks JS edge cases
+- Forwards Codex UI suggestions to UX Advocate
+- Produces `work/[feature-name]/review/accuracy-audit.md`
 
-**UX Advocate reviews plan:**
-- Ask clarifying questions
-- Identify user impact
-- Suggest accessibility considerations
+**UX Advocate:**
+- Tests mobile viewport (375px) and dark mode in Playwright
+- Checks WCAG AA accessibility with fix snippets
+- Evaluates Codex UI suggestions received from Adversarial Reviewer
+- Produces `work/[feature-name]/ux/usability-report.md`
 
-**Output:** Approved plan
-
----
-
-### Phase 2: IMPLEMENTATION (45% time)
-
-**Implementer leads:**
-1. Create file structure
-2. Write code following plan
-3. Write tests (TDD encouraged)
-4. Document code
-5. Self-review against security checklist
-
-**Output:** Working implementation with tests
+**Pedagogical Reviewer:**
+- Reviews content for teaching quality, jargon, learning progression
+- Gets second opinion from Codex on pedagogical clarity
+- Checks that examples are realistic for non-technical users
+- Produces `work/[feature-name]/ux/pedagogical-review.md`
 
 ---
 
-### Phase 3: ADVERSARIAL REVIEW (20% time)
+## Phase 5: Synthesis
 
-**Reviewer leads:**
-1. Security scan (STRIDE framework)
-2. Code quality analysis
-3. Edge case identification
-4. Challenge assumptions
-5. Create prioritized fix list
+After all three review reports are complete, produce a combined synthesis in `work/[feature-name]/synthesis.md`:
 
-**Output:** Security audit report
+**Synthesis format:**
+```markdown
+# [Feature Name] — Review Synthesis
 
----
+## Must Fix (blocking consensus)
+| # | Issue | Severity | Source | Assignee |
+|---|-------|----------|--------|----------|
+| 1 | [issue] | CRITICAL | Adversarial | Implementer |
+| 2 | [issue] | WCAG | UX | Implementer |
 
-### Phase 4: USABILITY VALIDATION (15% time)
+## Should Fix (before merge)
+[list]
 
-**UX Advocate leads:**
-1. Test user flows
-2. Check accessibility (WCAG AA)
-3. Review error handling
-4. Review documentation
-5. Suggest refinements
+## Consider (document if deferring)
+[list]
 
-**Output:** Usability report
+## Agreed Wins (don't change these)
+[what's working well across all reviews]
 
----
-
-### Phase 5: ITERATION (until consensus)
-
-**All agents:**
-1. Review all feedback
-2. Implementer addresses issues
-3. Reviewer validates fixes
-4. UX validates improvements
-5. Architect confirms alignment
-6. **Repeat until all approve**
-
-**Consensus Criteria:**
-- [ ] Architect: Plan followed, architecture sound
-- [ ] Implementer: All tests passing, code documented
-- [ ] Reviewer: No CRITICAL or HIGH security issues
-- [ ] UX Advocate: WCAG AA compliant, usable
-
-**Output:** Production-ready feature ✅
-
----
-
-## Communication Protocol
-
-### Starting the Team
-
-When this skill is invoked, create the team:
-
-```
-"Starting adversarial team development workflow for: [feature]
-
-Creating team of 4 agents:
-1. Architect - Planning and architecture
-2. Implementer - Code implementation
-3. Adversarial Reviewer - Security and quality
-4. UX Advocate - Usability and accessibility
-
-@Architect: Please begin with requirements analysis and create implementation plan."
+## Consensus Status
+- Adversarial Reviewer: ❌ (blocking: #1, #2)
+- UX Advocate: ❌ (blocking: #2, #3)
+- Pedagogical Reviewer: ✅
+- Implementer: (pending fixes)
+- Architect: ✅
+Overall: NEEDS WORK
 ```
 
-### Handoff Pattern
-
-Each phase explicitly hands off to next:
-
-**Architect → Implementer:**
+**Handoff:**
 ```
-"@Implementer: Plan approved. Key points:
-- [summary]
-Proceed with implementation."
-```
-
-**Implementer → Reviewer & UX:**
-```
-"@Reviewer @UX: Implementation complete.
-Ready for review."
-```
-
-**Reviewer & UX → Team:**
-```
-"@Team: Reviews complete.
-[Findings summary]
-@Implementer: Please address."
-```
-
-**All → Consensus:**
-```
-"@Team: Consensus check.
-- Architect: ✅/❌ + reason
-- Implementer: ✅/❌ + reason
-- Reviewer: ✅/❌ + reason
-- UX Advocate: ✅/❌ + reason
-
-Status: [APPROVED / NEEDS WORK]"
+@Implementer: Synthesis ready at work/[feature-name]/synthesis.md
+Blocking issues: [count] — address these first.
+Non-blocking: [count] — address before merge.
 ```
 
 ---
 
-## Workspace Organization
+## Phase 6: Iteration (until consensus)
 
-Create shared workspace for collaboration:
+**Implementer addresses issues** in order: CRITICAL → HIGH → WCAG → MEDIUM
+
+After each round of fixes:
+- Adversarial Reviewer re-checks their CRITICAL/HIGH items
+- UX Advocate re-checks their WCAG items
+- Pedagogical Reviewer re-checks blocking pedagogical issues
+- Update consensus status in synthesis.md
+
+**Repeat until:** All 6 agents (Design Consultant, Adversarial Reviewer, UX Advocate, Pedagogical Reviewer, Implementer, Architect) mark ✅
+
+Max 3 iteration rounds before escalating to user for tiebreaker.
+
+---
+
+## Consensus Criteria (6/6 required)
+
+| Agent | Their veto condition |
+|-------|---------------------|
+| Design Consultant | Implemented design ignores the design brief / looks AI-generated |
+| Architect | Plan not followed, architecture broken |
+| Implementer | Tests not passing, unresolved blockers |
+| Adversarial Reviewer | CRITICAL accuracy issue or broken code example |
+| UX Advocate | WCAG AA violation (when compliance required) |
+| Pedagogical Reviewer | Content that would confuse or exclude target audience |
+
+---
+
+## Workspace Structure
 
 ```
 work/[feature-name]/
-├── plan.md                     # Architect
-├── implementation/             # Implementer
-│   ├── src/
-│   └── tests/
-├── review/                     # Reviewer
-│   ├── security-audit.md
-│   └── quality-report.md
-├── ux/                         # UX Advocate
-│   ├── usability-report.md
-│   └── accessibility-checklist.md
-└── consensus.md                # Final approval
+├── design-brief.md          ← Design Consultant
+├── research.md              ← Content Researcher
+├── plan.md                  ← Architect (2 options + vote result + final)
+├── synthesis.md             ← Synthesis (updated each iteration)
+├── implementation/
+│   └── notes.md             ← Implementer deviation log
+├── review/
+│   └── accuracy-audit.md   ← Adversarial Reviewer
+└── ux/
+    ├── usability-report.md  ← UX Advocate (with fix snippets)
+    └── pedagogical-review.md ← Pedagogical Reviewer
 ```
 
 ---
 
-## Veto Powers
+## Scope Shortcuts
 
-Each agent has veto power in their domain:
-
-**Architect:** Can veto implementation that violates architecture
-**Implementer:** Can veto unrealistic requirements
-**Reviewer:** Can veto code with CRITICAL security issues
-**UX Advocate:** Can veto WCAG violations (if compliance required)
-
-**Escalation:** If veto disputed, user makes final call.
+| Scope | Agents | When to use |
+|-------|--------|-------------|
+| `full` | All 7 | New features, major content or design changes |
+| `design` | Design Consultant + Architect + Implementer + UX | Design/layout changes with stable content |
+| `content` | Content Researcher + Adversarial + Pedagogical | Content-only updates, no new UI |
+| `build` | Architect + Implementer + UX | UI changes where design direction is already set |
+| `quick` | Implementer + Adversarial | Small, bounded code changes |
 
 ---
 
-## Example Usage
+## Startup Message
 
-### Invoke the Skill
+When this skill is invoked, confirm the team and kick off Phase 1:
 
+```
+Starting adversarial team workflow for: [feature_description]
+Scope: [scope]
+
+Team:
+1. Design Consultant — auditing current design, researching what makes sites look non-generic
+2. Content Researcher — verifying facts, finding gaps (runs in parallel with Design Consultant)
+3. Architect — reads both briefs, produces 2 design options + team vote
+4. Implementer — builds the chosen option
+5. Adversarial Reviewer — content accuracy + Codex validation + UI suggestions
+6. UX Advocate — accessibility + mobile + fix snippets + evaluates Codex UI ideas
+7. Pedagogical Reviewer — teaching quality + Codex second opinion on clarity
+
+Creating workspace: work/[feature-name]/
+
+@Design-Consultant @Content-Researcher: Begin Phase 1 in parallel.
+Design brief and research brief both due before the Architect starts.
+```
+
+---
+
+## Codex Integration Points
+
+| Phase | Agent | Codex use |
+|-------|-------|-----------|
+| Phase 1 | Design Consultant | Research non-generic CSS patterns and techniques |
+| Phase 4 | Adversarial Reviewer | Validate all code examples in HTML are correct commands |
+| Phase 4 | Adversarial Reviewer | Generate UI improvement suggestions → forwards to UX Advocate |
+| Phase 4 | Pedagogical Reviewer | Second opinion on content clarity for non-technical users |
+
+If Codex plugin is installed:
 ```bash
-/adversarial-team "Add user authentication with email/password" critical
+/codex:adversarial-review --scope=changed --depth=thorough "[specific focus]"
 ```
 
-### Scope Levels
-
-**critical** (full workflow):
-- All 4 agents
-- All security checks
-- Full accessibility audit
-- Use for: auth, payments, PII
-
-**standard** (streamlined):
-- All 4 agents
-- Reduced security checks
-- Basic accessibility
-- Use for: important features
-
-**quick** (2 agents):
-- Implementer + Reviewer only
-- Basic security check
-- No UX review
-- Use for: internal features
-
----
-
-## Success Metrics
-
-After feature completion, measure:
-
-**Quality:**
-- Security vulnerabilities found: [count]
-- Security vulnerabilities remaining: 0 CRITICAL, 0 HIGH
-- Test coverage: [percentage]
-- WCAG compliance: [AA/AAA]
-
-**Process:**
-- Iterations to consensus: [count]
-- Time distribution: Plan/Impl/Review/UX
-- Blocking issues: [count]
-
-**Outcome:**
-- Feature approved: [yes/no]
-- Production deployed: [yes/no]
-- Issues found in production: [count]
-
----
-
-## Advantages
-
-✅ **Comprehensive:** Multiple perspectives catch issues
-✅ **Secure:** Adversarial review finds vulnerabilities
-✅ **Usable:** UX advocate ensures user-friendliness
-✅ **Documented:** Each phase creates documentation
-✅ **Quality gates:** Can't skip critical reviews
-✅ **Reduced rework:** Issues caught before production
-
----
-
-## Limitations
-
-⚠️ **Resource intensive:** 4 agents = significant overhead
-⚠️ **Slower:** More thorough = more time
-⚠️ **Overkill for simple changes:** Use judgment
-⚠️ **Requires coordination:** Clear communication needed
-
----
-
-## Best Practices
-
-1. **Choose scope appropriately** - Don't use "critical" for typo fixes
-2. **Pre-approve permissions** - Reduce interruptions
-3. **Clear handoffs** - Explicit @mentions for next agent
-4. **Async where possible** - Reviewer + UX can work parallel
-5. **Document decisions** - Why we chose approach X over Y
-6. **Celebrate consensus** - Acknowledge when team agrees
-
----
-
-## Troubleshooting
-
-**If agents disagree endlessly:**
-- Set iteration limit (max 3 rounds)
-- Escalate to user for tiebreaker
-- Architect makes final architecture call
-- Reviewer has final security call
-
-**If workflow is too slow:**
-- Use "standard" or "quick" scope
-- Reduce team to 2-3 agents
-- Save full workflow for critical features
-
-**If reviews are too shallow:**
-- Reviewer: Use STRIDE framework explicitly
-- UX: Use WCAG checklist explicitly
-- Set minimum issues to find (e.g., 5+)
-
----
-
-## Integration with External Tools
-
-**If Codex plugin is available:**
-Reviewer should invoke:
-```
-/codex:adversarial-review --scope=changed --depth=thorough "security vulnerabilities"
-```
-
-**If NotebookLM is available:**
-Architect should research:
-```
-notebooklm ask "What are best practices for [feature]?"
-```
-
-**If Playwright is available:**
-UX should test:
-```
-npx playwright test --headed
+If using Codex CLI (`/usr/local/bin/codex`):
+```bash
+codex review --focus=accuracy   # for Adversarial Reviewer
+codex review --focus=clarity    # for Pedagogical Reviewer
 ```
 
 ---
 
-## Future Enhancements
-
-**Potential Additions:**
-- Agent 5: Performance Engineer (load testing, optimization)
-- Agent 6: Documentation Specialist (API docs, guides)
-- Automated handoffs (agent completion → auto-notify next)
-- Integration with CI/CD (auto-trigger on PR)
-- Metrics dashboard (track team performance)
-
----
-
-## Reference Documentation
-
-See detailed workflow documentation:
-`dev-docs/AGENT-TEAM-WORKFLOW.md`
-
----
-
-## Execution Instructions
-
-When this skill is invoked:
-
-1. **Parse arguments:**
-   - feature_description (required)
-   - scope (default: "standard")
-
-2. **Create team:**
-   - Spawn 4 agents with roles defined above
-   - Create shared workspace directory
-
-3. **Initialize workflow:**
-   - Set Architect as team lead
-   - Create shared task list
-   - Notify all agents of their roles
-
-4. **Execute phases:**
-   - Phase 1: Architect creates plan
-   - Phase 2: Implementer codes feature
-   - Phase 3: Reviewer audits security
-   - Phase 4: UX validates usability
-   - Phase 5: Iterate until consensus
-
-5. **Completion:**
-   - Verify consensus (4/4 approval)
-   - Generate summary report
-   - Clean up workspace (optional)
-
----
-
-## Task List Template
-
-Create shared task list for coordination:
-
-```markdown
-# [Feature Name] - Task List
-
-## Phase 1: Planning (Architect)
-- [ ] Analyze requirements
-- [ ] Research existing patterns
-- [ ] Create implementation plan
-- [ ] Define security requirements
-- [ ] Set success criteria
-- [ ] UX review of plan
-
-## Phase 2: Implementation (Implementer)
-- [ ] Create file structure
-- [ ] Implement core logic
-- [ ] Write tests
-- [ ] Document code
-- [ ] Self-review security checklist
-
-## Phase 3: Security Review (Reviewer)
-- [ ] STRIDE threat model
-- [ ] OWASP Top 10 check
-- [ ] Edge case analysis
-- [ ] Code quality review
-- [ ] Create fix list
-
-## Phase 4: UX Review (UX Advocate)
-- [ ] Usability testing
-- [ ] Accessibility audit (WCAG AA)
-- [ ] Documentation review
-- [ ] Error handling check
-- [ ] Refinement suggestions
-
-## Phase 5: Iteration
-- [ ] Address CRITICAL issues
-- [ ] Address HIGH issues
-- [ ] Address accessibility issues
-- [ ] Re-validate fixes
-- [ ] Achieve consensus (4/4)
-
-## Consensus
-- [ ] Architect approval
-- [ ] Implementer approval
-- [ ] Reviewer approval
-- [ ] UX Advocate approval
-
-Status: [IN PROGRESS / APPROVED]
-```
-
----
-
-**End of Skill Definition**
-
-*This skill creates a robust, multi-agent workflow that significantly reduces the risk of security vulnerabilities, usability issues, and technical debt by requiring consensus from specialized agents before merging code.*
+*This skill is designed for the Claude Code Learning Manual — a static HTML/CSS/JS educational site for non-technical professionals. Adjust agent focus for different project types.*

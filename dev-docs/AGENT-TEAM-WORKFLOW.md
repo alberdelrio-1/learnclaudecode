@@ -1,889 +1,332 @@
-# Agent Team Collaboration Workflow
-**Multi-Agent Adversarial Development & Review System**
+# Agent Team Development Workflow
+**Multi-Agent Adversarial System — 7 Specialists, 6 Phases, 6/6 Consensus Required**
 
-*Created: June 13, 2026*
-*Status: Planning & Design Phase*
-
----
-
-## Overview
-
-This document outlines a sophisticated agent team workflow that combines planning, implementation, review, and usability refinement through multiple AI agents working in collaboration.
-
-**Goal:** Create a robust development workflow where different agents specialize in different aspects of the development lifecycle, providing comprehensive coverage and adversarial validation.
+*Last updated: June 14, 2026*
 
 ---
 
-## Agent Team Structure
+## What This Is
 
-### Team Composition (4 Agents)
+A structured workflow where 7 specialized AI agents collaborate to build and review features. Each agent owns a distinct domain and has **veto power** within it. Nothing ships until all 6 reviewers sign off.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    AGENT TEAM WORKFLOW                       │
-└─────────────────────────────────────────────────────────────┘
+The key innovation: most teams put design and content review at the *end* as a coat of paint. Here, research and design investigation happen *before* any planning begins — so design direction is baked into the architecture, not retrofitted onto it.
 
-Agent 1: ARCHITECT           Agent 2: IMPLEMENTER
-  ├─ Analyzes requirements     ├─ Writes code
-  ├─ Creates plan              ├─ Follows architecture
-  ├─ Defines architecture      ├─ Implements features
-  └─ Sets success criteria     └─ Creates tests
-           │                            │
-           ▼                            ▼
-Agent 3: ADVERSARIAL         Agent 4: UX ADVOCATE
-  ├─ Security review           ├─ Usability questions
-  ├─ Code quality audit        ├─ User experience review
-  ├─ Edge case analysis        ├─ Documentation clarity
-  └─ Challenges assumptions    └─ Accessibility check
-           │                            │
-           └────────────┬───────────────┘
-                        ▼
-                 ITERATION LOOP
-                 (until consensus)
+---
+
+## Part 1 — How to Start the Workflow
+
+### Step 1: Open Claude Code in your project terminal
+
+```bash
+cd /Users/albertodelrio/Documents/vscodelocal/LearnClaudecode
+claude   # opens Claude Code in this directory
 ```
 
----
+### Step 2: Choose your scope
 
-## Agent Roles & Responsibilities
+Ask yourself: how big is this change?
 
-### Agent 1: ARCHITECT (Planning Specialist)
+| If you're building... | Use this scope |
+|-----------------------|----------------|
+| A new page, major component, or anything touching content AND design | `full` |
+| A UI or layout change, content is already solid | `design` |
+| Updating facts or writing new content, no new UI | `content` |
+| Implementing something already planned and designed | `build` |
+| A small, bounded fix you just want a second pair of eyes on | `quick` |
 
-**Primary Responsibilities:**
-- Analyze user requirements and project context
-- Create comprehensive implementation plan
-- Define system architecture and design patterns
-- Set success criteria and acceptance tests
-- Identify potential challenges and dependencies
+### Step 3: Run the skill
 
-**Deliverables:**
-- Detailed implementation plan (markdown)
-- Architecture diagrams (if needed)
-- File structure and module organization
-- Success criteria checklist
-- Risk assessment
-
-**Skills/Tools:**
-- `/doc-coauthoring` - Structured planning
-- NotebookLM - Research existing patterns
-- Notion MCP - Documentation
-
-**Constraints:**
-- NO code implementation
-- Focus on "what" and "why", not "how"
-- Must consider security from design phase
-
----
-
-### Agent 2: IMPLEMENTER (Execution Specialist)
-
-**Primary Responsibilities:**
-- Implement features according to architecture plan
-- Write clean, maintainable code
-- Create unit tests and integration tests
-- Follow established patterns and conventions
-- Document code with inline comments
-
-**Deliverables:**
-- Implemented features (code files)
-- Test suites (passing tests)
-- Implementation notes
-- Code documentation
-
-**Skills/Tools:**
-- Built-in code editing (Read, Write, Edit)
-- Testing frameworks (Playwright, Jest, etc.)
-- Git operations for commits
-
-**Constraints:**
-- MUST follow Architect's plan
-- Cannot deviate from architecture without team discussion
-- Must write tests for all new code
-- Security-first mindset (no SQL injection, XSS, etc.)
-
----
-
-### Agent 3: ADVERSARIAL REVIEWER (Security & Quality Specialist)
-
-**Primary Responsibilities:**
-- Challenge implementation approach
-- Security vulnerability scanning (OWASP Top 10)
-- Code quality and pattern analysis
-- Edge case identification
-- Performance bottleneck detection
-- Assume code is broken and hunt for problems
-
-**Deliverables:**
-- Security audit report
-- Code quality assessment
-- List of vulnerabilities found
-- Edge cases to test
-- Recommended fixes (prioritized)
-
-**Skills/Tools:**
-- Built-in security analysis
-- `/codex:adversarial-review` (if available)
-- Grep for pattern detection
-- IDE diagnostics MCP
-
-**Review Checklist:**
-- [ ] SQL Injection vulnerabilities
-- [ ] XSS (Cross-Site Scripting)
-- [ ] CSRF protection
-- [ ] Authentication/Authorization flaws
-- [ ] Insecure deserialization
-- [ ] Race conditions
-- [ ] Input validation
-- [ ] Error handling
-- [ ] Secrets in code
-- [ ] Dependency vulnerabilities
-
-**Mindset:**
-- **Assume hostility:** Every input is malicious
-- **Question everything:** Why this approach? What breaks?
-- **Find the edge:** What happens at limits?
-- **Challenge assumptions:** What did we miss?
-
----
-
-### Agent 4: UX ADVOCATE (Usability & Refinement Specialist)
-
-**Primary Responsibilities:**
-- Evaluate user experience and usability
-- Ask clarifying questions for unclear features
-- Review documentation for clarity
-- Accessibility compliance (WCAG)
-- API/Interface design review
-- Suggest refinements and improvements
-
-**Deliverables:**
-- Usability assessment report
-- Clarifying questions list
-- Accessibility compliance report
-- Documentation improvement suggestions
-- User-facing refinements
-
-**Skills/Tools:**
-- `/webapp-testing` - UI testing with Playwright
-- Accessibility checkers
-- Documentation review
-
-**Review Focus:**
-- **Usability:** Is it intuitive? Clear error messages?
-- **Accessibility:** Keyboard navigation? Screen reader support?
-- **Documentation:** Can a user understand how to use it?
-- **Error handling:** Are errors helpful or cryptic?
-- **Consistency:** Does it match existing patterns?
-
-**Key Questions to Ask:**
-- "What happens when a user does X?"
-- "How does a user know Y?"
-- "What if the user doesn't understand Z?"
-- "Is this accessible to users with disabilities?"
-- "Does this work on mobile?"
-
----
-
-## Workflow Phases
-
-### Phase 1: PLANNING (Architect leads)
-
-**Input:** User requirement/feature request
-
-**Process:**
-1. Architect analyzes requirement
-2. Architect creates detailed plan
-3. Architect defines success criteria
-4. UX Advocate reviews plan for user impact
-5. Team discusses and approves plan
-
-**Output:** Approved implementation plan
-
-**Duration:** ~15-20% of total time
-
----
-
-### Phase 2: IMPLEMENTATION (Implementer leads)
-
-**Input:** Approved plan from Phase 1
-
-**Process:**
-1. Implementer creates file structure
-2. Implementer writes code following plan
-3. Implementer creates tests
-4. Implementer documents code
-5. Self-review against plan
-
-**Output:** Implemented feature with tests
-
-**Duration:** ~40-50% of total time
-
----
-
-### Phase 3: ADVERSARIAL REVIEW (Reviewer leads)
-
-**Input:** Implemented code from Phase 2
-
-**Process:**
-1. Reviewer performs security scan
-2. Reviewer analyzes code quality
-3. Reviewer identifies edge cases
-4. Reviewer challenges approach
-5. Reviewer creates prioritized fix list
-
-**Output:** Security & quality audit report
-
-**Critical Questions:**
-- "Can this be exploited?"
-- "What breaks at scale?"
-- "What assumptions are wrong?"
-- "What edge cases were missed?"
-
-**Duration:** ~20-25% of total time
-
----
-
-### Phase 4: USABILITY REFINEMENT (UX Advocate leads)
-
-**Input:**
-- Implemented code
-- Review feedback
-
-**Process:**
-1. UX Advocate tests user flows
-2. UX Advocate reviews error handling
-3. UX Advocate checks accessibility
-4. UX Advocate reviews documentation
-5. UX Advocate suggests improvements
-
-**Output:** Usability assessment & refinements
-
-**Duration:** ~15-20% of total time
-
----
-
-### Phase 5: ITERATION & CONSENSUS
-
-**Input:** All feedback from Phases 3-4
-
-**Process:**
-1. Team reviews all feedback
-2. Implementer addresses critical issues
-3. Reviewer validates fixes
-4. UX Advocate confirms improvements
-5. Architect validates against plan
-6. **Repeat until consensus**
-
-**Consensus Criteria:**
-- [ ] All security vulnerabilities addressed
-- [ ] Code quality meets standards
-- [ ] All tests passing
-- [ ] Usability approved
-- [ ] Documentation complete
-- [ ] Accessibility compliant
-- [ ] Architect confirms alignment with plan
-
-**Output:** Production-ready feature
-
----
-
-## Communication Protocol
-
-### Inter-Agent Communication
-
-**Architect → Implementer:**
-```
-"Here's the plan for [feature]. Key points:
-- Architecture: [pattern]
-- Files to create: [list]
-- Success criteria: [list]
-Proceed with implementation."
+```bash
+/adversarial-team "what you want to build" [scope]
 ```
 
-**Implementer → Reviewer:**
-```
-"Implementation complete. Files changed:
-- [file1]: [description]
-- [file2]: [description]
-Ready for security and quality review."
+That's it. Claude Code launches the agents in the correct order automatically. You watch the conversation — agents hand off to each other and you're notified when a decision or vote needs your input.
+
+### Step 4: What you'll see
+
+The workflow surfaces decisions at two moments:
+
+1. **After Phase 2 (Architecture):** The Architect produces two options. UX Advocate and Pedagogical Reviewer vote. You can override the vote if you disagree.
+2. **After Phase 5 (Synthesis):** A prioritized table of issues is presented. You can defer MEDIUM/LOW items before the Implementer starts fixing.
+
+Everything else runs without you needing to do anything.
+
+### Step 5: When it's done
+
+The workflow ends when all 6 reviewers mark ✅. At that point:
+
+```bash
+# In your git terminal (Terminal 3)
+cd worktrees/redesign
+git add .
+git commit -m "your message"
+git push origin feature/learning-page-redesign
 ```
 
-**Reviewer → Team:**
-```
-"Adversarial review findings:
-CRITICAL: [issues]
-HIGH: [issues]
-MEDIUM: [issues]
-Recommend addressing CRITICAL before proceeding."
-```
-
-**UX Advocate → Team:**
-```
-"Usability assessment:
-Questions: [list]
-Accessibility issues: [list]
-Suggestions: [list]
-Approval status: [APPROVED/NEEDS WORK]"
-```
-
-### Escalation Protocol
-
-**If agents disagree:**
-1. Architect makes final call on architecture
-2. Reviewer has veto power on security
-3. UX Advocate has veto power on accessibility
-4. Implementer proposes alternatives
-
-**If blocked:**
-- Team discusses in shared space
-- Vote if necessary (3/4 consensus)
-- User provides tiebreaker
+GitHub Pages auto-deploys from `docs/` within 2–3 minutes of merging to `main`.
 
 ---
 
-## Technical Implementation
+## Part 2 — Real Examples of What to Run
 
-### Using Claude Code Agent Teams
+### Building something new
+```bash
+/adversarial-team "add a skill-level-selector and exercise-viewer to the learning page" full
+/adversarial-team "create a new page for Salesforce integration examples" full
+/adversarial-team "add a progress tracker that remembers which exercises the user completed" full
+```
 
-**Enable Agent Teams:**
-Already enabled in `~/.claude/settings.json`:
-```json
+### Updating content
+```bash
+/adversarial-team "the installation instructions on getting-started.html are wrong — find the correct commands and update the page" content
+/adversarial-team "the MCP servers section is outdated — research and rewrite it with current options" content
+/adversarial-team "add 5 new exercises for intermediate users focused on professional work tasks" content
+```
+
+### Fixing design problems
+```bash
+/adversarial-team "the site looks generic — audit every page and apply the design brief recommendations" design
+/adversarial-team "the mobile navigation is broken at 375px — fix it" build
+/adversarial-team "dark mode has contrast issues throughout — find and fix them all" build
+```
+
+### Quick checks
+```bash
+/adversarial-team "I just added a new concept card to core-concepts.html — review it" quick
+/adversarial-team "check the search results page for broken layouts" quick
+```
+
+---
+
+## Part 3 — The 7 Agents
+
+| # | Agent | Role | Veto Power |
+|---|-------|------|------------|
+| 1 | **Design Consultant** | Audits the current site for AI-generated patterns. Researches what the best sites in this category are doing. Produces concrete CSS techniques and a design direction — not vague advice. | Vetoes if implementation looks AI-generated or ignores the design brief |
+| 2 | **Content Researcher** | Verifies facts, finds outdated information, identifies content gaps using web search and NotebookLM. Produces a research brief grounded in current, accurate sources. | — |
+| 3 | **Architect** | Reads both research briefs. Produces **two meaningfully different design options** for the team to vote on. Never writes implementation code. | Vetoes if the Implementer deviates from the approved plan |
+| 4 | **Implementer** | Builds the chosen option in HTML/CSS/JS. Runs visual tests at desktop and mobile (375px). Tests dark mode. Flags plan disagreements before deviating. | Vetoes if unresolved blockers prevent a working implementation |
+| 5 | **Adversarial Reviewer** | Assumes something is wrong and tries to prove it. Validates every code example with Codex (second AI). Cross-references content across pages. | Vetoes on factually incorrect content or broken code examples |
+| 6 | **UX Advocate** | Tests mobile and dark mode with Playwright. Checks WCAG AA accessibility. Writes actual HTML/CSS fix snippets — not prose descriptions. Evaluates Codex UI suggestions. | Vetoes on WCAG AA accessibility violations |
+| 7 | **Pedagogical Reviewer** | Reviews content through the eyes of a non-technical adult learner. Checks for jargon, missing analogies, unclear progressions. Uses Codex for a second opinion on clarity. | Vetoes if content would confuse or exclude the target audience |
+
+---
+
+## Part 4 — Workflow Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         PHASE 1 — PARALLEL RESEARCH                             │
+│                                                                                 │
+│  ┌─────────────────────────────┐    ┌─────────────────────────────┐            │
+│  │     Design Consultant       │    │      Content Researcher      │            │
+│  │                             │    │                              │            │
+│  │  • Audits current design    │    │  • Verifies facts in site    │            │
+│  │  • Researches best-in-class │    │  • Finds outdated content    │            │
+│  │  • Produces CSS techniques  │    │  • Identifies gaps           │            │
+│  │                             │    │  • Checks contradictions     │            │
+│  │  → design-brief.md          │    │  → research.md               │            │
+│  └──────────────┬──────────────┘    └──────────────┬───────────────┘            │
+│                 └────────────────┬─────────────────┘                            │
+└──────────────────────────────────┼──────────────────────────────────────────────┘
+                                   │ Both briefs ready
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                      PHASE 2 — ARCHITECTURE + VOTE                              │
+│                                                                                 │
+│              ┌───────────────────────────────────┐                             │
+│              │           Architect                │                             │
+│              │  Reads both briefs                │                             │
+│              │  Produces Option A and Option B   │                             │
+│              └─────────────┬─────────────────────┘                             │
+│              ┌─────────────┴──────────────────────────┐                        │
+│    ┌─────────▼──────────┐              ┌──────────────▼──────────┐             │
+│    │    UX Advocate     │              │  Pedagogical Reviewer   │             │
+│    │  votes A or B      │              │  votes A or B           │             │
+│    └─────────┬──────────┘              └──────────────┬──────────┘             │
+│              └─────────────┬──────────────────────────┘                        │
+│              ┌─────────────▼─────────────────────┐                             │
+│              │  Architect finalizes → plan.md     │                             │
+│              └─────────────┬─────────────────────┘                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+                             │ Plan approved
+                             ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         PHASE 3 — IMPLEMENTATION                                │
+│              ┌───────────────────────────────────┐                             │
+│              │           Implementer              │                             │
+│              │  Builds HTML / CSS / JS            │                             │
+│              │  Visual check: desktop + mobile    │                             │
+│              │  Tests dark mode                   │                             │
+│              └─────────────┬─────────────────────┘                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+                             │ Implementation complete
+                             ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                      PHASE 4 — PARALLEL REVIEW                                  │
+│                                                                                 │
+│  ┌──────────────────────┐  ┌───────────────────────┐  ┌─────────────────────┐  │
+│  │  Adversarial         │  │    UX Advocate        │  │  Pedagogical        │  │
+│  │  Reviewer            │  │                       │  │  Reviewer           │  │
+│  │  • Code validation   │  │  • Playwright tests   │  │  • Teaching quality │  │
+│  │    with Codex        │  │  • WCAG AA checks     │  │  • Jargon audit     │  │
+│  │  • Cross-reference   │  │  • Mobile + dark mode │  │  • Codex 2nd view   │  │
+│  │  • Forwards UI tips  │  │  • Fix snippets       │  │                     │  │
+│  └──────────┬───────────┘  └──────────┬────────────┘  └──────────┬──────────┘  │
+│             └─────────────────────────┼──────────────────────────┘             │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                             │ All reviews complete
+                             ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│              PHASE 5 — SYNTHESIS  →  PHASE 6 — ITERATION                        │
+│                                                                                 │
+│   All findings merged into one prioritized table → Implementer fixes in order  │
+│   Each reviewer re-checks only their own items                                 │
+│   Max 3 rounds → escalate to human if still unresolved                         │
+│                                                                                 │
+│              ✅ ✅ ✅ ✅ ✅ ✅  →  6/6 Consensus — ready to ship               │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Part 5 — Phase Reference
+
+| Phase | Who Leads | Parallel? | Output |
+|-------|-----------|-----------|--------|
+| 1 — Research | Design Consultant + Content Researcher | Yes | `design-brief.md` + `research.md` |
+| 2 — Architecture | Architect (vote: UX + Pedagogical) | Vote runs in parallel | `plan.md` |
+| 3 — Implementation | Implementer | No | Working HTML/CSS/JS |
+| 4 — Review | Adversarial + UX + Pedagogical | Yes — all three simultaneously | 3 review reports |
+| 5 — Synthesis | Orchestrator | No | `synthesis.md` |
+| 6 — Iteration | Implementer + all reviewers | Re-checks in parallel | Consensus: 6/6 ✅ |
+
+---
+
+## Part 6 — Suggestions for Evolution
+
+These are the next logical improvements, roughly in order of value vs. effort:
+
+### Near term — make the existing agents smarter
+
+| Idea | Which agent | What it adds |
+|------|-------------|--------------|
+| Role-based content tracks | Pedagogical Reviewer | Instead of Beginner/Intermediate/Advanced, generate exercises by job role (Salesforce admin, analyst, PM) |
+| Performance audit | Adversarial Reviewer | Check page load size, image optimization, script load order — the site has no performance budget yet |
+| Cross-page consistency check | Adversarial Reviewer | Automatically compare terminology across all 7 HTML pages, not just the changed one |
+| Prompt template generation | Content Researcher | After verifying content, generate 3 reusable prompt templates users can copy for their work |
+| Fix snippets in Playwright | UX Advocate | Generate a Playwright test alongside each fix snippet so the fix doesn't regress |
+
+### Medium term — add new agents
+
+| Agent idea | Role | When it would run |
+|------------|------|-------------------|
+| **Performance Engineer** | Audits page size, load time, script weight. Suggests lazy loading, image compression. | Phase 4 (parallel with reviewers) |
+| **SEO Analyst** | Checks meta descriptions, heading hierarchy, semantic HTML for search discoverability. | Phase 4 (parallel) |
+| **Localisation Reviewer** | Checks reading level (Flesch-Kincaid), flags idioms or cultural references that won't translate, identifies content that needs simplification for non-native English readers. | Phase 4 (parallel) |
+| **Changelog Writer** | After consensus, automatically writes a changelog entry describing what changed and why, in plain English for non-technical stakeholders. | Phase 6 (after consensus) |
+
+### Longer term — automation and integration
+
+- **Auto-trigger on PR:** When a branch is pushed, automatically run `quick` scope on changed files. Only escalate to `full` if changes touch more than 3 files.
+- **Metrics dashboard:** Track per-feature: issues found per phase, iterations to consensus, which agent vetoed most often. Helps identify where the process has friction.
+- **Memory across features:** After each feature ships, the Design Consultant updates a "design decisions log" — so the next feature doesn't re-debate the same choices.
+- **CI/CD integration:** Run the `content` scope on a schedule (weekly) to catch documentation drift as Claude Code updates its features.
+
+---
+
+## Part 7 — Transferring to Another Machine or Team
+
+### Moving to a new machine (you, same project)
+
+Everything the workflow needs is in the repository. Clone it and you're done:
+
+```bash
+git clone [your-repo-url]
+cd LearnClaudecode
+
+# Verify agents loaded correctly
+# In Claude Code, run:
+# /adversarial-team "test" quick
+# You should see the 7-agent startup message
+```
+
+The only thing that doesn't transfer automatically is `OPENAI_API_KEY` (needed for Codex). Set it once on the new machine:
+
+```bash
+echo 'export OPENAI_API_KEY="sk-your-key-here"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**What travels with the repo:**
+
+| What | Where | Travels with git? |
+|------|-------|-------------------|
+| All 7 agent definitions | `.claude/agents/` | ✅ Yes |
+| Adversarial team skill | `.claude/skills/adversarial-team/` | ✅ Yes |
+| Project permissions + Codex wiring | `.claude/settings.local.json` | ✅ Yes |
+| OPENAI_API_KEY value | Shell environment | ❌ No — set manually per machine |
+| NotebookLM authentication | Local auth cache | ❌ No — run `notebooklm auth` on new machine |
+| Agent teams feature flag | `~/.claude/settings.json` (global) | ❌ No — set once per machine (see below) |
+
+**One-time setup on a new machine:**
+
+```bash
+# 1. Enable agent teams (global Claude Code setting)
+# Add to ~/.claude/settings.json:
 {
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }
-```
 
-**Starting the Team:**
-```
-"Create a team of 4 agents for feature development:
-- Architect: Planning and architecture
-- Implementer: Code implementation
-- Reviewer: Adversarial security review
-- UX Advocate: Usability and refinement"
-```
+# 2. Set OpenAI key
+echo 'export OPENAI_API_KEY="sk-your-key"' >> ~/.zshrc && source ~/.zshrc
 
-**Task Distribution:**
-Architect creates a shared task list that all agents can see and update.
+# 3. Authenticate NotebookLM
+notebooklm auth
 
-### File Organization
-
-**Shared Workspace:**
-```
-work/
-├── plan.md                 # Architect's plan
-├── implementation/         # Implementer's code
-│   ├── src/
-│   └── tests/
-├── review/                 # Reviewer's findings
-│   ├── security-audit.md
-│   └── quality-report.md
-└── ux/                     # UX findings
-    ├── usability-report.md
-    └── accessibility-checklist.md
-```
-
-### Tools Matrix
-
-| Agent | Primary Tools | MCP Servers | Skills |
-|-------|---------------|-------------|--------|
-| **Architect** | Read, Grep, Glob | Notion, GitHub | /doc-coauthoring |
-| **Implementer** | Read, Write, Edit, Bash | GitHub, IDE | Testing frameworks |
-| **Reviewer** | Grep, Read, Bash | IDE (diagnostics) | /codex:adversarial-review |
-| **UX Advocate** | Read, Bash | IDE | /webapp-testing |
-
----
-
-## Example Workflow
-
-### Scenario: Add User Authentication Feature
-
-**User Request:**
-"Add user authentication with email/password to the application"
-
----
-
-#### Phase 1: Planning
-
-**Architect Agent:**
-```markdown
-# User Authentication Implementation Plan
-
-## Requirements Analysis
-- Email/password authentication
-- Secure password storage
-- Session management
-- Password reset functionality
-
-## Architecture
-- Use bcrypt for password hashing (10 rounds minimum)
-- JWT tokens for session management
-- Rate limiting on login attempts
-- HTTPS required for all auth endpoints
-
-## Files to Create
-- src/auth/auth.service.js
-- src/auth/auth.controller.js
-- src/auth/auth.middleware.js
-- tests/auth.test.js
-
-## Security Requirements
-- Passwords: bcrypt, salt rounds >= 10
-- Sessions: JWT with 1hr expiry, refresh tokens
-- Rate limiting: 5 failed attempts = 15min lockout
-- Input validation: email format, password strength
-- HTTPS only, no credentials in logs
-
-## Success Criteria
-- [ ] User can register with email/password
-- [ ] User can login and receive JWT
-- [ ] Passwords are hashed with bcrypt
-- [ ] Rate limiting prevents brute force
-- [ ] All tests pass
-- [ ] No credentials in code or logs
-```
-
-**UX Advocate Review of Plan:**
-```markdown
-Questions for refinement:
-1. What happens if user forgets password?
-2. Should we have password strength requirements?
-3. Email verification required?
-4. How do we handle "remember me" functionality?
-5. Error messages: specific or generic for security?
-
-Suggestions:
-- Add password strength meter
-- Add "show password" toggle
-- Accessibility: proper labels and ARIA
+# 4. Playwright (if running UI tests)
+npx playwright install
 ```
 
 ---
 
-#### Phase 2: Implementation
+### Sharing with a team (other people using this workflow)
 
-**Implementer Agent:**
-```javascript
-// src/auth/auth.service.js
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+The workflow is designed to be portable. To bring a collaborator in:
 
-class AuthService {
-  async register(email, password) {
-    // Validate input
-    if (!this.isValidEmail(email)) {
-      throw new Error('Invalid email format');
-    }
+**Step 1 — Share the repository.** All agent definitions, the skill, and the project settings travel with it.
 
-    if (!this.isStrongPassword(password)) {
-      throw new Error('Password does not meet requirements');
-    }
+**Step 2 — Share this document** (`dev-docs/AGENT-TEAM-WORKFLOW.md`) so they understand the workflow before touching it.
 
-    // Hash password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+**Step 3 — Each person sets up once on their machine** (the 4 steps above).
 
-    // Store user (implementation depends on database)
-    // ... database logic ...
+**Step 4 — Agree on who runs the workflow.** For now this is single-player — one person runs `/adversarial-team` and watches the agents. In the future (see Evolution section), agents could be triggered automatically by CI/CD so the whole team benefits without any individual running it manually.
 
-    return { success: true };
-  }
+**What to customise for a different project:**
 
-  async login(email, password) {
-    // Rate limiting check
-    if (await this.isRateLimited(email)) {
-      throw new Error('Too many login attempts. Try again in 15 minutes.');
-    }
+| File | What to change |
+|------|---------------|
+| `.claude/agents/architect.md` | Update the stack description (currently assumes static HTML/CSS/JS, no build step) |
+| `.claude/agents/pedagogical-reviewer.md` | Update the target audience description (currently: non-technical professionals) |
+| `.claude/agents/adversarial-reviewer.md` | Rebalance security vs. content focus (currently content-focused for a static site; a backend project needs STRIDE security analysis instead) |
+| `.claude/skills/adversarial-team/SKILL.md` | Update the `When to Use` and project-specific constraints |
+| `.mcp.json` | Update MCP servers for the new project's integrations |
 
-    // Retrieve user from database
-    const user = await this.getUserByEmail(email);
-
-    if (!user) {
-      // Generic error for security
-      throw new Error('Invalid credentials');
-    }
-
-    // Compare password
-    const isValid = await bcrypt.compare(password, user.hashedPassword);
-
-    if (!isValid) {
-      await this.incrementFailedAttempts(email);
-      throw new Error('Invalid credentials');
-    }
-
-    // Generate JWT
-    const token = jwt.sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    await this.resetFailedAttempts(email);
-
-    return { token };
-  }
-
-  // ... other methods ...
-}
-
-module.exports = AuthService;
-```
+The agent *roles* and *interaction model* are project-agnostic. The agent *instructions* are tuned for this specific site. Swap the instructions, keep the structure.
 
 ---
 
-#### Phase 3: Adversarial Review
-
-**Reviewer Agent:**
-```markdown
-# Security Audit: Authentication System
-
-## CRITICAL Issues
-
-### 1. JWT_SECRET Exposure Risk
-- **Issue:** JWT_SECRET stored in environment variable
-- **Risk:** If .env file committed to git, secret is exposed
-- **Fix:** Add .env to .gitignore, document in setup guide
-- **Priority:** CRITICAL
-
-### 2. No HTTPS Enforcement
-- **Issue:** Code doesn't enforce HTTPS
-- **Risk:** Credentials transmitted in plaintext over HTTP
-- **Fix:** Add middleware to reject non-HTTPS in production
-- **Priority:** CRITICAL
-
-## HIGH Issues
-
-### 3. Rate Limiting Not Implemented
-- **Issue:** isRateLimited() method referenced but not implemented
-- **Risk:** Brute force attacks possible
-- **Fix:** Implement rate limiting with Redis or in-memory store
-- **Priority:** HIGH
-
-### 4. Generic Error Messages May Leak Info
-- **Issue:** Timing attacks possible (bcrypt comparison time varies)
-- **Risk:** Attacker can determine if email exists
-- **Fix:** Add artificial delay to failed logins
-- **Priority:** HIGH
-
-## MEDIUM Issues
-
-### 5. No Session Invalidation
-- **Issue:** No logout functionality or token revocation
-- **Risk:** Stolen tokens valid until expiry
-- **Fix:** Implement token blacklist or short-lived tokens + refresh
-- **Priority:** MEDIUM
-
-## Edge Cases to Test
-
-- [ ] What happens with extremely long passwords? (DoS via bcrypt)
-- [ ] What if database is down during registration?
-- [ ] What if JWT_SECRET is undefined?
-- [ ] SQL injection in email parameter?
-- [ ] XSS in email/password fields?
-- [ ] Concurrent login attempts?
-- [ ] Token reuse after logout?
-
-## Recommendations
-
-1. **Implement ALL critical fixes before merge**
-2. Add helmet.js for security headers
-3. Add CORS configuration
-4. Log authentication events (but NOT credentials)
-5. Add monitoring for failed login spikes
-6. Consider 2FA for sensitive accounts
-```
-
----
-
-#### Phase 4: Usability Refinement
-
-**UX Advocate Agent:**
-```markdown
-# Usability Assessment: Authentication
-
-## User Experience Issues
-
-### Registration Flow
-❌ **No password strength indicator**
-- User doesn't know requirements until failure
-- Recommendation: Add real-time strength meter
-
-❌ **No email confirmation**
-- User might typo email address
-- Recommendation: Add "confirm email" field or send verification
-
-✅ **Good:** Clear error messages
-
-### Login Flow
-❌ **Generic error exposes no info**
-- Good for security, bad for UX
-- Recommendation: "Email or password incorrect" is acceptable
-
-❌ **No "forgot password" link**
-- User has no recovery path
-- Recommendation: Add password reset flow (Phase 2 feature?)
-
-❌ **No "remember me" option**
-- User must login every hour
-- Recommendation: Add optional extended session
-
-### Accessibility
-
-✅ **Good:** Proper error handling
-❌ **Missing:** ARIA labels for screen readers
-❌ **Missing:** Keyboard navigation not tested
-❌ **Missing:** Focus management on errors
-
-### Documentation
-
-❌ **Missing:** API documentation
-❌ **Missing:** Error code reference
-❌ **Missing:** Setup instructions for JWT_SECRET
-
-## Recommended Refinements
-
-1. **Add password requirements UI**
-   - "8+ characters, 1 uppercase, 1 number, 1 special"
-   - Real-time validation feedback
-
-2. **Add forgot password flow**
-   - Email reset link
-   - Time-limited reset tokens
-
-3. **Improve accessibility**
-   - Add ARIA labels: `aria-label="Email address"`
-   - Add `aria-invalid="true"` on errors
-   - Focus on first error field
-
-4. **Add API documentation**
-   - POST /auth/register - parameters, responses
-   - POST /auth/login - parameters, responses
-   - Include example requests
-
-## User Questions to Answer
-
-1. "How do I reset my password?" → Not possible yet
-2. "Why was my password rejected?" → Need strength indicator
-3. "Can I stay logged in?" → No, 1hr max currently
-4. "Is my data secure?" → Need security docs
-```
-
----
-
-#### Phase 5: Iteration & Consensus
-
-**Implementer addresses feedback:**
-
-1. ✅ Add .env to .gitignore
-2. ✅ Add HTTPS enforcement middleware
-3. ✅ Implement rate limiting with memory store
-4. ✅ Add artificial delay to failed logins
-5. ✅ Add logout endpoint with token blacklist
-6. ✅ Add password strength requirements UI
-7. ✅ Add ARIA labels
-8. ✅ Add API documentation
-
-**Reviewer validates fixes:**
-```
-✅ All CRITICAL issues resolved
-✅ All HIGH issues resolved
-✅ Rate limiting tested - working
-✅ HTTPS enforcement tested - working
-⚠️  MEDIUM: Token blacklist needs Redis for production
-→ Documented in tech debt backlog
-```
-
-**UX Advocate validates:**
-```
-✅ Password strength indicator added
-✅ Accessibility improved
-✅ API docs complete
-⚠️  Forgot password still missing
-→ Agreed: Separate feature for Phase 2
-```
-
-**Architect validates:**
-```
-✅ All security requirements met
-✅ Architecture followed
-✅ Tests comprehensive
-✅ Documentation complete
-→ APPROVED FOR MERGE
-```
-
-**CONSENSUS ACHIEVED** ✅
-
----
-
-## Workflow Metrics
-
-### Success Metrics
-
-**Quality Metrics:**
-- Security vulnerabilities: 0 CRITICAL, 0 HIGH
-- Test coverage: >= 80%
-- Code review approval: 4/4 agents
-- Accessibility: WCAG AA compliant
-
-**Process Metrics:**
-- Planning completeness: Architect approval
-- Implementation accuracy: <= 2 major deviations from plan
-- Review thoroughness: >= 10 issues identified
-- Usability score: UX approval
-
-**Efficiency Metrics:**
-- Iterations to consensus: <= 3
-- Rework percentage: <= 20%
-- Blocking issues: 0
-
----
-
-## Advantages of This Workflow
-
-### 1. **Comprehensive Coverage**
-- Architecture: Planned upfront
-- Security: Adversarial review catches vulnerabilities
-- Quality: Code review ensures standards
-- Usability: UX advocate ensures user-friendliness
-
-### 2. **Reduced Blind Spots**
-- Multiple perspectives on same code
-- Adversarial mindset catches edge cases
-- Usability focus prevents developer-centric design
-
-### 3. **Built-in Documentation**
-- Plan documents intent
-- Reviews document decisions
-- UX notes document user impact
-
-### 4. **Knowledge Sharing**
-- Each agent learns from others
-- Review feedback teaches best practices
-- Cross-functional awareness
-
-### 5. **Quality Gates**
-- Can't skip security review
-- Can't ignore usability
-- Can't deviate from architecture without approval
-
----
-
-## Limitations & Considerations
-
-### Resource Intensive
-- 4 agents = 4x context windows
-- Requires significant computational resources
-- Best for critical features, not minor changes
-
-### Coordination Overhead
-- Requires clear communication protocol
-- Can slow down simple changes
-- May over-engineer trivial features
-
-### When NOT to Use This Workflow
-
-**Skip for:**
-- Typo fixes
-- Documentation updates
-- Configuration changes
-- Obvious bug fixes
-
-**Use simplified workflow:**
-- 2 agents: Implementer + Reviewer
-- Or: Single agent with checklist
-
-### When TO Use This Workflow
-
-**Use for:**
-- Security-critical features (auth, payments, PII)
-- Public-facing APIs
-- Core architecture changes
-- High-risk refactoring
-- Compliance-critical code
-
----
-
-## Future Enhancements
-
-### Potential Additions
-
-**Agent 5: Performance Engineer**
-- Load testing
-- Performance profiling
-- Optimization recommendations
-- Scalability analysis
-
-**Agent 6: Documentation Specialist**
-- API documentation
-- User guides
-- Code comments
-- Runbooks
-
-**Integration with External Tools**
-- Codex adversarial review (when available)
-- SonarQube for code quality
-- Snyk for dependency scanning
-- Lighthouse for performance
-
-### Automation Opportunities
-
-**Automated Handoffs:**
-- Architect finishes → Auto-notify Implementer
-- Implementer commits → Auto-trigger Reviewer
-- Reviews complete → Auto-notify Implementer
-
-**Automated Checks:**
-- Pre-review: Run linters, tests
-- Post-implementation: Run security scanners
-- Pre-consensus: Verify all checklists complete
-
----
-
-## Implementation Checklist
-
-### Setup
-
-- [ ] Verify Agent Teams enabled in settings
-- [ ] Create shared workspace directory structure
-- [ ] Define communication templates
-- [ ] Create review checklists
-- [ ] Document workflow for team
-
-### Per-Feature Workflow
-
-- [ ] User provides requirement
-- [ ] Architect creates plan
-- [ ] UX reviews plan
-- [ ] Team approves plan
-- [ ] Implementer codes feature
-- [ ] Implementer writes tests
-- [ ] Reviewer performs security audit
-- [ ] Reviewer performs quality review
-- [ ] UX tests usability
-- [ ] UX checks accessibility
-- [ ] Implementer addresses feedback
-- [ ] All agents validate fixes
-- [ ] Achieve 4/4 consensus
-- [ ] Merge to main
-
----
-
-## Conclusion
-
-This agent team workflow provides a robust, multi-perspective approach to software development that significantly reduces the risk of security vulnerabilities, usability issues, and technical debt.
-
-By assigning specialized roles to different agents and requiring consensus before merging, we create multiple safety nets that catch issues before they reach production.
-
-**Key Principle:** Multiple AIs challenging each other produce better results than a single AI, even a very capable one.
-
----
-
-**Next Steps:**
-1. Create custom skill to orchestrate this workflow
-2. Test on real feature implementation
-3. Refine based on learnings
-4. Document lessons learned
-
----
-
-*End of Workflow Documentation*
+## Agent File Locations
+
+| Agent | File |
+|-------|------|
+| Design Consultant | `.claude/agents/design-consultant.md` |
+| Content Researcher | `.claude/agents/content-researcher.md` |
+| Architect | `.claude/agents/architect.md` |
+| Implementer | `.claude/agents/implementer.md` |
+| Adversarial Reviewer | `.claude/agents/adversarial-reviewer.md` |
+| UX Advocate | `.claude/agents/ux-advocate.md` |
+| Pedagogical Reviewer | `.claude/agents/pedagogical-reviewer.md` |
+| Workflow Skill | `.claude/skills/adversarial-team/SKILL.md` |

@@ -23,7 +23,7 @@ LearnClaudecode/           # Project root (development workspace)
 ├── dev-docs/              # 📚 DOCUMENTATION (development reference)
 │   ├── CLAUDE.md          # Project standards
 │   ├── DEPLOYMENT.md      # This file
-│   ├── PROJECT-ORGANIZATION.md
+│   ├── TOOLBOX-REFERENCE.md
 │   ├── learning-journey/
 │   └── content/
 │

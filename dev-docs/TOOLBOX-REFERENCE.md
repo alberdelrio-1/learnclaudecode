@@ -151,74 +151,71 @@ Detailed instructions...
 
 ---
 
-## 🤖 OpenAI Codex Integration (NEW!)
+## 🤖 OpenAI Codex Plugin for Claude Code
 
-**Released:** March 30, 2026
-**Repository:** https://github.com/openai/codex-plugin-cc
+**Repo:** https://github.com/openai/codex-plugin-cc
+**CLI:** `@openai/codex@0.139.0` at `/usr/local/bin/codex` ✅ Installed
+**Plugin status:** ✅ Installed and authenticated (`delriogalera.alberto@gmail.com` via ChatGPT)
 
-### What is codex-plugin-cc?
+### What it gives you
 
-OpenAI's official plugin that brings Codex CLI capabilities into Claude Code. Enables adversarial code review by having a second AI (Codex) challenge Claude's implementations.
+- `/codex:review` — read-only Codex review of current changes
+- `/codex:adversarial-review` — steerable challenge review, questions design decisions and tradeoffs
+- `/codex:rescue` — delegate a task to Codex in the background
+- `/codex:status`, `/codex:result`, `/codex:cancel` — manage background jobs
 
-### Installation
-
-```bash
-# Install the Codex plugin for Claude Code
-npm install -g @openai/codex-plugin-cc
-
-# Or via Claude Code
-# Add to .mcp.json or install via Claude Code package manager
-```
-
-### Available Commands
-
-**Primary Command:**
-```bash
-/codex:adversarial-review [--scope=changed|all] [--depth=quick|thorough] "focus area"
-```
-
-**What it does:**
-- Questions whether your chosen approach is the right one
-- Challenges assumptions and design choices
-- Surfaces tradeoffs and examines failure modes
-- Asks whether a different approach would be safer/simpler
-- Assumes code is broken and hunts for problems
-
-**Other Commands:**
-```bash
-/codex:review          # Standard code review
-/codex:delegate        # Delegate tasks to Codex
-```
-
-### Example Usage
+### Install the plugin (one-time setup)
 
 ```bash
-# Run adversarial review on changed files
-/codex:adversarial-review --scope=changed "security vulnerabilities"
-
-# Thorough review of entire codebase
-/codex:adversarial-review --scope=all --depth=thorough
-
-# Focus on specific concern
-/codex:adversarial-review "authentication logic and session management"
+/plugin marketplace add openai/codex-plugin-cc
+/plugin install codex@openai-codex
+/reload-plugins
+/codex:setup
 ```
 
-### Adversarial Review Features
+Then log in to Codex (uses your ChatGPT account or OpenAI API key):
+```bash
+!codex login
+```
 
-**Review Philosophy:**
-- Claude writes/implements
-- Codex tears it apart
-- Iterative fix loop until consensus
-- Multiple AI perspectives reduce blind spots
+### Plugin documentation
 
-**Focus Areas:**
-- Security vulnerabilities (XSS, SQLi, CSRF)
-- Logic flaws and edge cases
-- Performance bottlenecks
-- Architecture weaknesses
-- Error handling gaps
-- Race conditions
-- Dependency vulnerabilities
+Full plugin docs: https://github.com/openai/codex-plugin-cc
+
+### Plugin slash commands (type in Claude Code prompt)
+
+```
+/codex:review                          # Review uncommitted changes
+/codex:review --base main              # Review branch vs main
+/codex:adversarial-review              # Challenge implementation direction
+/codex:adversarial-review --base main focus text here   # With custom focus
+/codex:adversarial-review --background # Run in background
+/codex:status                          # Check background job
+/codex:result                          # Get background job output
+/codex:rescue investigate why X        # Delegate a problem to Codex
+/codex:setup                           # Verify Codex is ready
+```
+
+### CLI commands (use in Bash — what agents call)
+
+```bash
+codex review --uncommitted "custom review instructions"
+codex review --base main "focus area"
+codex review --commit <SHA> "review this commit"
+codex login        # authenticate
+codex doctor       # diagnose issues
+```
+
+### How agents use it
+
+adversarial-reviewer, ux-advocate, and pedagogical-reviewer call `codex review` via Bash to get a second-AI opinion on code examples and UI. Permission pre-approved in `.claude/settings.local.json`:
+```json
+{ "permissions": { "allow": ["Bash(/usr/local/bin/codex*)"] } }
+```
+
+### Authentication
+
+Logged in as `delriogalera.alberto@gmail.com` via ChatGPT. Persists across sessions — no per-session setup needed. Verify with `/codex:setup`.
 
 ---
 
@@ -552,7 +549,7 @@ notebooklm-py 0.7.1 (with browser support)
 ### Custom Commands
 
 **Session Management:**
-- `/session-handoff` - Create handoff document at 60% context (saves to START-HERE-NEXT-SESSION.md)
+- `/session-handoff` - Create handoff document at 60% context
 - `/session-resume` - Resume from previous session using handoff document
 - `/context-check` - Check context health and get recommendations
 
@@ -573,11 +570,11 @@ See `dev-docs/CONTEXT-MANAGEMENT-GUIDE.md` for complete workflow.
 - Usage: `/extract-youtube <url>`
 
 **Adversarial Team:**
-- Location: `.claude/skills/adversarial-team/`
-- Purpose: Multi-agent collaborative workflow with specialized roles
-- Usage: `/adversarial-team "feature description" [critical|standard|quick]`
-- **Agents:** Architect, Implementer, Adversarial Reviewer, UX Advocate
-- **Best for:** Security-critical features, public APIs, compliance-required code
+- Skill: `.claude/skills/adversarial-team/SKILL.md`
+- Agents: `.claude/agents/` (7 agents)
+- Usage: `/adversarial-team "feature description" [full|design|content|build|quick]`
+- **Agents:** Design Consultant, Content Researcher, Architect, Implementer, Adversarial Reviewer, UX Advocate, Pedagogical Reviewer
+- **Best for:** New pages, interactive components, content rewrites, anything that changes UX or what users learn
 
 ### Development Workflow
 
@@ -612,13 +609,13 @@ git push
 
 - **Project Standards:** `dev-docs/CLAUDE.md` (auto-read by Claude Code)
 - **Deployment Guide:** `dev-docs/DEPLOYMENT.md`
-- **Organization:** `dev-docs/PROJECT-ORGANIZATION.md`
-- **Latest Session:** `dev-docs/SESSION-2026-06-13.md`
+- **Organization:** `dev-docs/DEPLOYMENT.md`
+- **Session Notes:** `dev-docs/SESSION-NOTES.md`
 
 ### External Resources
 
 - **MCP Servers:** https://modelcontextprotocol.io
-- **Codex Plugin:** https://github.com/openai/codex-plugin-cc
+- **Codex Plugin for Claude Code:** https://github.com/openai/codex-plugin-cc
 - **Playwright Docs:** https://playwright.dev
 - **NotebookLM:** https://notebooklm.google.com
 
@@ -662,12 +659,11 @@ npx playwright install
 ### Adversarial Code Review Workflow
 
 1. **Write/modify code** with Claude Code
-2. **Run adversarial review** with `/codex:adversarial-review`
-3. **Review Codex feedback** and challenges
-4. **Implement fixes** addressing concerns
-5. **Re-run review** until both AIs agree
-6. **Run tests** with Playwright (if UI changes)
-7. **Commit** with confidence
+2. **Invoke adversarial team** with `/adversarial-team "feature" full`
+3. **Or run standalone** with `/codex:adversarial-review` (once plugin installed)
+4. **Review all agent feedback** — 6/6 consensus required
+5. **Run tests** with Playwright
+6. **Commit** with confidence
 
 ### Research & Documentation Workflow
 
@@ -700,7 +696,7 @@ npx playwright install
 
 | Capability | Tool/Method | Status |
 |------------|-------------|--------|
-| Code Review | Built-in + `/codex:adversarial-review` | ✅ Ready |
+| Code Review | Built-in + `/codex:adversarial-review` + `/adversarial-team` | ✅ Ready |
 | Security Analysis | Built-in OWASP scanning | ✅ Ready |
 | UI Testing | Playwright + `/webapp-testing` | ✅ Installed |
 | Research | NotebookLM CLI | ✅ Authenticated |
@@ -714,7 +710,7 @@ npx playwright install
 | PDF/DOCX/PPTX | Document skills | ✅ Available |
 | Visual Design | Canvas Design skill | ✅ Available |
 | Session Management | `/session-handoff`, `/context-check` | ✅ Available |
-| Context Monitoring | Status line with % display | ⚠️ Needs fix |
+| Context Monitoring | Status line `~/.claude/statusline.sh` | ✅ Working |
 
 ---
 
@@ -722,20 +718,23 @@ npx playwright install
 
 ### Immediate Actions
 
-1. **Install Codex Plugin:**
+1. **Install Codex plugin (one-time):**
    ```bash
-   npm install -g @openai/codex-plugin-cc
+   /plugin marketplace add openai/codex-plugin-cc
+   /plugin install codex@openai-codex
+   /reload-plugins
+   /codex:setup
+   !codex login
    ```
 
-2. **Test adversarial review:**
+2. **Run adversarial team workflow:**
    ```bash
-   /codex:adversarial-review --scope=changed
+   /adversarial-team "feature description" full
    ```
 
-3. **Create custom adversarial skill** (optional):
+3. **Or run standalone Codex review:**
    ```bash
-   /skill-creator
-   # Create skill combining Claude + Codex reviews
+   /codex:adversarial-review --base main
    ```
 
 ### Recommended Additions
@@ -762,7 +761,8 @@ npx playwright install
 - [ ] Check project standards (dev-docs/CLAUDE.md)
 - [ ] Verify NotebookLM access: `notebooklm list`
 - [ ] Check MCP servers: `cat .mcp.json`
-- [ ] Confirm Codex plugin: `/codex:adversarial-review --help`
+- [ ] Verify adversarial team agents: `ls .claude/agents/`
+- [ ] Check Codex plugin status: `/codex:setup` (once plugin installed)
 - [ ] Review current git branch: `git status`
 
 ---

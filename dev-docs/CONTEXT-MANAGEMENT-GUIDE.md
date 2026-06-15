@@ -138,30 +138,33 @@ Convert heavy formats to markdown:
 
 ## Status Line Configuration
 
-Your status line now shows:
+Your status line shows:
 ```
-📁 [directory] | 🤖 [model] | ⚡ [style] | 📊 [tokens used]/[limit] ([%])
+📁 LearnClaudecode | Sonnet 4.6 🧠 | 🟢 ctx 16% | 🟡 5h 81% | $0.224
 ```
 
-**Color coding** (when percentage visible):
-- 0-40%: Green (healthy)
-- 40-60%: Yellow (caution)
-- 60-80%: Orange (warning)
-- 80%+: Red (critical)
+**Script:** `~/.claude/statusline.sh`
+**Config:** `~/.claude/settings.json` → `statusLine.command`
 
-Watch the percentage and take action at 60%.
+**Indicators:**
+- `🟢` = healthy (< 70%), `🟡` = caution (≥ 70%), `🔴` = critical (≥ 90%)
+- `ctx` = context window usage — take action at 60%
+- `5h` = 5-hour rate limit usage
+- Cost = session spend in USD
+
+Watch the `ctx` percentage and take action at 60%.
 
 ---
 
 ## Recommended Settings
 
-Add to `.claude/settings.json`:
+Current `~/.claude/settings.json`:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir'); model=$(echo \"$input\" | jq -r '.model.display_name'); style=$(echo \"$input\" | jq -r '.output_style.name'); used=$(echo \"$input\" | jq -r '.context.used // 0'); limit=$(echo \"$input\" | jq -r '.context.limit // 0'); percentage=$(echo \"$input\" | jq -r '.context_window.used_percentage // 0'); printf '📁 %s | 🤖 %s | ⚡ %s | 📊 %s/%s (%.0f%%)' \"$(basename \"$cwd\")\" \"$model\" \"$style\" \"$used\" \"$limit\" \"$percentage\""
+    "command": "~/.claude/statusline.sh"
   },
   "autoCompactEnabled": false,
   "env": {
@@ -169,6 +172,8 @@ Add to `.claude/settings.json`:
   }
 }
 ```
+
+The script at `~/.claude/statusline.sh` shows context %, 5-hour rate limit, cost, and mode flags (⚡ fast, 🧠 thinking).
 
 **Why `autoCompactEnabled: false`?**
 - Gives you control over when to compact

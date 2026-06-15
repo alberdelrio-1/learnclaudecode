@@ -119,7 +119,7 @@ notebooklm history --save
 ```bash
 # 1. Read context
 cd /Users/albertodelrio/Documents/vscodelocal/LearnClaudecode
-cat SESSION-COMPLETE-INVENTORY.md
+cat dev-docs/TOOLBOX-REFERENCE.md
 
 # 2. Check git
 git worktree list
@@ -194,11 +194,9 @@ git push origin reorganisation
 
 # Option 2: Create Archive
 mkdir ~/Desktop/claude-code-export
-cp -r .claude/skills ~/Desktop/claude-code-export/
+cp -r .claude ~/Desktop/claude-code-export/
 cp -r dev-docs ~/Desktop/claude-code-export/
 cp .mcp.json ~/Desktop/claude-code-export/
-cp SESSION-COMPLETE-INVENTORY.md ~/Desktop/claude-code-export/
-cp TERMINAL-COMMANDS.md ~/Desktop/claude-code-export/
 
 cd ~/Desktop
 zip -r claude-code-export.zip claude-code-export/

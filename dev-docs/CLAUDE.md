@@ -6,7 +6,7 @@ This file contains standards and guidelines for maintaining and expanding the Cl
 
 > **Note:** This file is automatically read by Claude Code. The project structure separates website files (docs/) from development documentation (dev-docs/).
 
-> **📋 Latest Session Summary:** See `dev-docs/SESSION-2026-06-13.md` for complete context from last session (project reorganization, MCP setup, NotebookLM integration, agent teams research).
+> **📋 Session docs:** See `dev-docs/TOOLBOX-REFERENCE.md` for complete tool reference and configuration status.
 
 ---
 

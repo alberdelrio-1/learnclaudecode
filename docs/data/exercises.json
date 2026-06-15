@@ -1,0 +1,220 @@
+{
+  "beginner": [
+    {
+      "id": "e01",
+      "title": "Write a professional email in seconds",
+      "duration": "3 min",
+      "requiresTerminal": true,
+      "intro": "Claude Code can draft polished emails from a rough description. In this exercise you will give it a messy, unstructured sentence and watch it turn that into a clear, professional message — ready to send.",
+      "steps": [
+        {
+          "heading": "Open Claude Code",
+          "body": "Launch Claude Code from your terminal by typing 'claude' and pressing Enter. You will see a prompt where you can type your request."
+        },
+        {
+          "heading": "Describe the email you need",
+          "body": "Type something like: 'Write a short professional email to my manager saying the project report will be one day late because I am waiting on data from the finance team. Keep it brief and apologetic.' Press Enter."
+        },
+        {
+          "heading": "Review the draft",
+          "body": "Claude will produce a complete email with subject line and body. Read it through. If you want changes, type 'Make it shorter' or 'Add that I will have it by Thursday' — it will revise on the spot."
+        },
+        {
+          "heading": "Copy and use it",
+          "body": "Select the text Claude produced and copy it to your clipboard. Paste it directly into your email client. Done."
+        }
+      ],
+      "completionMessage": "You just turned a messy thought into a send-ready email in under a minute. Every similar email from now on will take seconds instead of five minutes of staring at a blank screen — that frees up real time across your week."
+    },
+    {
+      "id": "e02",
+      "title": "Summarize a long document for your manager",
+      "duration": "5 min",
+      "requiresTerminal": true,
+      "intro": "Long reports, policy documents, and meeting notes pile up fast. This exercise shows you how to paste any wall of text into Claude Code and get back a crisp summary your manager can actually read.",
+      "steps": [
+        {
+          "heading": "Find a long document",
+          "body": "Pick any document or text that is more than a page long — a report, a meeting transcript, a policy update, anything. Copy the full text to your clipboard."
+        },
+        {
+          "heading": "Ask Claude to summarize it",
+          "body": "Open Claude Code and type: 'Summarize the following document in 5 bullet points for a busy manager. Here is the document:' — then paste the text below your instruction and press Enter."
+        },
+        {
+          "heading": "Refine if needed",
+          "body": "If the summary is too long or misses something important, say: 'Make it shorter' or 'Include the budget figures' or 'Add a one-sentence key takeaway at the top.' Claude will revise immediately."
+        },
+        {
+          "heading": "Use the summary",
+          "body": "Copy the bullet points and paste them into an email, a Slack message, or a slide. The original document stays untouched — Claude never modifies files unless you tell it to."
+        }
+      ],
+      "completionMessage": "Reading a 10-page report now takes 30 seconds instead of 30 minutes. Over a month of typical report traffic, that adds up to hours of focused time back in your day — time you can spend on decisions rather than reading."
+    },
+    {
+      "id": "e03",
+      "title": "Review a draft for tone and clarity",
+      "duration": "4 min",
+      "requiresTerminal": true,
+      "intro": "Before you send anything important — a proposal, a tricky message to a client, a performance review — Claude Code can act as a second pair of eyes and flag anything that could land wrong.",
+      "steps": [
+        {
+          "heading": "Paste your draft",
+          "body": "Open Claude Code and type: 'Review the following draft and tell me if the tone sounds professional and if anything is unclear. Here is the draft:' — then paste your text and press Enter."
+        },
+        {
+          "heading": "Read the feedback",
+          "body": "Claude will point out specific phrases that could be clearer or that might come across as too blunt, too passive, or too formal. It will explain why, not just flag the problem."
+        },
+        {
+          "heading": "Ask for a revised version",
+          "body": "If you like its suggestions, type: 'Rewrite the draft with those improvements applied.' You will get a clean revised version ready to copy."
+        },
+        {
+          "heading": "Compare and choose",
+          "body": "Read the original and the revised version side by side. You decide what to keep. Nothing is final until you copy it and use it yourself."
+        }
+      ],
+      "completionMessage": "You now have an on-call editor who never gets tired. Catching a tone problem before sending saves the back-and-forth that follows a message that landed badly — that kind of invisible time cost adds up more than people realise."
+    },
+    {
+      "id": "e04",
+      "title": "Turn a vague request into a specific prompt",
+      "duration": "5 min",
+      "requiresTerminal": true,
+      "intro": "The quality of what Claude gives you depends almost entirely on how clearly you ask. This exercise teaches you the single most valuable skill: turning a fuzzy idea into a precise instruction that gets you what you actually want the first time.",
+      "steps": [
+        {
+          "heading": "Start with a vague version",
+          "body": "Type something deliberately vague into Claude Code — for example: 'Help me with my presentation.' Press Enter and read what you get back."
+        },
+        {
+          "heading": "Notice what is missing",
+          "body": "Claude will either ask you clarifying questions or make guesses. Look at what it assumed. That gap between what it assumed and what you actually needed is the prompt-writing problem."
+        },
+        {
+          "heading": "Rewrite with specifics",
+          "body": "Now type the same request with every detail you actually know: 'Help me write a 3-minute spoken introduction for a slide presentation about our Q2 sales results. The audience is the company leadership team. Tone should be confident but not boastful.' Press Enter."
+        },
+        {
+          "heading": "Compare the two responses",
+          "body": "Read both responses back to back. Notice how much more useful the second one is. The difference is entirely in your instruction — Claude is the same both times."
+        }
+      ],
+      "completionMessage": "You just learned the core skill that separates people who get useful AI output from people who do not. Every future Claude interaction starts from a better place now — that multiplies across every task you use it for from this point on."
+    }
+  ],
+  "intermediate": [
+    {
+      "id": "i01",
+      "title": "Build a repeatable workflow with CLAUDE.md",
+      "duration": "10 min",
+      "requiresTerminal": true,
+      "intro": "A CLAUDE.md file tells Claude your preferences once so you never have to repeat them. In this exercise you will create one that automatically applies your writing style, your team's terminology, and your output preferences to every session.",
+      "steps": [
+        {
+          "heading": "Create a project folder",
+          "body": "Create a folder on your computer for a project you work on regularly. Then open it in your terminal:\n\n**On Mac:** Open Terminal (search for it in Spotlight with Cmd+Space). Type: cd  then drag your folder from Finder into the Terminal window — it will paste the path automatically. Press Enter, then type claude and press Enter.\n\n**On Windows:** Open the folder in File Explorer. Click the address bar at the top, type cmd, and press Enter. A terminal opens already in that folder. Type claude and press Enter."
+        },
+        {
+          "heading": "Ask Claude to create a CLAUDE.md",
+          "body": "Type: 'Create a CLAUDE.md file for this folder. I want it to remember that I write for a non-technical audience, I prefer bullet points over long paragraphs, and I always need UK English spelling.' Press Enter."
+        },
+        {
+          "heading": "Review and personalise it",
+          "body": "Claude will create the file and show you the contents. Read it and add anything it missed — your team's name for products, formats you always use, anything you find yourself repeating in every session."
+        },
+        {
+          "heading": "Test it in a new session",
+          "body": "Close Claude Code and reopen it in the same folder. Ask it to write something without any instructions about format or style. Check whether it automatically applies the preferences from your CLAUDE.md."
+        }
+      ],
+      "completionMessage": "You just removed the setup overhead from every future session in that folder. Over a month of daily Claude use, not having to re-explain your preferences in every conversation saves a meaningful chunk of time — and the outputs get more consistent too."
+    },
+    {
+      "id": "i02",
+      "title": "Extract structured data from unstructured text",
+      "duration": "8 min",
+      "requiresTerminal": false,
+      "intro": "Meeting notes, email chains, and copied web pages are full of information that is hard to act on because it is buried in prose. Claude Code can pull out exactly what you need and organise it — turning text into a table, a list, or a structured summary.",
+      "steps": [
+        {
+          "heading": "Pick a messy source",
+          "body": "Find a block of unstructured text: meeting notes, a long email thread, a copied article, or a list of items buried in a paragraph. Copy it to your clipboard."
+        },
+        {
+          "heading": "Tell Claude what structure you want",
+          "body": "Open Claude Code and type: 'Extract all the action items from the following meeting notes and format them as a table with columns for: Task, Owner, and Deadline. Here are the notes:' — then paste the text and press Enter."
+        },
+        {
+          "heading": "Check the output",
+          "body": "Claude will produce a formatted table. Check whether it caught everything and whether the columns are correct. If something is wrong, say 'You missed the action item about the budget sign-off' and it will fix it."
+        },
+        {
+          "heading": "Export and use it",
+          "body": "Copy the table and paste it into a spreadsheet, a document, or a message. The table Claude produces pastes cleanly into Notion, Confluence, and most modern document tools."
+        }
+      ],
+      "completionMessage": "Turning a 20-minute meeting into a clean action-item table in 30 seconds means no actions get lost and no one has to re-read the full notes to find their task. That follow-through improvement compounds across every meeting your team has."
+    },
+    {
+      "id": "i03",
+      "title": "Prepare for a meeting in five minutes",
+      "duration": "5 min",
+      "requiresTerminal": false,
+      "intro": "Before a meeting you have not had time to prepare for, Claude Code can pull together a quick brief — the key context, the likely questions, and a suggested agenda — so you walk in ready instead of winging it.",
+      "steps": [
+        {
+          "heading": "Give Claude the context",
+          "body": "Open Claude Code and describe the meeting: who is attending, what it is nominally about, and anything relevant that happened recently. For example: 'I have a 30-minute call with our IT vendor in 10 minutes. We have been migrating our CRM for 3 months, there were delays last week, and my manager wants an update on timeline.'"
+        },
+        {
+          "heading": "Ask for a brief",
+          "body": "Type: 'Give me a one-page meeting brief with: the three things I most need to know going in, two questions I should ask, and a suggested agenda for 30 minutes.' Press Enter."
+        },
+        {
+          "heading": "Skim and adjust",
+          "body": "Read the brief quickly. If something is wrong or missing, say 'Remove the agenda item about contracts — that is not on the table today' or 'Add a question about the new contact who joined their team.' Claude will update on the spot."
+        },
+        {
+          "heading": "Use it",
+          "body": "Keep the brief open during the meeting as a reference. After the call, you can say 'Write a follow-up email summarising the outcomes and next steps' — Claude already has the context."
+        }
+      ],
+      "completionMessage": "Walking into a meeting with a prepared brief rather than zero context changes the dynamic entirely. You ask better questions, you catch things that would have slipped past you, and you look prepared to people who did not know you had five minutes' notice."
+    }
+  ],
+  "advanced": [
+    {
+      "id": "a01",
+      "title": "Set up a custom skill for a task you repeat weekly",
+      "duration": "15 min",
+      "requiresTerminal": true,
+      "intro": "If you find yourself giving Claude the same long instruction every week — a status report format, a review checklist, a data transformation — you can package that instruction as a skill so it runs with a single short command. This exercise walks you through building your first one.",
+      "steps": [
+        {
+          "heading": "Identify a repeatable task",
+          "body": "Think of something you ask Claude to do at least once a week using the same instruction pattern. Good candidates: formatting a weekly status update, running a tone-and-clarity review on drafts, converting meeting notes into action items."
+        },
+        {
+          "heading": "Open Claude Code",
+          "body": "Open your terminal and type `claude`, then press Enter. Claude Code will open and wait for your instruction."
+        },
+        {
+          "heading": "Give it the skill instruction",
+          "body": "At the Claude prompt, type or paste the following — this becomes the instruction your skill will run every time: 'Create a skill file at .claude/skills/weekly-status.md that turns bullet points I paste into a structured weekly status update with sections for: Done this week, In progress, Blockers, and Next steps. Keep the tone professional and concise.' Press Enter."
+        },
+        {
+          "heading": "Test the skill",
+          "body": "Start a new Claude session and type '/weekly-status' followed by a paste of some rough notes. Claude should apply the full skill instruction automatically without you repeating the format details."
+        },
+        {
+          "heading": "Refine until it is right",
+          "body": "If the output is not quite right, open the skill file Claude created (it is a plain text file), edit the instruction, and test again. Iteration is fast because the file is just text."
+        }
+      ],
+      "completionMessage": "You just turned a 5-minute setup task into a one-command habit. Skills compound: the more you build, the faster every recurring task becomes — and because skills live in files, you can share them with your team so everyone benefits."
+    }
+  ]
+}

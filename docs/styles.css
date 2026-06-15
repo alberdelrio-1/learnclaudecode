@@ -51,6 +51,26 @@
     --transition-fast: 150ms ease-in-out;
     --transition-base: 250ms ease-in-out;
     --transition-slow: 350ms ease-in-out;
+
+    /* Level colors — skill selector indicators only */
+    --level-beginner:     #16a34a;
+    --level-intermediate: #2563eb;
+    --level-advanced:     #7c3aed;
+
+    /* Action accent — active exercise steps and completion states */
+    --accent-action: #0f766e;
+
+    /* Spring and momentum easings */
+    --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out-exp:  cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-base: 240ms;
+
+    /* Fluid type scale additions */
+    --text-xs:    clamp(0.75rem,  0.71rem + 0.18vw, 0.875rem);
+    --text-sm:    clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+    --text-label: 0.6875rem;
+    --tracking-label: 0.08em;
+    --text-lg:    var(--font-size-lg);
 }
 
 /* Dark Mode Colors */
@@ -71,6 +91,10 @@
     --warning: #fbbf24;
     --error: #f87171;
     --info: #60a5fa;
+    --accent-action:      #14b8a6;
+    --level-beginner:     #4ade80;
+    --level-intermediate: #60a5fa;
+    --level-advanced:     #c084fc;
 }
 
 /* Base Styles */
@@ -1078,5 +1102,323 @@ tr:last-child td {
 
     .main-content {
         max-width: 100%;
+    }
+}
+
+/* ===================================
+   Learning Page — Skill Selector
+   =================================== */
+
+.skill-selector {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 4px;
+    margin: var(--spacing-xl) 0;
+    border: 1px solid var(--border-color);
+}
+
+.skill-selector__indicator {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / 3);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    border-bottom: 3px solid transparent;
+    transition: transform var(--dur-base) var(--ease-spring),
+                border-color var(--dur-base) var(--ease-out-exp);
+    pointer-events: none;
+    transform: translateX(0);
+}
+
+/* Indicator position driven by data-active on parent */
+.skill-selector[data-active="beginner"]     .skill-selector__indicator {
+    transform: translateX(0);
+    border-bottom-color: var(--level-beginner);
+}
+.skill-selector[data-active="intermediate"] .skill-selector__indicator {
+    transform: translateX(100%);
+    border-bottom-color: var(--level-intermediate);
+}
+.skill-selector[data-active="advanced"]     .skill-selector__indicator {
+    transform: translateX(200%);
+    border-bottom-color: var(--level-advanced);
+}
+
+.skill-selector__option {
+    position: relative;
+    z-index: 1;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+    border-radius: 6px;
+}
+
+.skill-selector__option:focus-visible {
+    outline: 2px solid var(--accent-action);
+    outline-offset: -2px;
+}
+
+.skill-selector__option[aria-selected="true"] {
+    color: var(--text-primary);
+}
+
+.skill-selector__label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.skill-selector__sublabel {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.2;
+}
+
+/* ===================================
+   Learning Page — Exercise Panels
+   =================================== */
+
+.exercise-panel {
+    /* purely a layout container */
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* ===================================
+   Learning Page — Exercise Cards
+   =================================== */
+
+.exercise-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.exercise-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.exercise-card__title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.exercise-card__title:focus {
+    outline: none;
+}
+.exercise-card__title:focus-visible {
+    outline: 2px solid var(--accent-action);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.exercise-card__meta {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.exercise-card__intro {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* ===================================
+   Learning Page — Exercise Steps (Vertical Spine)
+   =================================== */
+
+.exercise-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    counter-reset: step-counter;
+}
+
+.exercise-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 0 1rem;
+    align-items: stretch;
+    counter-increment: step-counter;
+}
+
+.exercise-step__spine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Numbered circle */
+.exercise-step__spine::before {
+    content: counter(step-counter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 1;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+/* Connecting vertical line */
+.exercise-step__spine::after {
+    content: "";
+    flex: 1;
+    width: 2px;
+    background: var(--border-color);
+    transition: background var(--transition-fast);
+}
+
+/* Hide line on last step */
+.exercise-step:last-child .exercise-step__spine::after {
+    display: none;
+}
+
+/* Active step: teal circle */
+.exercise-step[data-status="active"] .exercise-step__spine::before {
+    background: var(--accent-action);
+    color: white;
+}
+
+/* Complete step: checkmark + teal circle + teal line */
+.exercise-step[data-status="complete"] .exercise-step__spine::before {
+    content: "\2713";
+    background: var(--accent-action);
+    color: white;
+}
+
+.exercise-step[data-status="complete"] .exercise-step__spine::after {
+    background: var(--accent-action);
+}
+
+.exercise-step__content {
+    padding-bottom: 1.5rem;
+}
+
+.exercise-step__heading {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    color: var(--text-primary);
+    padding-top: 4px;
+}
+
+.exercise-step__body {
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem;
+    font-size: var(--text-sm);
+}
+
+.exercise-step__done {
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding-inline: 1rem;
+}
+
+.exercise-step__done:hover {
+    border-color: var(--accent-action);
+    color: var(--accent-action);
+}
+
+.exercise-step__done:focus-visible {
+    outline: 2px solid var(--accent-action);
+    outline-offset: 2px;
+}
+
+/* Hide "Done" button on pending and complete steps */
+.exercise-step:not([data-status="active"]) .exercise-step__done {
+    display: none;
+}
+
+/* ===================================
+   Learning Page — Exercise Completion
+   =================================== */
+
+.exercise-complete {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--accent-action);
+    background: var(--bg-secondary);
+    border-radius: 0 8px 8px 0;
+}
+
+.exercise-complete[hidden] {
+    display: none;
+}
+
+.exercise-complete__message {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* ===================================
+   Learning Page — Mobile (375px)
+   =================================== */
+
+@media (max-width: 440px) {
+    .skill-selector__sublabel {
+        display: none;
+    }
+
+    .skill-selector__label {
+        font-size: var(--text-xs);
+    }
+
+    .exercise-card {
+        padding: 1rem;
+    }
+
+    .exercise-card__header {
+        flex-direction: column;
+        gap: 0.25rem;
     }
 }
