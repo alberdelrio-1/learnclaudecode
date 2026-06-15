@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# System files
+.DS_Store
+*.log
+
+# Development documentation (optional - uncomment to exclude from git)
+# dev-docs/
+
+# Playwright test results
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Environment files
+.env
+.env.local
+worktrees/

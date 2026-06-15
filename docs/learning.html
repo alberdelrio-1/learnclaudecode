@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Exercises — Claude Code Learning Manual</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Claude Code Learning Manual</h1>
+                <p class="subtitle">Practice Exercises</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Toggle search">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div id="search-container" class="search-container hidden">
+            <input type="text" id="search-input" placeholder="Search topics, commands, features..." />
+            <div id="search-results"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="getting-started.html">🚀 Getting Started</a></li>
+                <li><a href="core-concepts.html">🧠 Core Concepts</a></li>
+                <li><a href="essential-features.html">⭐ Essential Features</a></li>
+                <li><a href="workflows.html">🔄 Workflows</a></li>
+                <li><a href="advanced.html">🚀 Advanced</a></li>
+                <li><a href="troubleshooting.html">🔧 Troubleshooting</a></li>
+                <li><a href="learning.html" class="active">📝 Exercises</a></li>
+            </ul>
+
+            <div class="nav-footer">
+                <p class="version-badge">Version 1.0</p>
+                <p class="coming-soon">📌 Coming Soon:<br>Salesforce &amp; nCino Integration</p>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span> › Practice Exercises</span>
+            </div>
+
+            <h1>Practice Exercises</h1>
+            <p class="lead">Hands-on exercises for non-technical professionals. No terminal knowledge required to start.</p>
+
+            <!-- Skill level selector -->
+            <!-- Without JS: all three panels are visible. JS hides inactive panels on init. -->
+            <div class="skill-selector" data-active="beginner" role="tablist" aria-label="Skill level">
+                <div class="skill-selector__indicator" aria-hidden="true"></div>
+                <button class="skill-selector__option" role="tab"
+                        id="tab-beginner"
+                        data-level="beginner" aria-selected="true" aria-controls="panel-beginner">
+                    <span class="skill-selector__label">First time</span>
+                    <span class="skill-selector__sublabel">I want to try it</span>
+                </button>
+                <button class="skill-selector__option" role="tab"
+                        id="tab-intermediate"
+                        data-level="intermediate" aria-selected="false" aria-controls="panel-intermediate">
+                    <span class="skill-selector__label">Building habits</span>
+                    <span class="skill-selector__sublabel">Save time at work</span>
+                </button>
+                <button class="skill-selector__option" role="tab"
+                        id="tab-advanced"
+                        data-level="advanced" aria-selected="false" aria-controls="panel-advanced">
+                    <span class="skill-selector__label">Scaling up</span>
+                    <span class="skill-selector__sublabel">Build for my team</span>
+                </button>
+            </div>
+
+            <noscript>
+                <p class="tip-box">JavaScript is off — all exercises are shown below. Enable JavaScript to filter by level.</p>
+            </noscript>
+
+            <!-- Exercise panels -->
+            <!-- Without JS: no hidden attribute. JS adds hidden to non-active panels on init. -->
+            <div class="exercise-panel" id="panel-beginner"
+                 data-level="beginner" role="tabpanel" aria-labelledby="tab-beginner">
+                <div class="exercise-list" id="exercises-beginner"></div>
+            </div>
+
+            <div class="exercise-panel" id="panel-intermediate"
+                 data-level="intermediate" role="tabpanel" aria-labelledby="tab-intermediate">
+                <div class="exercise-list" id="exercises-intermediate"></div>
+            </div>
+
+            <div class="exercise-panel" id="panel-advanced"
+                 data-level="advanced" role="tabpanel" aria-labelledby="tab-advanced">
+                <div class="exercise-list" id="exercises-advanced"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -400,3 +400,278 @@ console.log('  Cmd/Ctrl + K: Toggle search');
 console.log('  Cmd/Ctrl + /: Toggle theme');
 console.log('  Escape: Close search');
 console.log('%c\nEnjoy learning! 🚀', 'color: #10b981; font-weight: bold;');
+
+// ===================================
+// Learning Page — Practice Exercises
+// ===================================
+
+// Module-level cache so multiple level switches don't re-fetch
+let _exercisesCache = null;
+
+function initLearningPage() {
+    // Guard: only run on the learning page
+    if (!document.querySelector('.skill-selector')) return;
+
+    const selector = document.querySelector('.skill-selector');
+    const options = selector.querySelectorAll('.skill-selector__option');
+    const allPanels = document.querySelectorAll('.exercise-panel');
+
+    // Progressive enhancement: hide inactive panels, manage ARIA
+    allPanels.forEach(panel => {
+        const level = panel.getAttribute('data-level');
+        const isActive = level === 'beginner';
+        if (!isActive) {
+            panel.setAttribute('hidden', '');
+            panel.setAttribute('aria-hidden', 'true');
+        } else {
+            panel.removeAttribute('hidden');
+            panel.setAttribute('aria-hidden', 'false');
+        }
+    });
+
+    // Load the default (beginner) exercises
+    loadExercises('beginner');
+
+    // Click handlers on level options
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            const level = option.getAttribute('data-level');
+            activateLevel(level);
+        });
+    });
+
+    // Keyboard navigation: arrow keys cycle through options
+    selector.addEventListener('keydown', (e) => {
+        const currentOption = document.activeElement.closest('.skill-selector__option');
+        if (!currentOption) return;
+
+        const optionList = Array.from(options);
+        const currentIndex = optionList.indexOf(currentOption);
+
+        let targetIndex = currentIndex;
+
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            targetIndex = (currentIndex + 1) % optionList.length;
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            targetIndex = (currentIndex - 1 + optionList.length) % optionList.length;
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            targetIndex = 0;
+        } else if (e.key === 'End') {
+            e.preventDefault();
+            targetIndex = optionList.length - 1;
+        } else {
+            return;
+        }
+
+        const targetOption = optionList[targetIndex];
+        const level = targetOption.getAttribute('data-level');
+        activateLevel(level);
+        targetOption.focus();
+    });
+}
+
+function activateLevel(level) {
+    const selector = document.querySelector('.skill-selector');
+    const options = selector.querySelectorAll('.skill-selector__option');
+    const allPanels = document.querySelectorAll('.exercise-panel');
+
+    // Update selector data-active (drives CSS sliding indicator)
+    selector.setAttribute('data-active', level);
+
+    // Update ARIA on option buttons
+    options.forEach(option => {
+        const isSelected = option.getAttribute('data-level') === level;
+        option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    });
+
+    // Update hidden and aria-hidden on all panels
+    allPanels.forEach(panel => {
+        const panelLevel = panel.getAttribute('data-level');
+        if (panelLevel === level) {
+            panel.removeAttribute('hidden');
+            panel.setAttribute('aria-hidden', 'false');
+        } else {
+            panel.setAttribute('hidden', '');
+            panel.setAttribute('aria-hidden', 'true');
+        }
+    });
+
+    // Load exercises then move focus (focus must happen after render)
+    loadExercises(level).then(() => {
+        const activePanel = document.getElementById('panel-' + level);
+        if (activePanel) {
+            const firstTitle = activePanel.querySelector('.exercise-card__title');
+            if (firstTitle) {
+                firstTitle.focus();
+            }
+        }
+    });
+}
+
+function loadExercises(level) {
+    // Return a Promise so activateLevel can focus after render
+    const containerId = 'exercises-' + level;
+    const container = document.getElementById(containerId);
+
+    if (!container) return Promise.resolve();
+
+    // Skip re-rendering if already rendered
+    if (container.children.length > 0) return Promise.resolve();
+
+    // Use cached data if available
+    if (_exercisesCache) {
+        renderExercisesIntoContainer(_exercisesCache, level, container);
+        return Promise.resolve();
+    }
+
+    return fetch('data/exercises.json')
+        .then(response => response.json())
+        .then(data => {
+            _exercisesCache = data;
+            renderExercisesIntoContainer(data, level, container);
+        })
+        .catch(err => {
+            console.error('Failed to load exercises:', err);
+            container.innerHTML = '<div class="tip-box">Could not load exercises. Please refresh the page.</div>';
+        });
+}
+
+function renderExercisesIntoContainer(data, level, container) {
+    const exercises = data[level];
+    if (!exercises || exercises.length === 0) {
+        container.innerHTML = '<p class="tip-box">Exercises for this level are coming soon.</p>';
+        return;
+    }
+
+    exercises.forEach(exercise => {
+        container.appendChild(renderExercise(exercise));
+    });
+}
+
+function renderExercise(exercise) {
+    const article = document.createElement('article');
+    article.className = 'exercise-card';
+    article.setAttribute('data-exercise-id', exercise.id);
+
+    // Header
+    const header = document.createElement('header');
+    header.className = 'exercise-card__header';
+
+    const title = document.createElement('h3');
+    title.className = 'exercise-card__title';
+    title.setAttribute('tabindex', '-1');
+    title.textContent = exercise.title;
+
+    const meta = document.createElement('span');
+    meta.className = 'exercise-card__meta';
+    meta.textContent = exercise.duration + (exercise.requiresTerminal ? ' · Terminal needed' : ' · No terminal needed');
+
+    header.appendChild(title);
+    header.appendChild(meta);
+
+    // Intro
+    const intro = document.createElement('p');
+    intro.className = 'exercise-card__intro';
+    intro.textContent = exercise.intro;
+
+    // Steps
+    const stepsList = document.createElement('ol');
+    stepsList.className = 'exercise-steps';
+    stepsList.setAttribute('aria-label', 'Exercise steps');
+
+    exercise.steps.forEach((step, index) => {
+        const li = document.createElement('li');
+        li.className = 'exercise-step';
+
+        const isFirst = index === 0;
+        li.setAttribute('data-status', isFirst ? 'active' : '');
+        if (isFirst) {
+            li.setAttribute('aria-current', 'step');
+        }
+
+        // Spine (circle + connecting line via CSS ::before and ::after)
+        const spine = document.createElement('div');
+        spine.className = 'exercise-step__spine';
+        spine.setAttribute('aria-hidden', 'true');
+
+        // Content
+        const content = document.createElement('div');
+        content.className = 'exercise-step__content';
+
+        const heading = document.createElement('h4');
+        heading.className = 'exercise-step__heading';
+        heading.textContent = step.heading;
+
+        const body = document.createElement('p');
+        body.className = 'exercise-step__body';
+        body.textContent = step.body;
+
+        const doneBtn = document.createElement('button');
+        doneBtn.className = 'exercise-step__done';
+        doneBtn.textContent = 'Done';
+        doneBtn.setAttribute('aria-label', 'Mark step complete: ' + step.heading);
+
+        // Capture li reference for click handler
+        const stepEl = li;
+        doneBtn.addEventListener('click', () => {
+            markStepComplete(stepEl);
+        });
+
+        content.appendChild(heading);
+        content.appendChild(body);
+        content.appendChild(doneBtn);
+
+        li.appendChild(spine);
+        li.appendChild(content);
+        stepsList.appendChild(li);
+    });
+
+    // Completion message
+    const complete = document.createElement('div');
+    complete.className = 'exercise-complete';
+    complete.setAttribute('hidden', '');
+
+    const completionMsg = document.createElement('p');
+    completionMsg.className = 'exercise-complete__message';
+    completionMsg.textContent = exercise.completionMessage;
+
+    complete.appendChild(completionMsg);
+
+    article.appendChild(header);
+    article.appendChild(intro);
+    article.appendChild(stepsList);
+    article.appendChild(complete);
+
+    return article;
+}
+
+function markStepComplete(stepEl) {
+    // Mark this step complete
+    stepEl.setAttribute('data-status', 'complete');
+    stepEl.removeAttribute('aria-current');
+
+    // Find next sibling step
+    const nextStep = stepEl.nextElementSibling;
+    if (nextStep && nextStep.classList.contains('exercise-step')) {
+        nextStep.setAttribute('data-status', 'active');
+        nextStep.setAttribute('aria-current', 'step');
+    } else {
+        // All steps complete — show completion message
+        const card = stepEl.closest('.exercise-card');
+        if (card) {
+            const completeEl = card.querySelector('.exercise-complete');
+            if (completeEl) {
+                completeEl.removeAttribute('hidden');
+                // Move focus to the completion message so screen readers announce it
+                completeEl.setAttribute('tabindex', '-1');
+                completeEl.focus();
+            }
+        }
+    }
+}
+
+// Initialise on DOM ready
+document.addEventListener('DOMContentLoaded', initLearningPage);
